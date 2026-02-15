@@ -4,6 +4,7 @@ from .parameters import read_param, read_params
 from .spectrum import read_1r, read_spectrum, SpectrumOptions, SpectrumInfo, SpectrumResult
 from .experiment import read_experiment
 from .folders import scan_folder
+from .parse_nmr import parse_nmr
 
 __all__ = [
     'read_param',
@@ -12,6 +13,7 @@ __all__ = [
     'read_spectrum',
     'read_experiment',
     'scan_folder',
+    'parse_nmr',
     'SpectrumOptions',
     'SpectrumInfo',
     'SpectrumResult',

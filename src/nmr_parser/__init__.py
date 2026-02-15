@@ -14,6 +14,7 @@ from .core import (
     read_params,
     read_1r,
     scan_folder,
+    parse_nmr,
 )
 
 # XML parsers
@@ -45,6 +46,7 @@ __all__ = [
 
     # Main function
     'read_experiment',
+    'parse_nmr',
 
     # Core I/O
     'read_spectrum',
