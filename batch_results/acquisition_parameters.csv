@@ -1,0 +1,5 @@
+sample,pulse_program,num_scans,receiver_gain,temperature
+HB-COVID0001/10,noesygppr1d,32,83.46,310.0016
+HB-COVID0001/11,cpmgpr1d,32,83.46,310.0001
+HB-COVID0001/12,jresgpprqf,2,83.46,310.0004
+HB-COVID0001/13,zgpr,1,16,310

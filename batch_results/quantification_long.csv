@@ -1,0 +1,42 @@
+name,conc_v,concUnit_v,lod_v,lodUnit_v,loq_v,loqUnit_v,conc_vr,concUnit_vr,lod_vr,lodUnit_vr,loq_vr,loqUnit_vr,sigCorrUnit,sigCorr,rawConcUnit,rawConc,errConc,errConcUnit,refMax,refMin,refUnit,sample
+Ethanol,0.0,mmol/L,0.100,mmol/L,-,mmol/L,,,,,,,%,0,mmol/L,0.000,3.380,mmol/L,0.82,-,mmol/L,HB-COVID0001/10
+Trimethylamine-N-oxide,0.0,mmol/L,0.080,mmol/L,-,mmol/L,,,,,,,%,99,mmol/L,0.025,0.086,mmol/L,0.08,-,mmol/L,HB-COVID0001/10
+2-Aminobutyric acid,0.06,mmol/L,0.050,mmol/L,-,mmol/L,,,,,,,%,1,mmol/L,0.062,0.226,mmol/L,0.10,-,mmol/L,HB-COVID0001/10
+Alanine,0.36,mmol/L,0.020,mmol/L,-,mmol/L,,,,,,,%,100,mmol/L,0.357,0.007,mmol/L,0.64,0.29,mmol/L,HB-COVID0001/10
+Asparagine,0.0,mmol/L,0.050,mmol/L,-,mmol/L,,,,,,,%,0,mmol/L,0.000,4.416,mmol/L,0.08,-,mmol/L,HB-COVID0001/10
+Creatine,0.1,mmol/L,0.010,mmol/L,-,mmol/L,,,,,,,%,100,mmol/L,0.098,0.003,mmol/L,0.07,-,mmol/L,HB-COVID0001/10
+Creatinine,0.18,mmol/L,0.010,mmol/L,-,mmol/L,,,,,,,%,100,mmol/L,0.181,0.003,mmol/L,0.14,0.06,mmol/L,HB-COVID0001/10
+Glutamic acid,0.18,mmol/L,0.050,mmol/L,-,mmol/L,,,,,,,%,92,mmol/L,0.175,0.021,mmol/L,0.24,-,mmol/L,HB-COVID0001/10
+Glutamine,0.67,mmol/L,0.020,mmol/L,-,mmol/L,,,,,,,%,99,mmol/L,0.665,0.021,mmol/L,0.83,0.30,mmol/L,HB-COVID0001/10
+Glycine,0.25,mmol/L,0.010,mmol/L,-,mmol/L,,,,,,,%,98,mmol/L,0.245,0.014,mmol/L,0.44,0.17,mmol/L,HB-COVID0001/10
+Histidine,0.12,mmol/L,0.020,mmol/L,-,mmol/L,,,,,,,%,99,mmol/L,0.117,0.003,mmol/L,0.16,0.07,mmol/L,HB-COVID0001/10
+Isoleucine,0.13,mmol/L,0.030,mmol/L,-,mmol/L,,,,,,,%,99,mmol/L,0.130,0.011,mmol/L,0.11,0.03,mmol/L,HB-COVID0001/10
+Leucine,0.34,mmol/L,0.010,mmol/L,-,mmol/L,,,,,,,%,99,mmol/L,0.341,0.015,mmol/L,0.20,0.07,mmol/L,HB-COVID0001/10
+Lysine,0.15,mmol/L,0.040,mmol/L,-,mmol/L,,,,,,,%,52,mmol/L,0.155,0.153,mmol/L,0.29,-,mmol/L,HB-COVID0001/10
+Methionine,0.06,mmol/L,0.050,mmol/L,-,mmol/L,,,,,,,%,82,mmol/L,0.057,0.010,mmol/L,0.13,0.05,mmol/L,HB-COVID0001/10
+"N,N-Dimethylglycine",0.0,mmol/L,0.010,mmol/L,-,mmol/L,,,,,,,%,99,mmol/L,0.006,0.000,mmol/L,0.01,-,mmol/L,HB-COVID0001/10
+Ornithine,0.11,mmol/L,0.020,mmol/L,-,mmol/L,,,,,,,%,13,mmol/L,0.113,0.101,mmol/L,0.16,-,mmol/L,HB-COVID0001/10
+Phenylalanine,0.17,mmol/L,0.030,mmol/L,-,mmol/L,,,,,,,%,99,mmol/L,0.168,0.005,mmol/L,0.07,-,mmol/L,HB-COVID0001/10
+Proline,0.0,mmol/L,0.050,mmol/L,-,mmol/L,,,,,,,%,0,mmol/L,0.000,3.017,mmol/L,0.59,-,mmol/L,HB-COVID0001/10
+Sarcosine,0.0,mmol/L,0.010,mmol/L,-,mmol/L,,,,,,,%,55,mmol/L,0.003,0.001,mmol/L,0.01,-,mmol/L,HB-COVID0001/10
+Threonine,0.16,mmol/L,0.040,mmol/L,-,mmol/L,,,,,,,%,67,mmol/L,0.160,0.110,mmol/L,0.24,-,mmol/L,HB-COVID0001/10
+Tyrosine,0.05,mmol/L,0.030,mmol/L,-,mmol/L,,,,,,,%,99,mmol/L,0.049,0.003,mmol/L,0.08,-,mmol/L,HB-COVID0001/10
+Valine,0.52,mmol/L,0.030,mmol/L,-,mmol/L,,,,,,,%,100,mmol/L,0.523,0.007,mmol/L,0.35,0.15,mmol/L,HB-COVID0001/10
+2-Hydroxybutyric acid,0.2,mmol/L,0.150,mmol/L,-,mmol/L,,,,,,,%,66,mmol/L,0.200,0.121,mmol/L,0.17,-,mmol/L,HB-COVID0001/10
+Acetic acid,0.04,mmol/L,0.010,mmol/L,-,mmol/L,,,,,,,%,100,mmol/L,0.040,0.001,mmol/L,0.06,-,mmol/L,HB-COVID0001/10
+Citric acid,0.2,mmol/L,0.030,mmol/L,-,mmol/L,,,,,,,%,88,mmol/L,0.197,0.061,mmol/L,0.21,-,mmol/L,HB-COVID0001/10
+Formic acid,0.04,mmol/L,0.020,mmol/L,-,mmol/L,,,,,,,%,99,mmol/L,0.039,0.001,mmol/L,0.03,-,mmol/L,HB-COVID0001/10
+Lactic acid,3.4,mmol/L,0.030,mmol/L,-,mmol/L,,,,,,,%,100,mmol/L,3.400,0.086,mmol/L,7.14,2.23,mmol/L,HB-COVID0001/10
+Succinic acid,0.07,mmol/L,0.010,mmol/L,-,mmol/L,,,,,,,%,100,mmol/L,0.071,0.001,mmol/L,0.01,-,mmol/L,HB-COVID0001/10
+Choline,0.0,mmol/L,0.050,mmol/L,-,mmol/L,,,,,,,%,77,mmol/L,0.010,0.002,mmol/L,0.06,-,mmol/L,HB-COVID0001/10
+2-Oxoglutaric acid,0.0,mmol/L,0.020,mmol/L,-,mmol/L,,,,,,,%,21,mmol/L,0.007,0.011,mmol/L,0.02,-,mmol/L,HB-COVID0001/10
+3-Hydroxybutyric acid,1.6,mmol/L,0.020,mmol/L,-,mmol/L,,,,,,,%,100,mmol/L,1.566,0.013,mmol/L,0.26,-,mmol/L,HB-COVID0001/10
+Acetoacetic acid,0.55,mmol/L,0.010,mmol/L,-,mmol/L,,,,,,,%,97,mmol/L,0.552,0.014,mmol/L,0.02,-,mmol/L,HB-COVID0001/10
+Acetone,0.42,mmol/L,0.010,mmol/L,-,mmol/L,,,,,,,%,99,mmol/L,0.418,0.014,mmol/L,0.06,-,mmol/L,HB-COVID0001/10
+Pyruvic acid,0.04,mmol/L,0.030,mmol/L,-,mmol/L,,,,,,,%,97,mmol/L,0.039,0.002,mmol/L,0.07,-,mmol/L,HB-COVID0001/10
+D-Galactose,0.0,mmol/L,0.110,mmol/L,-,mmol/L,,,,,,,%,0,mmol/L,0.000,1.886,mmol/L,0.11,-,mmol/L,HB-COVID0001/10
+Glucose,17.0,mmol/L,0.540,mmol/L,-,mmol/L,,,,,,,%,100,mmol/L,17.047,0.058,mmol/L,6.08,1.73,mmol/L,HB-COVID0001/10
+Glycerol,0.35,mmol/L,0.080,mmol/L,-,mmol/L,,,,,,,%,13,mmol/L,0.350,0.461,mmol/L,0.44,-,mmol/L,HB-COVID0001/10
+Dimethylsulfone,0.01,mmol/L,0.010,mmol/L,-,mmol/L,,,,,,,%,97,mmol/L,0.011,0.000,mmol/L,0.02,-,mmol/L,HB-COVID0001/10
+Ca-EDTA,0.0,mmol/L,0.500,mmol/L,-,mmol/L,,,,,,,%,0,mmol/L,0.004,0.004,mmol/L,0.50,-,mmol/L,HB-COVID0001/10
+K-EDTA,0.0,mmol/L,0.500,mmol/L,-,mmol/L,,,,,,,%,98,mmol/L,0.037,0.003,mmol/L,0.50,-,mmol/L,HB-COVID0001/10

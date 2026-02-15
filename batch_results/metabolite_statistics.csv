@@ -1,0 +1,42 @@
+name,count,mean,std,min,max
+2-Aminobutyric acid,1,0.06,,0.06,0.06
+2-Hydroxybutyric acid,1,0.2,,0.2,0.2
+2-Oxoglutaric acid,1,0.0,,0.0,0.0
+3-Hydroxybutyric acid,1,1.6,,1.6,1.6
+Acetic acid,1,0.04,,0.04,0.04
+Acetoacetic acid,1,0.55,,0.55,0.55
+Acetone,1,0.42,,0.42,0.42
+Alanine,1,0.36,,0.36,0.36
+Asparagine,1,0.0,,0.0,0.0
+Ca-EDTA,1,0.0,,0.0,0.0
+Choline,1,0.0,,0.0,0.0
+Citric acid,1,0.2,,0.2,0.2
+Creatine,1,0.1,,0.1,0.1
+Creatinine,1,0.18,,0.18,0.18
+D-Galactose,1,0.0,,0.0,0.0
+Dimethylsulfone,1,0.01,,0.01,0.01
+Ethanol,1,0.0,,0.0,0.0
+Formic acid,1,0.04,,0.04,0.04
+Glucose,1,17.0,,17.0,17.0
+Glutamic acid,1,0.18,,0.18,0.18
+Glutamine,1,0.67,,0.67,0.67
+Glycerol,1,0.35,,0.35,0.35
+Glycine,1,0.25,,0.25,0.25
+Histidine,1,0.12,,0.12,0.12
+Isoleucine,1,0.13,,0.13,0.13
+K-EDTA,1,0.0,,0.0,0.0
+Lactic acid,1,3.4,,3.4,3.4
+Leucine,1,0.34,,0.34,0.34
+Lysine,1,0.15,,0.15,0.15
+Methionine,1,0.06,,0.06,0.06
+"N,N-Dimethylglycine",1,0.0,,0.0,0.0
+Ornithine,1,0.11,,0.11,0.11
+Phenylalanine,1,0.17,,0.17,0.17
+Proline,1,0.0,,0.0,0.0
+Pyruvic acid,1,0.04,,0.04,0.04
+Sarcosine,1,0.0,,0.0,0.0
+Succinic acid,1,0.07,,0.07,0.07
+Threonine,1,0.16,,0.16,0.16
+Trimethylamine-N-oxide,1,0.0,,0.0,0.0
+Tyrosine,1,0.05,,0.05,0.05
+Valine,1,0.52,,0.52,0.52

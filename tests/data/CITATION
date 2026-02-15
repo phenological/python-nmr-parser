@@ -1,0 +1,12 @@
+
+year <- sub("-.*", "", format(Sys.time(), "%Y"))
+note <- sprintf("R package version %s", packageVersion("nmr.parser"))
+
+bibentry(bibtype = "Misc",
+         key = "nmrParser",
+         title = "nmr-parser: reading what is required from NMR IVDr data",
+         author = c(person("Julien", "Wist"), person("Reika", "Masuda")),
+         year = year,
+         note = note,
+         url = "https://github.com/phenological/nmr-parser"
+         )
