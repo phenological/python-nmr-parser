@@ -41,6 +41,25 @@ def extend_lipo_value(lipo: Dict[str, Any]) -> pd.DataFrame:
     >>> extended['HDCE_pct']   # HDL CE as % of HDL total
     >>> extended['H1TG_frac']  # H1 TG as % of HD TG
     """
+    # Validate input structure
+    if not isinstance(lipo, dict):
+        raise TypeError(f"lipo must be a dict, got {type(lipo).__name__}")
+
+    if 'data' not in lipo:
+        raise ValueError("lipo dict must contain 'data' key")
+
+    if not isinstance(lipo['data'], pd.DataFrame):
+        raise TypeError(f"lipo['data'] must be a DataFrame, got {type(lipo['data']).__name__}. "
+                       "Note: extend_lipo() only works with read_lipo() output, not read_experiment() output.")
+
+    # Check for required columns
+    required_cols = ['id', 'value']
+    missing_cols = [col for col in required_cols if col not in lipo['data'].columns]
+    if missing_cols:
+        raise ValueError(f"lipo['data'] missing required columns: {missing_cols}. "
+                        "Note: extend_lipo() expects long-format data from read_lipo(), "
+                        "not wide-format data from read_experiment().")
+
     # Create DataFrame with IDs as columns
     df = lipo['data'].set_index('id')['value'].to_frame().T
 

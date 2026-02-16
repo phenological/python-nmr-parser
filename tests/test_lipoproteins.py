@@ -92,3 +92,79 @@ class TestExtendLipo:
 
         frac_ids = extended['data'][extended['data']['id'].str.contains('_frac')]
         assert len(frac_ids) > 0
+
+
+class TestExtendLipoValidation:
+    """Tests for input validation in extend_lipo functions."""
+
+    def test_invalid_type_not_dict(self):
+        """Test that non-dict input raises TypeError."""
+        import pandas as pd
+
+        with pytest.raises(TypeError, match="lipo must be a dict"):
+            extend_lipo_value("not a dict")
+
+        with pytest.raises(TypeError, match="lipo must be a dict"):
+            extend_lipo_value(pd.DataFrame())
+
+    def test_missing_data_key(self):
+        """Test that missing 'data' key raises ValueError."""
+        lipo = {'version': '1.0'}
+
+        with pytest.raises(ValueError, match="lipo dict must contain 'data' key"):
+            extend_lipo_value(lipo)
+
+    def test_data_not_dataframe(self):
+        """Test that non-DataFrame 'data' raises TypeError."""
+        import pandas as pd
+
+        # Series instead of DataFrame
+        lipo = {
+            'data': pd.Series([1, 2, 3]),
+            'version': '1.0'
+        }
+
+        with pytest.raises(TypeError, match="lipo\\['data'\\] must be a DataFrame.*read_lipo.*read_experiment"):
+            extend_lipo_value(lipo)
+
+    def test_missing_required_columns(self):
+        """Test that missing required columns raises ValueError."""
+        import pandas as pd
+
+        # DataFrame but missing 'id' and 'value' columns
+        lipo = {
+            'data': pd.DataFrame({'foo': [1, 2, 3]}),
+            'version': '1.0'
+        }
+
+        with pytest.raises(ValueError, match="missing required columns.*\\['id', 'value'\\]"):
+            extend_lipo_value(lipo)
+
+    def test_wrong_format_from_read_experiment(self):
+        """Test that wide-format data (like from read_experiment) raises error."""
+        import pandas as pd
+
+        # Simulate wide-format data from read_experiment
+        lipo = {
+            'data': pd.DataFrame({
+                'path': ['/path/to/exp'],
+                'value.HDTG': [1.5],
+                'value.LDCH': [2.3]
+            }),
+            'version': '1.0'
+        }
+
+        with pytest.raises(ValueError, match="missing required columns.*long-format.*read_lipo"):
+            extend_lipo_value(lipo)
+
+    def test_valid_input_structure(self, lipo_xml):
+        """Test that valid input from read_lipo passes validation."""
+        if not lipo_xml.exists():
+            pytest.skip("Test data not available")
+
+        lipo = read_lipo(lipo_xml)
+
+        # Should not raise any validation errors
+        extended = extend_lipo_value(lipo)
+        assert extended is not None
+        assert len(extended.columns) > 0
