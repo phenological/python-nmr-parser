@@ -21,6 +21,7 @@ not with read_experiment() output (multiple experiments in wide format).
 """
 
 import sys
+import time
 from pathlib import Path
 import pandas as pd
 from rich.console import Console
@@ -194,11 +195,16 @@ def demonstrate_extend_lipo_value(lipo: dict):
     console.print("\n[bold green]═══ Using extend_lipo_value() ═══[/bold green]")
     console.print("Returns a wide-format DataFrame with all metrics as columns")
 
+    # Time the extension calculation
+    start_extend = time.perf_counter()
     extended = extend_lipo_value(lipo)
+    end_extend = time.perf_counter()
+    extend_time_ms = (end_extend - start_extend) * 1000
 
     console.print(f"\n  • Input: {len(lipo['data'])} raw measurements")
     console.print(f"  • Output: {len(extended.columns)} total metrics")
     console.print(f"  • Added: {len(extended.columns) - 112} calculated metrics")
+    console.print(f"  • [yellow]Computation time: {extend_time_ms:.2f} ms[/yellow]")
 
     # Count by type
     n_calc = sum('_calc' in col for col in extended.columns)
@@ -225,11 +231,16 @@ def demonstrate_extend_lipo(lipo: dict):
     console.print("\n[bold green]═══ Using extend_lipo() ═══[/bold green]")
     console.print("Returns dict with long-format data including metadata and reference ranges")
 
+    # Time the extension calculation
+    start_extend = time.perf_counter()
     extended = extend_lipo(lipo)
+    end_extend = time.perf_counter()
+    extend_time_ms = (end_extend - start_extend) * 1000
 
     console.print(f"\n  • Input: {len(lipo['data'])} rows (raw measurements)")
     console.print(f"  • Output: {len(extended['data'])} rows (raw + calculated)")
     console.print(f"  • Version: {extended['version']}")
+    console.print(f"  • [yellow]Computation time: {extend_time_ms:.2f} ms[/yellow]")
 
     # Show metadata columns
     console.print(f"\n  • Columns: {', '.join(extended['data'].columns)}")
@@ -332,7 +343,13 @@ def main():
         lipo_file = find_lipo_xml(input_path)
         console.print(f"[blue]Reading: {lipo_file}[/blue]")
 
+        # Time the read operation
+        start_read = time.perf_counter()
         lipo = read_lipo(lipo_file)
+        end_read = time.perf_counter()
+        read_time_ms = (end_read - start_read) * 1000
+
+        console.print(f"[green]✓ Read completed in {read_time_ms:.2f} ms[/green]")
 
         if lipo is None:
             console.print("[red]Error: Failed to read lipo file[/red]")
