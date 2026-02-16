@@ -28,6 +28,7 @@ from .folders import scan_folder
 from .parameters import read_param
 from ..processing.utils import clean_names
 from ..version import __version__
+from .logger import get_logger, LogLevel
 
 console = Console()
 logger = logging.getLogger(__name__)
@@ -86,6 +87,9 @@ def parse_nmr(
 
         - noWrite : bool
             If True, return DataFrames without writing files (default: False)
+
+        - verbosity : str
+            Logging verbosity: 'prod', 'info', or 'debug' (default: 'info')
 
     Returns
     -------
@@ -154,7 +158,8 @@ def parse_nmr(
         },
         'EXP': '',
         'outputDir': '.',
-        'noWrite': False
+        'noWrite': False,
+        'verbosity': 'info'
     }
 
     # Merge provided options with defaults
@@ -165,6 +170,9 @@ def parse_nmr(
         if 'specOpts' in opts and opts['specOpts'] is not None:
             opts['specOpts'] = {**default_opts['specOpts'], **opts['specOpts']}
         opts = {**default_opts, **opts}
+
+    # Create logger with specified verbosity
+    log = get_logger(opts['verbosity'])
 
     # Handle spcglyc special case (lines 50-57 in R)
     if 'spcglyc' in opts['what']:
@@ -183,22 +191,22 @@ def parse_nmr(
     # Handle different input types
     if isinstance(folder, dict) and 'content' in folder:
         # CASE 1: Rolodex request (lines 60-110)
-        loe = _process_rolodex_input(folder, opts)
+        loe = _process_rolodex_input(folder, opts, log)
         no_write = False
 
     elif isinstance(folder, dict) and 'dataPath' in folder:
         # CASE 2: Direct paths (lines 112-121)
-        loe = _process_direct_paths(folder)
+        loe = _process_direct_paths(folder, log)
         no_write = True
 
     else:
         # CASE 3: Local folder (lines 123-227)
-        loe = _process_local_folder(folder, opts)
+        loe = _process_local_folder(folder, opts, log)
 
     # Classify sample types (lines 98-108)
-    loe = _classify_sample_types(loe)
+    loe = _classify_sample_types(loe, log)
 
-    console.print(f"[blue]parseNMR >> Processing {len(loe)} samples[/blue]")
+    log.info(f"Processing {len(loe)} samples")
 
     # ========================================================================
     # READING DATA
@@ -210,35 +218,35 @@ def parse_nmr(
 
     # Read spectra (lines 234-278)
     if 'spec' in opts['what']:
-        console.print("[blue]parseNMR >> Reading spectra...[/blue]")
-        data_matrix, var_names, data_type = _read_spectra(loe, opts)
+        log.step("Reading spectra")
+        data_matrix, var_names, data_type = _read_spectra(loe, opts, log)
 
     # Handle other data types
     elif 'brxlipo' in opts['what']:
-        console.print("[blue]parseNMR >> Reading lipoprotein data...[/blue]")
-        data_matrix, var_names, data_type = _read_brxlipo(loe, opts)
+        log.step("Reading lipoprotein data")
+        data_matrix, var_names, data_type = _read_brxlipo(loe, opts, log)
 
     elif 'brxpacs' in opts['what']:
-        console.print("[blue]parseNMR >> Reading PACS data...[/blue]")
-        data_matrix, var_names, data_type = _read_brxpacs(loe, opts)
+        log.step("Reading PACS data")
+        data_matrix, var_names, data_type = _read_brxpacs(loe, opts, log)
 
     elif 'brxsm' in opts['what']:
-        console.print("[blue]parseNMR >> Reading small molecule data...[/blue]")
-        data_matrix, var_names, data_type = _read_brxsm(loe, opts)
+        log.step("Reading small molecule data")
+        data_matrix, var_names, data_type = _read_brxsm(loe, opts, log)
 
     if data_matrix is None:
         raise ValueError("No data was read. Check input parameters.")
 
     # Apply spcglyc calculations (lines 280-359)
     if spcglyc:
-        console.print("[blue]parseNMR >> Calculating spcglyc biomarkers...[/blue]")
+        log.step("Calculating spcglyc biomarkers")
         ppm = np.linspace(
             opts['specOpts']['fromTo'][0],
             opts['specOpts']['fromTo'][1],
             opts['specOpts']['length_out']
         )
         data_matrix, var_names, extra_data = _calculate_spcglyc(
-            data_matrix, ppm, loe
+            data_matrix, ppm, loe, log
         )
         data_type = 'QUANT'
         opts['method'] = f"spcglyc_{loe['experiment'].iloc[0]}"
@@ -247,19 +255,19 @@ def parse_nmr(
     # READING PARAMETERS AND QUALITY CHECKS
     # ========================================================================
 
-    console.print("[blue]parseNMR >> Reading acquisition parameters...[/blue]")
-    acqus_data = _read_acqus_params(loe['dataPath'].tolist())
+    log.step("Reading acquisition parameters", LogLevel.INFO)
+    acqus_data = _read_acqus_params(loe['dataPath'].tolist(), log)
 
-    console.print("[blue]parseNMR >> Checking for IVDr QC data...[/blue]")
-    qc_data, is_ivdr = _read_qc_data(loe['dataPath'].tolist())
+    log.step("Checking for IVDr QC data", LogLevel.INFO)
+    qc_data, is_ivdr = _read_qc_data(loe['dataPath'].tolist(), log)
 
     # ========================================================================
     # MERGING AND ALIGNMENT
     # ========================================================================
 
-    console.print("[blue]parseNMR >> Merging data sources...[/blue]")
+    log.step("Merging data sources", LogLevel.INFO)
     data_matrix, loe, acqus_data, qc_data = _merge_data_sources(
-        data_matrix, loe, acqus_data, qc_data
+        data_matrix, loe, acqus_data, qc_data, log
     )
 
     # ========================================================================
@@ -298,6 +306,18 @@ def parse_nmr(
     if spcglyc and 'extra_data' in locals():
         result.update(extra_data)
 
+    # Build sample type breakdown for summary
+    type_counts = result['metadata']['sample_type'].value_counts()
+    type_breakdown = " | ".join([f"{stype}: {count}" for stype, count in type_counts.items()])
+
+    # Prepare summary data
+    summary_data = {
+        "Samples": f"{len(result['data'])} ({type_breakdown})",
+        "Variables": len(result['variables']),
+        "Data type": result['metadata']['data_type'].iloc[0],
+        "Method": result['metadata']['method'].iloc[0]
+    }
+
     if not no_write:
         output_dir = Path(opts['outputDir'])
         output_dir.mkdir(parents=True, exist_ok=True)
@@ -306,14 +326,14 @@ def parse_nmr(
         file_name = _generate_file_name(opts)
 
         # Write parquet files
-        _write_parquet_files(result, file_name, output_dir)
+        _write_parquet_files(result, file_name, output_dir, log)
 
-        console.print(
-            f"[blue]parseNMR >> Parquet files saved to: {output_dir}[/blue]"
-        )
-        console.print(
-            f"[blue]parseNMR >> Base name: {file_name}[/blue]"
-        )
+        # Add output info to summary
+        summary_data["Output dir"] = str(output_dir)
+        summary_data["Base name"] = file_name
+
+    # Show summary (at PROD level)
+    log.summary("Parse Complete", summary_data, LogLevel.PROD)
 
     return result
 
@@ -322,18 +342,21 @@ def parse_nmr(
 # INPUT PROCESSING FUNCTIONS
 # ============================================================================
 
-def _process_rolodex_input(folder: Dict, opts: Dict) -> pd.DataFrame:
+def _process_rolodex_input(folder: Dict, opts: Dict, log) -> pd.DataFrame:
     """Process input from Rolodex API request (lines 60-110)."""
     # This will be implemented when Rolodex integration is needed
+    log.error("Rolodex input processing not yet implemented")
     raise NotImplementedError("Rolodex input processing not yet implemented")
 
 
-def _process_direct_paths(folder: Dict) -> pd.DataFrame:
+def _process_direct_paths(folder: Dict, log) -> pd.DataFrame:
     """Process direct path input (lines 112-121)."""
     if isinstance(folder['dataPath'], list):
         paths = folder['dataPath']
     else:
         paths = [folder['dataPath']]
+
+    log.debug(f"Processing {len(paths)} direct paths")
 
     loe = pd.DataFrame({
         'dataPath': paths,
@@ -345,12 +368,14 @@ def _process_direct_paths(folder: Dict) -> pd.DataFrame:
     return loe
 
 
-def _process_local_folder(folder: Union[str, Path], opts: Dict) -> pd.DataFrame:
+def _process_local_folder(folder: Union[str, Path], opts: Dict, log) -> pd.DataFrame:
     """Process local folder input (lines 123-227)."""
     folder = Path(folder)
 
+    log.step("Scanning folder for experiments", LogLevel.INFO)
+
     # Scan folder for experiments
-    lof = scan_folder(folder, options=opts)
+    lof = scan_folder(folder, options=opts, verbosity=opts.get('verbosity', 'info'))
 
     if len(lof) == 0:
         raise ValueError(f"No experiments found in {folder}")
@@ -360,7 +385,7 @@ def _process_local_folder(folder: Union[str, Path], opts: Dict) -> pd.DataFrame:
 
     # Check for ANPC sampleID in USERA2 (lines 192-217)
     if not lof['USERA2'].isna().all() and lof['USERA2'].iloc[0] != '':
-        console.print("[blue]parseNMR >> ANPC sampleID (USERA2) found[/blue]")
+        log.info("ANPC sampleID (USERA2) found")
         sample_ids = lof['USERA2'].tolist()
         # Normalize QC labels (lines 196-200)
         sample_ids = [s.replace('SLTR', 'sltr') for s in sample_ids]
@@ -369,7 +394,7 @@ def _process_local_folder(folder: Union[str, Path], opts: Dict) -> pd.DataFrame:
         sample_ids = [s.replace('QC', 'qc') for s in sample_ids]
     else:
         # Use interactive selection or timestamps
-        console.print("[yellow]No USERA2 found. Using folder structure.[/yellow]")
+        log.warning("No USERA2 found. Using folder structure for sample IDs")
         # For now, use simple timestamps
         sample_ids = _make_unique([f"sample_{i:04d}" for i in range(len(lof))])
 
@@ -386,7 +411,7 @@ def _process_local_folder(folder: Union[str, Path], opts: Dict) -> pd.DataFrame:
     return loe
 
 
-def _classify_sample_types(loe: pd.DataFrame) -> pd.DataFrame:
+def _classify_sample_types(loe: pd.DataFrame, log) -> pd.DataFrame:
     """
     Classify sample types based on sampleID patterns.
 
@@ -394,19 +419,29 @@ def _classify_sample_types(loe: pd.DataFrame) -> pd.DataFrame:
     """
     loe = loe.copy()
 
+    type_counts = {'sltr': 0, 'ltr': 0, 'pqc': 0, 'qc': 0, 'sample': 0}
+
     for idx, row in loe.iterrows():
         sample_id = row['sampleID'].lower()
 
         # Priority order matters!
         if 'sltr' in sample_id:
             loe.at[idx, 'sampleType'] = 'sltr'
+            type_counts['sltr'] += 1
         elif sample_id.startswith('ltr'):
             loe.at[idx, 'sampleType'] = 'ltr'
+            type_counts['ltr'] += 1
         elif sample_id.startswith('pqc'):
             loe.at[idx, 'sampleType'] = 'pqc'
+            type_counts['pqc'] += 1
         elif sample_id.startswith('qc'):
             loe.at[idx, 'sampleType'] = 'qc'
-        # else: keep as 'sample'
+            type_counts['qc'] += 1
+        else:
+            type_counts['sample'] += 1
+
+    # Log classification results at DEBUG level
+    log.debug(f"Sample classification: {type_counts}")
 
     return loe
 
@@ -433,10 +468,13 @@ def _make_unique(names: List[str]) -> List[str]:
 
 def _read_spectra(
     loe: pd.DataFrame,
-    opts: Dict
+    opts: Dict,
+    log
 ) -> Tuple[np.ndarray, List[str], str]:
     """Read NMR spectra (lines 234-278)."""
     paths = loe['dataPath'].tolist()
+
+    log.debug(f"Reading spectra from {len(paths)} paths")
 
     # Read all experiments
     experiments = read_experiment(
@@ -479,6 +517,12 @@ def _read_spectra(
     var_names = [str(p) for p in ppm]
     data_type = 'NMR'
 
+    # Log spectrum grid info once (not per spectrum!)
+    log.debug(
+        f"Spectra in common grid: {opts['specOpts']['fromTo'][0]} to "
+        f"{opts['specOpts']['fromTo'][1]} ppm, {opts['specOpts']['length_out']} points"
+    )
+
     # Set method name (line 245)
     if opts['method'] == '':
         # This would use interactive menu in R, for now use experiment name
@@ -489,9 +533,10 @@ def _read_spectra(
     return data_matrix, var_names, data_type
 
 
-def _read_brxlipo(loe: pd.DataFrame, opts: Dict) -> Tuple[np.ndarray, List[str], str]:
+def _read_brxlipo(loe: pd.DataFrame, opts: Dict, log) -> Tuple[np.ndarray, List[str], str]:
     """Read Bruker lipoprotein data (lines 361-374)."""
     paths = loe['dataPath'].tolist()
+    log.debug(f"Reading brxlipo from {len(paths)} paths")
 
     experiments = read_experiment(paths, opts={'what': ['lipo']})
 
@@ -504,13 +549,15 @@ def _read_brxlipo(loe: pd.DataFrame, opts: Dict) -> Tuple[np.ndarray, List[str],
     data_matrix = lipo_data[value_cols].values
     var_names = [c.replace('value.', '') for c in value_cols]
 
+    log.debug(f"Extracted {len(var_names)} lipoprotein variables")
     opts['method'] = 'brxlipo'
     return data_matrix, var_names, 'QUANT'
 
 
-def _read_brxpacs(loe: pd.DataFrame, opts: Dict) -> Tuple[np.ndarray, List[str], str]:
+def _read_brxpacs(loe: pd.DataFrame, opts: Dict, log) -> Tuple[np.ndarray, List[str], str]:
     """Read Bruker PACS data (lines 376-389)."""
     paths = loe['dataPath'].tolist()
+    log.debug(f"Reading brxpacs from {len(paths)} paths")
 
     experiments = read_experiment(paths, opts={'what': ['pacs']})
 
@@ -522,13 +569,15 @@ def _read_brxpacs(loe: pd.DataFrame, opts: Dict) -> Tuple[np.ndarray, List[str],
     data_matrix = pacs_data[value_cols].values
     var_names = [c.replace('value.', '') for c in value_cols]
 
+    log.debug(f"Extracted {len(var_names)} PACS variables")
     opts['method'] = 'brxpacs'
     return data_matrix, var_names, 'QUANT'
 
 
-def _read_brxsm(loe: pd.DataFrame, opts: Dict) -> Tuple[np.ndarray, List[str], str]:
+def _read_brxsm(loe: pd.DataFrame, opts: Dict, log) -> Tuple[np.ndarray, List[str], str]:
     """Read Bruker small molecule quant data (lines 391-404)."""
     paths = loe['dataPath'].tolist()
+    log.debug(f"Reading brxsm from {len(paths)} paths")
 
     experiments = read_experiment(paths, opts={'what': ['quant']})
 
@@ -540,6 +589,7 @@ def _read_brxsm(loe: pd.DataFrame, opts: Dict) -> Tuple[np.ndarray, List[str], s
     data_matrix = quant_data[value_cols].values
     var_names = [c.replace('value.', '') for c in value_cols]
 
+    log.debug(f"Extracted {len(var_names)} small molecule variables")
     opts['method'] = 'brxsm'
     return data_matrix, var_names, 'QUANT'
 
@@ -547,7 +597,8 @@ def _read_brxsm(loe: pd.DataFrame, opts: Dict) -> Tuple[np.ndarray, List[str], s
 def _calculate_spcglyc(
     spectra: np.ndarray,
     ppm: np.ndarray,
-    loe: pd.DataFrame
+    loe: pd.DataFrame,
+    log
 ) -> Tuple[np.ndarray, List[str], Dict]:
     """
     Calculate spcglyc biomarkers.
@@ -558,6 +609,7 @@ def _calculate_spcglyc(
     supramolecular phospholipid composite biomarkers from NMR spectra.
     """
     # 1. Trim specific PPM regions (lines 282-289)
+    log.debug("Trimming PPM regions: water (4.6-4.85), baseline (<0.2), high (>10.0)")
     exclude_idx = (
         ((ppm >= 4.6) & (ppm <= 4.85)) |  # Water region
         ((ppm >= ppm.min()) & (ppm <= 0.2)) |  # Baseline
@@ -574,9 +626,7 @@ def _calculate_spcglyc(
     flip_idx = np.where(region_3_2_3_3.sum(axis=1) < 0)[0]
 
     if len(flip_idx) > 0:
-        console.print(
-            f"[yellow]Flipping {len(flip_idx)} spectra (180° phase)[/yellow]"
-        )
+        log.debug(f"Flipping {len(flip_idx)} spectra (180° phase correction)")
         trimmed_spectra[flip_idx, :] = -trimmed_spectra[flip_idx, :]
 
     # 3. Extract specific regions for output (lines 301-316)
@@ -622,9 +672,7 @@ def _calculate_spcglyc(
     # CRITICAL: Divide by 2 for 3mm tubes
     is_3mm = loe['dataPath'].str.contains('3mm', case=False).values
     if is_3mm.any():
-        console.print(
-            f"[blue]Applying 3mm tube correction to {is_3mm.sum()} samples[/blue]"
-        )
+        log.debug(f"Applying 3mm tube correction to {is_3mm.sum()} samples")
         for arr in [spc_all, spc3, spc2, spc1, glyc_all, glyc_a, glyc_b,
                     alb1, alb2, spc3_2, spc_glyc]:
             arr[is_3mm] = arr[is_3mm] / 2
@@ -654,25 +702,28 @@ def _calculate_spcglyc(
     return data_matrix, var_names, extra_data
 
 
-def _read_acqus_params(paths: List[str]) -> pd.DataFrame:
+def _read_acqus_params(paths: List[str], log) -> pd.DataFrame:
     """Read acquisition parameters (lines 409)."""
+    log.debug(f"Reading acquisition parameters from {len(paths)} paths")
     experiments = read_experiment(paths, opts={'what': ['acqus']})
 
     if 'acqus' not in experiments:
+        log.warning("No acquisition parameters found")
         return pd.DataFrame()
 
     return experiments['acqus']
 
 
-def _read_qc_data(paths: List[str]) -> Tuple[Optional[pd.DataFrame], bool]:
+def _read_qc_data(paths: List[str], log) -> Tuple[Optional[pd.DataFrame], bool]:
     """Read QC data and check for IVDr (lines 411-422)."""
+    log.debug(f"Checking for QC data in {len(paths)} paths")
     experiments = read_experiment(paths, opts={'what': ['qc']})
 
     if 'qc' not in experiments or experiments['qc'] is None:
-        console.print("[yellow]parseNMR >> Non IVDr data, no QC found[/yellow]")
+        log.info("Non-IVDr data (no QC found)")
         return None, False
 
-    console.print("[blue]parseNMR >> IVDr QC data found[/blue]")
+    log.info("IVDr QC data found")
     return experiments['qc'], True
 
 
@@ -684,7 +735,8 @@ def _merge_data_sources(
     data_matrix: np.ndarray,
     loe: pd.DataFrame,
     acqus_data: pd.DataFrame,
-    qc_data: Optional[pd.DataFrame]
+    qc_data: Optional[pd.DataFrame],
+    log
 ) -> Tuple[np.ndarray, pd.DataFrame, pd.DataFrame, Optional[pd.DataFrame]]:
     """
     Merge data sources by finding path intersection.
@@ -710,9 +762,9 @@ def _merge_data_sources(
     # Log excluded paths
     excluded = loe_paths - intersection
     if excluded:
-        console.print(f"[yellow]Excluded: {len(excluded)} paths[/yellow]")
-        for path in list(excluded)[:5]:  # Show first 5
-            console.print(f"  {path}")
+        log.warning(f"Excluded {len(excluded)} paths (not present in all data sources)")
+        for path in list(excluded)[:5]:  # Show first 5 at DEBUG level
+            log.detail(path)
 
     # Filter all data sources
     loe_idx = loe['dataPath'].isin(intersection)
@@ -913,17 +965,20 @@ def _generate_file_name(opts: Dict) -> str:
 def _write_parquet_files(
     result: Dict[str, pd.DataFrame],
     base_name: str,
-    output_dir: Path
+    output_dir: Path,
+    log
 ):
     """Write all result DataFrames to parquet files."""
     written_files = []
+
+    log.step("Writing parquet files", LogLevel.INFO)
 
     # Main files
     for key in ['data', 'metadata', 'params', 'variables']:
         if key in result:
             file_path = output_dir / f"{base_name}_{key}.parquet"
             result[key].to_parquet(file_path, compression='snappy', index=True)
-            console.print(f"[green]Wrote: {file_path.name}[/green]")
+            log.detail(f"Wrote: {file_path.name}")
             written_files.append((key, file_path))
 
     # Extra files (spcglyc regions)
@@ -931,17 +986,20 @@ def _write_parquet_files(
         if key in result:
             file_path = output_dir / f"{base_name}_{key}.parquet"
             result[key].to_parquet(file_path, compression='snappy', index=False)
-            console.print(f"[green]Wrote: {file_path.name}[/green]")
+            log.detail(f"Wrote: {file_path.name}")
             written_files.append((key, file_path))
 
+    log.success(f"Wrote {len(written_files)} parquet files", LogLevel.PROD)
+
     # Create DuckDB database pointing to parquet files
-    _create_duckdb_database(base_name, output_dir, written_files)
+    _create_duckdb_database(base_name, output_dir, written_files, log)
 
 
 def _create_duckdb_database(
     base_name: str,
     output_dir: Path,
-    written_files: List[Tuple[str, Path]]
+    written_files: List[Tuple[str, Path]],
+    log
 ):
     """
     Create a DuckDB database with views to all parquet files.
@@ -952,13 +1010,15 @@ def _create_duckdb_database(
     >>> con.sql('SELECT * FROM data LIMIT 10').df()
     """
     if not DUCKDB_AVAILABLE:
-        console.print("[yellow]DuckDB not available. Skipping database creation.[/yellow]")
-        console.print("[yellow]Install with: pip install duckdb[/yellow]")
+        log.warning("DuckDB not available. Skipping database creation.", LogLevel.INFO)
+        log.detail("Install with: pip install duckdb")
         return
 
     db_path = output_dir / f"{base_name}.duckdb"
 
     try:
+        log.step("Creating DuckDB database", LogLevel.INFO)
+
         # Create or connect to database
         con = duckdb.connect(str(db_path))
 
@@ -972,6 +1032,7 @@ def _create_duckdb_database(
                 CREATE OR REPLACE VIEW {sql_table_name} AS
                 SELECT * FROM read_parquet('{file_path}')
             """)
+            log.detail(f"Created view: {sql_table_name}")
 
         # Create a convenience view that joins data with metadata
         if any(name == 'data' for name, _ in written_files) and \
@@ -982,19 +1043,13 @@ def _create_duckdb_database(
                 FROM data d
                 LEFT JOIN metadata m USING (sample_key)
             """)
-
-        # Note: params_wide view not created due to DuckDB PIVOT limitations in views
-        # Users can create it manually with:
-        # PIVOT params ON param_name IN ('NS', 'RG', ...) USING FIRST(param_value)
+            log.detail("Created view: data_with_metadata")
 
         con.close()
 
-        console.print(f"[green]Created DuckDB database: {db_path.name}[/green]")
-        console.print(f"[blue]Query with: duckdb.connect('{db_path.name}')[/blue]")
-        console.print("[blue]Available tables/views:[/blue]")
-        for table_name, _ in written_files:
-            console.print(f"  - {table_name}")
-        console.print("  - data_with_metadata (joined view)")
+        log.success(f"Created DuckDB database: {db_path.name}", LogLevel.PROD)
+        log.info(f"Query with: duckdb.connect('{db_path.name}')")
+        log.debug(f"Available views: {[name for name, _ in written_files] + ['data_with_metadata']}")
 
     except Exception as e:
-        console.print(f"[yellow]Warning: Could not create DuckDB database: {e}[/yellow]")
+        log.warning(f"Could not create DuckDB database: {e}")

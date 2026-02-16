@@ -17,6 +17,10 @@ from nmr_parser.core.parse_nmr import (
     _calculate_spcglyc,
     _generate_sample_keys,
 )
+from nmr_parser.core.logger import get_logger
+
+# Create a logger for tests (using INFO level by default)
+test_logger = get_logger('info')
 
 
 class TestSampleTypeClassification:
@@ -31,7 +35,7 @@ class TestSampleTypeClassification:
             'experiment': ['exp'] * 3
         })
 
-        result = _classify_sample_types(loe)
+        result = _classify_sample_types(loe, test_logger)
 
         assert result.loc[0, 'sampleType'] == 'sltr'
         assert result.loc[1, 'sampleType'] == 'sltr'
@@ -46,7 +50,7 @@ class TestSampleTypeClassification:
             'experiment': ['exp'] * 2
         })
 
-        result = _classify_sample_types(loe)
+        result = _classify_sample_types(loe, test_logger)
 
         assert result.loc[0, 'sampleType'] == 'ltr'
         assert result.loc[1, 'sampleType'] == 'ltr'
@@ -60,7 +64,7 @@ class TestSampleTypeClassification:
             'experiment': ['exp'] * 2
         })
 
-        result = _classify_sample_types(loe)
+        result = _classify_sample_types(loe, test_logger)
 
         assert result.loc[0, 'sampleType'] == 'pqc'
         assert result.loc[1, 'sampleType'] == 'pqc'
@@ -74,7 +78,7 @@ class TestSampleTypeClassification:
             'experiment': ['exp'] * 2
         })
 
-        result = _classify_sample_types(loe)
+        result = _classify_sample_types(loe, test_logger)
 
         assert result.loc[0, 'sampleType'] == 'qc'
         assert result.loc[1, 'sampleType'] == 'qc'
@@ -88,7 +92,7 @@ class TestSampleTypeClassification:
             'experiment': ['exp'] * 2
         })
 
-        result = _classify_sample_types(loe)
+        result = _classify_sample_types(loe, test_logger)
 
         # Both should be classified as 'sltr' because sltr is checked first
         assert result.loc[0, 'sampleType'] == 'sltr'
@@ -103,7 +107,7 @@ class TestSampleTypeClassification:
             'experiment': ['exp'] * 3
         })
 
-        result = _classify_sample_types(loe)
+        result = _classify_sample_types(loe, test_logger)
 
         assert result.loc[0, 'sampleType'] == 'sample'
         assert result.loc[1, 'sampleType'] == 'sample'
@@ -171,7 +175,7 @@ class TestSpcglycCalculations:
             'dataPath': ['path'] * len(spectra)
         })
 
-        data_matrix, var_names, extra = _calculate_spcglyc(spectra, ppm, loe)
+        data_matrix, var_names, extra = _calculate_spcglyc(spectra, ppm, loe, test_logger)
 
         # Check that we get the correct biomarkers
         assert len(var_names) == 11
@@ -197,7 +201,7 @@ class TestSpcglycCalculations:
             'dataPath': ['path1', 'path2']
         })
 
-        data_matrix, var_names, extra = _calculate_spcglyc(spectra, ppm, loe)
+        data_matrix, var_names, extra = _calculate_spcglyc(spectra, ppm, loe, test_logger)
 
         # After flip correction, all values should be positive
         assert np.all(data_matrix >= 0), "Some values are negative after flip correction"
@@ -210,7 +214,7 @@ class TestSpcglycCalculations:
             'dataPath': ['path1']
         })
 
-        data_matrix, var_names, extra = _calculate_spcglyc(spectra, ppm, loe)
+        data_matrix, var_names, extra = _calculate_spcglyc(spectra, ppm, loe, test_logger)
 
         # All biomarkers should be positive
         assert np.all(data_matrix > 0), "Some biomarkers are not positive"
@@ -233,7 +237,7 @@ class TestSpcglycCalculations:
             'dataPath': ['path1/5mm', 'path2/3mm']
         })
 
-        data_matrix, var_names, extra = _calculate_spcglyc(spectra, ppm, loe)
+        data_matrix, var_names, extra = _calculate_spcglyc(spectra, ppm, loe, test_logger)
 
         # The second sample (3mm) should have values ~half of first (5mm)
         # (allowing for some variation due to random noise)
@@ -250,7 +254,7 @@ class TestSpcglycCalculations:
             'dataPath': ['path'] * len(spectra)
         })
 
-        data_matrix, var_names, extra = _calculate_spcglyc(spectra, ppm, loe)
+        data_matrix, var_names, extra = _calculate_spcglyc(spectra, ppm, loe, test_logger)
 
         # Check that extra data is present
         assert 'tsp' in extra

@@ -9,12 +9,14 @@ from collections import Counter
 
 from .parameters import read_param
 from ..processing.utils import clean_names
+from .logger import get_logger, LogLevel
 
 console = Console()
 
 
 def scan_folder(folder: Union[str, Path],
-                options: Optional[Dict[str, Any]] = None) -> pd.DataFrame:
+                options: Optional[Dict[str, Any]] = None,
+                verbosity: str = 'info') -> pd.DataFrame:
     """
     Scan folder recursively to get list of experiment paths.
 
@@ -34,6 +36,8 @@ def scan_folder(folder: Union[str, Path],
             Set to "ignore" to skip EXP filtering
         - PULPROG : str
             Filter by pulse program (e.g., "noesygppr1d")
+    verbosity : str, optional
+        Logging verbosity: 'prod', 'info', or 'debug' (default: 'info')
 
     Returns
     -------
@@ -70,6 +74,7 @@ def scan_folder(folder: Union[str, Path],
     """
     folder = Path(folder)
     options = options or {}
+    log = get_logger(verbosity)
 
     EXP = options.get('EXP', '')
     PULPROG = options.get('PULPROG', '')
@@ -84,35 +89,35 @@ def scan_folder(folder: Union[str, Path],
     acqus_files = [f for f in acqus_files
                    if not any(x in str(f) for x in ["99999/acqus", "98888/acqus"])]
 
-    console.print(f"[blue]Found {len(acqus_files)} acqus files[/blue]")
+    log.info(f"Found {len(acqus_files)} acqus files")
 
-    # Extract parameters from each acqus file
+    # Extract parameters from each acqus file with progress bar
     exp_list = []
-    for i, acqus_file in enumerate(acqus_files):
-        console.print(f"Scanning: {i+1} / {len(acqus_files)}", end="\r")
 
-        # Read EXP, PULPROG, and USERA2 parameters
-        params = read_param(acqus_file, ["EXP", "PULPROG", "USERA2"])
+    with log.progress(f"Scanning {len(acqus_files)} experiments", total=len(acqus_files), level=LogLevel.INFO) as update:
+        for i, acqus_file in enumerate(acqus_files):
+            # Read EXP, PULPROG, and USERA2 parameters
+            params = read_param(acqus_file, ["EXP", "PULPROG", "USERA2"])
 
-        if params:
-            exp_name = clean_names(params[0]) if params[0] else ""
-            pulprog = clean_names(params[1]) if params[1] else ""
-            usera2 = params[2] if len(params) > 2 else ""
+            if params:
+                exp_name = clean_names(params[0]) if params[0] else ""
+                pulprog = clean_names(params[1]) if params[1] else ""
+                usera2 = params[2] if len(params) > 2 else ""
 
-            # Get experiment folder (parent of acqus)
-            exp_folder = acqus_file.parent
+                # Get experiment folder (parent of acqus)
+                exp_folder = acqus_file.parent
 
-            exp_list.append({
-                'file': str(exp_folder),
-                'EXP': exp_name,
-                'PULPROG': pulprog,
-                'USERA2': usera2
-            })
+                exp_list.append({
+                    'file': str(exp_folder),
+                    'EXP': exp_name,
+                    'PULPROG': pulprog,
+                    'USERA2': usera2
+                })
 
-    console.print()  # New line after progress
+            update(i + 1)
 
     if not exp_list:
-        console.print("[yellow]No experiments found[/yellow]")
+        log.warning("No experiments found")
         return pd.DataFrame()
 
     exp_df = pd.DataFrame(exp_list)

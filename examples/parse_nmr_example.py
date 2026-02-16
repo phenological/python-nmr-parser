@@ -144,6 +144,13 @@ Examples:
         help='Do not write parquet files (return DataFrames only)'
     )
 
+    parser.add_argument(
+        '-v', '--verbosity',
+        choices=['prod', 'info', 'debug'],
+        default='info',
+        help='Logging verbosity: prod (minimal), info (default), debug (verbose)'
+    )
+
     args = parser.parse_args()
 
     # Validate input
@@ -171,7 +178,8 @@ Examples:
             'length_out': args.n_points
         },
         'outputDir': args.output,
-        'noWrite': args.no_write
+        'noWrite': args.no_write,
+        'verbosity': args.verbosity
     }
 
     # Run parse_nmr
@@ -181,20 +189,6 @@ Examples:
         console.print("[bold blue]╚══════════════════════════════════════╝[/bold blue]\n")
 
         result = parse_nmr(folder_input, opts=opts)
-
-        # Print summary
-        console.print("\n[bold green]✓ Parsing complete![/bold green]\n")
-
-        console.print("[bold]Data Summary:[/bold]")
-        console.print(f"  • Samples: {len(result['data'])}")
-        console.print(f"  • Variables: {len(result['variables'])}")
-        console.print(f"  • Data type: {result['metadata']['data_type'].iloc[0]}")
-        console.print(f"  • Method: {result['metadata']['method'].iloc[0]}")
-
-        console.print("\n[bold]Sample Types:[/bold]")
-        type_counts = result['metadata']['sample_type'].value_counts()
-        for stype, count in type_counts.items():
-            console.print(f"  • {stype}: {count}")
 
         if not args.no_write:
             console.print(f"\n[bold]Output files:[/bold]")

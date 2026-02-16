@@ -218,7 +218,8 @@ def read_spectrum(expno: Union[str, Path],
 
     if uncalibrate:
         offset = offset + SR_p
-        console.print(f"[blue]readSpectrum >> calibration (SR) removed: {SR_p} ppm {SR} Hz[/blue]")
+        # Removed verbose per-spectrum logging
+        # console.print(f"[blue]readSpectrum >> calibration (SR) removed: {SR_p} ppm {SR} Hz[/blue]")
 
     # Read spectrum
     y = read_1r(file_1r, size, nc, endian)
@@ -251,7 +252,8 @@ def read_spectrum(expno: Union[str, Path],
         y = y / eretic_factor
         if yi is not None:
             yi = yi / eretic_factor
-        console.print(f"[blue]readSpectrum >> spectra corrected for eretic: {eretic_factor}[/blue]")
+        # Removed verbose per-spectrum logging
+        # console.print(f"[blue]readSpectrum >> spectra corrected for eretic: {eretic_factor}[/blue]")
 
     # Interpolation if fromTo is specified
     if 'fromTo' in options:
@@ -286,7 +288,9 @@ def read_spectrum(expno: Union[str, Path],
             return None
 
         x = new_x
-        console.print(f"[blue]readSpectrum >> spectra in common grid (from: {from_ppm} to: {to_ppm} dim: {length_out} orig.size: {size})[/blue]")
+        # Removed verbose per-spectrum logging - this was printing for EVERY spectrum!
+        # Only print once per batch in parse_nmr instead
+        # console.print(f"[blue]readSpectrum >> spectra in common grid (from: {from_ppm} to: {to_ppm} dim: {length_out} orig.size: {size})[/blue]")
 
     # Build info dict
     info = SpectrumInfo(

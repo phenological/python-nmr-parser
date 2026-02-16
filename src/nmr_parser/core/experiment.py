@@ -135,7 +135,8 @@ def read_experiment(expname: Union[str, Path, List[Union[str, Path]]],
     if "acqus" in what or "all" in what:
         lst = []
         for i, exp_path in enumerate(expname):
-            console.print(f"Reading: {i+1} / {len(expname)}", end="\r")
+            # Removed verbose per-experiment progress print
+            # console.print(f"Reading: {i+1} / {len(expname)}", end="\r")
 
             path = exp_path / "acqus"
             if path.exists():
@@ -170,7 +171,8 @@ def read_experiment(expname: Union[str, Path, List[Union[str, Path]]],
     if "procs" in what or "all" in what:
         lst = []
         for i, exp_path in enumerate(expname):
-            console.print(f"Reading: {i+1} / {len(expname)}", end="\r")
+            # Removed verbose per-experiment progress print
+            # console.print(f"Reading: {i+1} / {len(expname)}", end="\r")
 
             path = exp_path / "pdata" / "1" / "procs"
             if path.exists():
@@ -204,7 +206,8 @@ def read_experiment(expname: Union[str, Path, List[Union[str, Path]]],
     if "qc" in what or "all" in what:
         lst = []
         for i, exp_path in enumerate(expname):
-            console.print(f"Reading: {i+1} / {len(expname)}", end="\r")
+            # Removed verbose per-experiment progress print
+            # console.print(f"Reading: {i+1} / {len(expname)}", end="\r")
 
             folder_path = exp_path / "pdata" / "1"
             # Find QC report files
@@ -303,8 +306,9 @@ def read_experiment(expname: Union[str, Path, List[Union[str, Path]]],
 
                 spec_opts['eretic'] = eretic_factor
 
-                if eretic_factor == 1:
-                    console.print(f"[red]readExperiment >> ereticFactor set to 1: {eretic_path}[/red]")
+                # Removed verbose per-experiment logging
+                # if eretic_factor == 1:
+                #     console.print(f"[red]readExperiment >> ereticFactor set to 1: {eretic_path}[/red]")
 
             spec = read_spectrum(exp_path, procno, procs=True, options=spec_opts)
 
@@ -313,10 +317,11 @@ def read_experiment(expname: Union[str, Path, List[Union[str, Path]]],
 
         res['spec'] = pd.DataFrame(lst)
 
-        if len(res['spec']) == 0:
-            console.print("[yellow]readExperiment >> 0 found spectrum(a)[/yellow]")
-        else:
-            console.print(f"[blue]readExperiment >> {len(res['spec'])} found spectrum(a)[/blue]")
+        # Removed verbose summary - parse_nmr handles the summary now
+        # if len(res['spec']) == 0:
+        #     console.print("[yellow]readExperiment >> 0 found spectrum(a)[/yellow]")
+        # else:
+        #     console.print(f"[blue]readExperiment >> {len(res['spec'])} found spectrum(a)[/blue]")
 
     # Read lipo
     if "lipo" in what or "all" in what:

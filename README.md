@@ -9,6 +9,8 @@ This is a Python migration of the R package `nmr.parser` (v0.3.4), preserving al
 - **Binary spectrum reading** with endianness handling and power factor scaling
 - **Parameter file parsing** for acqus/procs files (xwin-nmr and TopSpin formats)
 - **XML parsing** for quantification, lipoprotein, QC, PACS, and ERETIC data
+- **parseNMR migration** with parquet export and DuckDB integration
+- **Smart logging system** with 3 verbosity levels (prod/info/debug)
 - **Multiple format support** with automatic version detection
 - **Spectrum processing** with calibration, interpolation, and ERETIC correction
 - **Type hints** for better IDE support and code clarity
@@ -70,6 +72,90 @@ spec_df = exp['spec']['spec'].iloc[0]
 x = spec_df['x']  # PPM axis
 y = spec_df['y']  # Intensity
 ```
+
+## Logging and Verbosity
+
+The `parse_nmr` function features a smart logging system with three verbosity levels:
+
+### **PROD** (Production - Minimal)
+Only shows final results and errors. Perfect for batch processing.
+
+```python
+from nmr_parser import parse_nmr
+result = parse_nmr("data/", opts={'verbosity': 'prod'})
+```
+
+**Output:**
+```
+✓ Wrote 4 parquet files
+✓ Created DuckDB database: run.duckdb
+──────────────────────────────────────
+Parse Complete
+  Samples: 144
+  Variables: 44079
+  Data type: NMR
+──────────────────────────────────────
+```
+
+### **INFO** (Default - Useful Progress)
+Shows major processing steps and findings. Best for interactive use.
+
+```python
+result = parse_nmr("data/", opts={'verbosity': 'info'})  # or omit (default)
+```
+
+**Output:**
+```
+▶ Scanning folder for experiments
+▶ Processing 144 samples
+▶ Reading spectra
+▶ Calculating spcglyc biomarkers
+  IVDr QC data found
+⚠ Excluded 2 paths
+✓ Wrote 4 parquet files
+✓ Created DuckDB database
+```
+
+### **DEBUG** (Verbose - Everything)
+Shows all internal decisions and detailed progress. For debugging.
+
+```python
+result = parse_nmr("data/", opts={'verbosity': 'debug'})
+```
+
+**Output:**
+```
+▶ Processing 144 samples
+  • Sample classification: {'sample': 138, 'qc': 4, 'ltr': 2}
+▶ Reading spectra
+  • Reading spectra from 144 paths
+▶ Calculating spcglyc biomarkers
+  • Trimming PPM regions: water, baseline, high
+  • Flipping 3 spectra (180° phase correction)
+  • Applying 3mm tube correction to 12 samples
+  • Wrote: run_data.parquet
+  • Wrote: run_metadata.parquet
+  ...
+```
+
+### Command-Line Usage
+
+```bash
+# Production (minimal output)
+python examples/parse_nmr_example.py data/ -v prod
+
+# Info (default)
+python examples/parse_nmr_example.py data/ -v info
+
+# Debug (verbose)
+python examples/parse_nmr_example.py data/ -v debug
+```
+
+**Features:**
+- 🎨 **Color-coded** output (green=success, blue=progress, yellow=warning, red=error)
+- ♻️ **Progress updates overwrite** instead of spamming thousands of lines
+- 📊 **Smart filtering** - only shows what matters at each level
+- ⚡ **Minimal overhead** in PROD mode
 
 ## Command-Line Usage Examples
 
