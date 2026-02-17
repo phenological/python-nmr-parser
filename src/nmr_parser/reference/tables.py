@@ -1,6 +1,7 @@
 """Reference table functions for accessing pre-loaded metabolite and lipoprotein data."""
 
 import pandas as pd
+import sqlite3
 from pathlib import Path
 from functools import lru_cache
 from typing import Literal, Optional
@@ -170,54 +171,78 @@ def get_qc_table(matrix_type: Literal["SER", "URI"] = "SER",
 
 
 @lru_cache(maxsize=1)
-def get_pacs_table() -> pd.DataFrame:
+def get_pacs_table(db_path: Optional[str] = None) -> pd.DataFrame:
     """
-    Get PACS (Phenotypic Assessment) reference table.
+    Get PACS (Phenotypic Assessment and Clinical Screening) reference table.
 
-    Returns reference data for PACS metabolites with concentration
-    ranges and units.
+    Returns reference data for PACS lipoproteins with concentration
+    ranges and units from the brxpacs.sl3 SQLite database.
+
+    Parameters
+    ----------
+    db_path : str, optional
+        Path to brxpacs.sl3 database. If None, uses default location.
+        Default: /Users/jul/docker/plt-binder-docker/seed_db/brxpacs.sl3
 
     Returns
     -------
     pd.DataFrame
         DataFrame with columns:
-        - name: Metabolite name
+        - id: Quantity ID
+        - name: Parameter name (e.g., 'TG', 'Chol', 'Apo-A1', 'Apo-B100')
+        - alias: Alternative name/alias
+        - compoundId: Compound identifier
+        - methodIdList: List of method IDs
         - unit: Concentration unit
-        - refMax: Maximum reference value
-        - refMin: Minimum reference value
-        - refUnit: Reference unit
+        - upperLimit: Maximum reference value
+        - lowerLimit: Minimum reference value
+        - loq: Limit of quantification
+        - description: Parameter description
+
+    Notes
+    -----
+    PACS includes 16 parameters:
+    - Glucose, Creatinine (clinical chemistry)
+    - Lipoproteins: TG, Chol, LDL-Chol, HDL-Chol, LDL-Phos, HDL-Phos
+    - Apolipoproteins: Apo-A1, Apo-B100, Apo-B100/Apo-A1
+    - Glycoproteins: GlycA, GlycB, Glyc, SPC, Glyc/SPC
 
     Examples
     --------
     >>> pacs = get_pacs_table()
-    >>> pacs[['name', 'unit', 'refMin', 'refMax']].head()
-    """
-    # PACS data (16 metabolites)
-    # This would typically come from reference documentation
-    data = {
-        'name': [
-            'Glucose', 'Lactate', 'Alanine', 'Valine', 'Leucine',
-            'Isoleucine', 'Acetate', 'Acetone', '3-Hydroxybutyrate',
-            'Pyruvate', 'Creatinine', 'Citrate', 'Formate',
-            'Phenylalanine', 'Tyrosine', 'Histidine'
-        ],
-        'unit': ['mmol/L'] * 16,
-        'refMin': [
-            '3.5', '0.5', '0.2', '0.15', '0.08',
-            '0.04', '0.01', '0.0', '0.03',
-            '0.04', '0.04', '0.05', '0.01',
-            '0.04', '0.04', '0.05'
-        ],
-        'refMax': [
-            '6.1', '2.2', '0.6', '0.35', '0.22',
-            '0.11', '0.15', '0.2', '0.3',
-            '0.15', '0.13', '0.35', '0.05',
-            '0.09', '0.11', '0.10'
-        ],
-        'refUnit': ['mmol/L'] * 16
-    }
+    >>> pacs[['name', 'unit', 'lowerLimit', 'upperLimit']].head()
+       name    unit  lowerLimit  upperLimit
+    0  Glucose  mmol/l      1.73        6.08
+    1  Creatinine  mmol/l   0.06        0.14
+    2  TG      mg/dL      53.0       490.0
+    3  Chol    mg/dL     140.0       341.0
+    4  LDL-Chol mg/dL     55.0       227.0
 
-    return pd.DataFrame(data)
+    >>> # Get only lipoproteins (exclude Glucose, Creatinine)
+    >>> lipoproteins = pacs[~pacs['name'].isin(['Glucose', 'Creatinine'])]
+    >>> len(lipoproteins)
+    14
+    """
+    # Default database path
+    if db_path is None:
+        db_path = "/Users/jul/docker/plt-binder-docker/seed_db/brxpacs.sl3"
+
+    db_path = Path(db_path)
+
+    if not db_path.exists():
+        raise FileNotFoundError(
+            f"PACS database not found: {db_path}\n"
+            f"Please ensure brxpacs.sl3 is available at the specified location."
+        )
+
+    # Read from SQLite database
+    conn = sqlite3.connect(db_path)
+    try:
+        df = pd.read_sql_query("SELECT * FROM quantities", conn)
+    finally:
+        conn.close()
+
+    return df
 
 
 @lru_cache(maxsize=1)
