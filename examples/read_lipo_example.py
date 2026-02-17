@@ -57,10 +57,10 @@ Examples:
         lipo_file = Path(args.xml_file)
         print(f"Reading: {lipo_file}\n")
     else:
-        # Default to test data
-        test_data = Path(__file__).parent.parent / "tests" / "data"
-        lipo_file = test_data / "lipo_results.xml"
-        print(f"No file provided, using test data: {lipo_file}\n")
+        # Default to sample data from package
+        from nmr_parser.reference.tables import DATA_DIR
+        lipo_file = DATA_DIR / "lipo_results.xml"
+        print(f"No file provided, using sample data: {lipo_file}\n")
 
     if not lipo_file.exists():
         print(f"Error: File not found: {lipo_file}")

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RESULTS version="Version 1.0.0, 06-Sep-2022 06:11:42">
+   <SAMPLE date="16-Nov-2020 14:33:29" name="barwin20_IVDR04_BARWINp11_161120_expno170.100000.14r" project="" type="urine">
+      <INFO name="NMR Experiment Quality Test" value="not passed"/>
+      <INFO name="NMR Preparation Quality Test" value="passed"/>
+      <INFO name="Matrix Identity Test" value="Urine"/>
+      <INFO name="Matrix Integrity Test" value="passed"/>
+      <INFO name="Matrix Contamination Test" value="passed"/>
+      <INFO name="Medication Test" value="passed"/>
+      <INFO name="Protein Background Test" value="passed"/>
+      <INFO name="Further Indicative Parameter Test" value="not passed"/>
+      <INFO name="PULPROG Test (specified: noesygppr1d,  applied: noesygppr1d)" value="passed"/>
+      <INFO name="AUNM Test (specified: au_ivdr_noesy,  applied: au_ivdr_noesy)" value="passed"/>
+      <INFO name="AUNMP Test (specified: proc_ivdr_noesy,  applied: proc_ivdr_noesy)" value="passed"/>
+      <INFO name="SOLVENT Test (specified: Urine,  applied: Urine)" value="passed"/>
+      <INFO name="TE Test (specified: 299.9 - 300.1,  applied: 300.0004)" value="passed"/>
+      <INFO name="P1 Test (specified: 8 - 15,  applied: 14.73)" value="passed"/>
+      <INFO name="PRESAT Test (specified: 24 - 26,  applied: 25)" value="passed"/>
+      <INFO name="BF1 Test (specified: 599 - 601,  applied: 600.21)" value="passed"/>
+      <INFO name="O1 Test (specified: 2700 - 2900,  applied: 2821.0954)" value="passed"/>
+      <INFO name="ERETIC Test (specified: 1000,  applied: 2073.187)" value="passed"/>
+      <INFO name="D1 Test (specified: 4,  applied: 4)" value="passed"/>
+      <INFO name="SWH Test (specified: 12019.23,  applied: 12019.2308)" value="passed"/>
+      <INFO name="OVERFLOW Test (specified: 0,  applied: 0)" value="passed"/>
+      <INFO name="TD Test (specified: 65536,  applied: 65536)" value="passed"/>
+      <INFO name="NS Test (specified: 32,  applied: 32)" value="passed"/>
+      <INFO name="DS Test (specified: 4,  applied: 4)" value="passed"/>
+      <INFO name="LB Test (specified: 0.3,  applied: 0.3)" value="passed"/>
+      <INFO name="SI Test (specified: 131072,  applied: 131072)" value="passed"/>
+      <INFO name="PHC1 Test (specified: 0,  applied: 0)" value="passed"/>
+   </SAMPLE>
+   <CLASSIFICATION/>
+   <VERIFICATION/>
+   <QUANTIFICATION version="BioBankQC UR 1.0.0  Reseach Use Only">
+      <PARAMETER comment="passed" name="LineWidth in Hz" type="NMR Spectral Quality">
+         <VALUE lod="-/-" loq="-/-" unit="Hz" value="1.0" valueext="1.0"/>
+         <REFERENCE source="NMR Database" unit="Hz" vmax="1.30" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="Line Asymmetry in Hz" type="NMR Spectral Quality">
+         <VALUE lod="-/-" loq="-/-" unit="Hz" value="-0.04" valueext="-0.04"/>
+         <REFERENCE source="NMR Database" unit="Hz" vmax="0.20" vmin="-0.20"/>
+      </PARAMETER>
+      <PARAMETER comment="not passed" name="Residual Water Signal in mmol/L" type="NMR Spectral Quality">
+         <VALUE lod="-/-" loq="-/-" unit="mmol/L" value="38.9" valueext="38.9"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="30.0" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="BaseLine in mmol/L/Hz" type="NMR Spectral Quality">
+         <VALUE lod="-/-" loq="-/-" unit="mmol/L/Hz" value="0.0004" valueext="0.0004"/>
+         <REFERENCE source="NMR Database" unit="mmol/L/Hz" vmax="0.0010" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="NMR visible TSP in mmol/L" type="NMR Preparation Quality">
+         <VALUE lod="-/-" loq="-/-" unit="mmol/L" value="0.57" valueext="0.57"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.58" vmin="0.50"/>
+      </PARAMETER>
+      <PARAMETER comment="Urine" name="Creatinine" type="Matrix Identity Test">
+         <VALUE lod="-/-" loq="-/-" unit="mmol/L" value="6.72" valueext="6.72"/>
+         <REFERENCE source="NMR Database: Urine" unit="mmol/L" vmax="29.00" vmin="0.60"/>
+      </PARAMETER>
+      <PARAMETER comment="Urine" name="Alanine" type="Matrix Identity Test">
+         <VALUE lod="-/-" loq="-/-" unit="mmol/L" value="0.42" valueext="0.42"/>
+         <REFERENCE source="NMR Database: Urine" unit="mmol/L" vmax="2.20" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="Urine" name="Fumaric acid" type="Matrix Identity Test">
+         <VALUE lod="-/-" loq="-/-" unit="mmol/L" value=" 0.01" valueext=" 0.01"/>
+         <REFERENCE source="NMR Database: Urine" unit="mmol/L" vmax="0.07" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="Acetic acid in mmol/L" type="Matrix Integrity Test : ">
+         <VALUE lod="0.030" loq="-/-" unit="" value="0.077" valueext="0.077"/>
+         <REFERENCE source="NMR Database" unit="" vmax="2.90" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="Benzoic acid in mmol/L" type="Matrix Integrity Test : ">
+         <VALUE lod="0.040" loq="-/-" unit="" value="\textless0.040" valueext="\textless0.040"/>
+         <REFERENCE source="NMR Database" unit="" vmax="0.45" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="Citric acid in mmol/L" type="Matrix Integrity Test : ">
+         <VALUE lod="0.050" loq="-/-" unit="" value="2.083" valueext="2.083"/>
+         <REFERENCE source="NMR Database" unit="" vmax="-/-" vmin="0.05"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="Formic acid in mmol/L" type="Matrix Integrity Test : ">
+         <VALUE lod="0.020" loq="-/-" unit="" value="0.229" valueext="0.229"/>
+         <REFERENCE source="NMR Database" unit="" vmax="0.71" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="Hippuric acid in mmol/L" type="Matrix Integrity Test : ">
+         <VALUE lod="0.200" loq="-/-" unit="" value="1.263" valueext="1.263"/>
+         <REFERENCE source="NMR Database" unit="" vmax="15.10" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="Lactic acid in mmol/L" type="Matrix Integrity Test : ">
+         <VALUE lod="0.100" loq="-/-" unit="" value="0.202" valueext="0.202"/>
+         <REFERENCE source="NMR Database" unit="" vmax="2.00" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="Succinic acid in mmol/L" type="Matrix Integrity Test : ">
+         <VALUE lod="0.020" loq="-/-" unit="" value="0.080" valueext="0.080"/>
+         <REFERENCE source="NMR Database" unit="" vmax="0.44" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="Propylene glycol in mmol/L" type="Contamination Test">
+         <VALUE lod="0.020" loq="-/-" unit="mmol/L" value="0.020" valueext="0.020"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="-/-" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="Isopropanol in mmol/L" type="Contamination Test">
+         <VALUE lod="0.020" loq="-/-" unit="mmol/L" value="0.020" valueext="0.020"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="-/-" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="D-Mannitol in mmol/L" type="Medication Test">
+         <VALUE lod="0.150" loq="-/-" unit="mmol/L" value="0.150" valueext="0.150"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="-/-" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="D-Mannose-alpha in mmol/L" type="Medication Test">
+         <VALUE lod="0.060" loq="-/-" unit="mmol/L" value="0.060" valueext="0.060"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="-/-" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="Paracetamol in mmol/L" type="Medication Test">
+         <VALUE lod="0.060" loq="-/-" unit="mmol/L" value="0.060" valueext="0.060"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="-/-" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="Paracetamol-glucuronide in mmol/L" type="Medication Test">
+         <VALUE lod="0.060" loq="-/-" unit="mmol/L" value="0.060" valueext="0.060"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="-/-" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="Paracetamol-sulfate in mmol/L" type="Medication Test">
+         <VALUE lod="0.060" loq="-/-" unit="mmol/L" value="0.060" valueext="0.060"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="-/-" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="Cefuroxim in mmol/L" type="Medication Test">
+         <VALUE lod="0.500" loq="-/-" unit="mmol/L" value="0.500" valueext="0.500"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="-/-" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="Hump (-0.5ppm - 0.5ppm) in mmol/L/Hz" type="Protein Background Test : ">
+         <VALUE lod="-/-" loq="-/-" unit="" value="0.0005" valueext="0.0005"/>
+         <REFERENCE source="NMR Database" unit="" vmax="0.0010" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="3-Hydroxybutyric acid in mmol/L" type="Further Indication Test : ">
+         <VALUE lod="0.240" loq="-/-" unit="" value="\textless0.240" valueext="\textless0.240"/>
+         <REFERENCE source="NMR Database" unit="" vmax="0.24" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="Acetone in mmol/L" type="Further Indication Test : ">
+         <VALUE lod="0.010" loq="-/-" unit="" value="0.013" valueext="0.013"/>
+         <REFERENCE source="NMR Database" unit="" vmax="0.04" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="Acetoacetic acid in mmol/L" type="Further Indication Test : ">
+         <VALUE lod="0.020" loq="-/-" unit="" value="0.055" valueext="0.055"/>
+         <REFERENCE source="NMR Database" unit="" vmax="0.22" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="not passed" name="D-Glucose-beta in mmol/L" type="Further Indication Test : ">
+         <VALUE lod="0.140" loq="-/-" unit="" value="0.193" valueext="0.193"/>
+         <REFERENCE source="NMR Database" unit="" vmax="0.14" vmin="-/-"/>
+      </PARAMETER>
+   </QUANTIFICATION>
+</RESULTS>
