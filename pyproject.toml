@@ -59,7 +59,7 @@ Repository = "https://github.com/phenological/python-nmr-parser"
 where = ["src"]
 
 [tool.setuptools.package-data]
-nmr_parser = ["reference/data/*.csv"]
+nmr_parser = ["reference/data/*.csv", "reference/data/*.xml"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

@@ -214,15 +214,13 @@ def get_pacs_table() -> pd.DataFrame:
     # Import read_pacs function
     from nmr_parser.xml_parsers.pacs import read_pacs
 
-    # Path to reference XML file in tests/data
-    # Use __file__ to get the package directory, then navigate to tests/data
-    package_root = Path(__file__).parent.parent.parent.parent
-    xml_path = package_root / "tests" / "data" / "plasma_pacs_report.xml"
+    # Path to reference XML file in package data directory
+    xml_path = DATA_DIR / "plasma_pacs_report.xml"
 
     if not xml_path.exists():
         raise FileNotFoundError(
             f"PACS reference data file not found: {xml_path}\n"
-            f"Please ensure plasma_pacs_report.xml is available in tests/data/"
+            f"Please ensure plasma_pacs_report.xml is available in the package data directory."
         )
 
     # Read PACS data
