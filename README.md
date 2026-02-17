@@ -336,6 +336,11 @@ ruff check src/
 
 # Type check
 mypy src/
+
+# Build documentation
+.venv/bin/sphinx-build -M clean docs docs/_build  # Clean old builds
+.venv/bin/sphinx-build -M html docs docs/_build   # Build HTML docs
+# Output will be in docs/_build/html/index.html
 ```
 
 ## License
