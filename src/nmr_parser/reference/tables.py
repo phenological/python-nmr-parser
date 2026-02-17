@@ -1,10 +1,9 @@
 """Reference table functions for accessing pre-loaded metabolite and lipoprotein data."""
 
 import pandas as pd
-import sqlite3
 from pathlib import Path
 from functools import lru_cache
-from typing import Literal, Optional
+from typing import Literal
 
 
 # Data directory path
@@ -171,33 +170,22 @@ def get_qc_table(matrix_type: Literal["SER", "URI"] = "SER",
 
 
 @lru_cache(maxsize=1)
-def get_pacs_table(db_path: Optional[str] = None) -> pd.DataFrame:
+def get_pacs_table() -> pd.DataFrame:
     """
     Get PACS (Phenotypic Assessment and Clinical Screening) reference table.
 
-    Returns reference data for PACS lipoproteins with concentration
-    ranges and units from the brxpacs.sl3 SQLite database.
-
-    Parameters
-    ----------
-    db_path : str, optional
-        Path to brxpacs.sl3 database. If None, uses default location.
-        Default: /Users/jul/docker/plt-binder-docker/seed_db/brxpacs.sl3
+    Returns reference data for PACS parameters with concentration
+    ranges and units from test report XML files.
 
     Returns
     -------
     pd.DataFrame
         DataFrame with columns:
-        - id: Quantity ID
-        - name: Parameter name (e.g., 'TG', 'Chol', 'Apo-A1', 'Apo-B100')
-        - alias: Alternative name/alias
-        - compoundId: Compound identifier
-        - methodIdList: List of method IDs
+        - name: Parameter name (e.g., 'Glucose', 'TG', 'Chol', 'Apo-A1', 'Apo-B100')
         - unit: Concentration unit
-        - upperLimit: Maximum reference value
-        - lowerLimit: Minimum reference value
-        - loq: Limit of quantification
-        - description: Parameter description
+        - refMax: Maximum reference value
+        - refMin: Minimum reference value
+        - refUnit: Reference unit
 
     Notes
     -----
@@ -210,39 +198,47 @@ def get_pacs_table(db_path: Optional[str] = None) -> pd.DataFrame:
     Examples
     --------
     >>> pacs = get_pacs_table()
-    >>> pacs[['name', 'unit', 'lowerLimit', 'upperLimit']].head()
-       name    unit  lowerLimit  upperLimit
-    0  Glucose  mmol/l      1.73        6.08
-    1  Creatinine  mmol/l   0.06        0.14
-    2  TG      mg/dL      53.0       490.0
-    3  Chol    mg/dL     140.0       341.0
-    4  LDL-Chol mg/dL     55.0       227.0
+    >>> pacs[['name', 'unit', 'refMin', 'refMax']].head()
+           name    unit refMin refMax
+    0   Glucose  mmol/l   1.73   6.08
+    1  Creatinine mmol/l   0.06   0.14
+    2        TG   mg/dL     53    490
+    3      Chol   mg/dL    140    341
+    4  LDL-Chol   mg/dL     55    227
 
     >>> # Get only lipoproteins (exclude Glucose, Creatinine)
     >>> lipoproteins = pacs[~pacs['name'].isin(['Glucose', 'Creatinine'])]
     >>> len(lipoproteins)
     14
     """
-    # Default database path
-    if db_path is None:
-        db_path = "/Users/jul/docker/plt-binder-docker/seed_db/brxpacs.sl3"
+    # Import read_pacs function
+    from nmr_parser.xml_parsers.pacs import read_pacs
 
-    db_path = Path(db_path)
+    # Path to reference XML file in tests/data
+    # Use __file__ to get the package directory, then navigate to tests/data
+    package_root = Path(__file__).parent.parent.parent.parent
+    xml_path = package_root / "tests" / "data" / "plasma_pacs_report.xml"
 
-    if not db_path.exists():
+    if not xml_path.exists():
         raise FileNotFoundError(
-            f"PACS database not found: {db_path}\n"
-            f"Please ensure brxpacs.sl3 is available at the specified location."
+            f"PACS reference data file not found: {xml_path}\n"
+            f"Please ensure plasma_pacs_report.xml is available in tests/data/"
         )
 
-    # Read from SQLite database
-    conn = sqlite3.connect(db_path)
-    try:
-        df = pd.read_sql_query("SELECT * FROM quantities", conn)
-    finally:
-        conn.close()
+    # Read PACS data
+    pacs = read_pacs(xml_path)
 
-    return df
+    if pacs is None:
+        raise ValueError(f"Failed to read PACS data from {xml_path}")
+
+    # Extract dataframe and rename columns to match R function output
+    tbl = pacs['data'].copy()
+    tbl.columns = ['name', 'conc', 'unit', 'refMax', 'refMin', 'refUnit']
+
+    # Return only the reference columns (drop conc)
+    tbl = tbl[['name', 'unit', 'refMax', 'refMin', 'refUnit']]
+
+    return tbl
 
 
 @lru_cache(maxsize=1)
