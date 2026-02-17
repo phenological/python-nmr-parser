@@ -15,68 +15,46 @@ def get_lipo_table(extended: bool = False, with_densities: bool = False) -> pd.D
     """
     Get lipoprotein reference table.
 
-    Returns reference data for 112 lipoprotein measurements with compound
-    names, abbreviations, fractions, and reference ranges.
+    Returns reference data for lipoprotein measurements from test reports.
 
     Parameters
     ----------
     extended : bool, default=False
-        If True, returns extended table with calculated metrics (316 rows)
-        If False, returns raw measurements only (112 rows)
+        If True, applies extend_lipo to add calculated metrics
+        If False, returns raw measurements only
     with_densities : bool, default=False
-        If True, includes density information for lipoprotein fractions
+        Not currently supported (reserved for future use)
 
     Returns
     -------
     pd.DataFrame
-        DataFrame with columns:
-        - fraction: Lipoprotein fraction (HDL, LDL, VLDL, IDL)
-        - name: Full compound name
-        - abbr: Abbreviation
-        - id: Parameter ID
-        - type: Measurement type
-        - value: Reference value (if available)
-        - unit: Unit of measurement
-        - refMax: Maximum reference value
-        - refMin: Minimum reference value
-        - refUnit: Reference unit
-        - tag: Publication label (if extended)
-        - density: Density information (if with_densities=True)
+        DataFrame with lipoprotein measurements and reference ranges
 
     Examples
     --------
     >>> # Get basic lipoprotein table
     >>> lipo = get_lipo_table()
-    >>> len(lipo)
-    112
-
-    >>> # Get extended table with calculated metrics
-    >>> lipo_ext = get_lipo_table(extended=True)
-    >>> len(lipo_ext)
-    316
-
-    >>> # Get table with density information
-    >>> lipo_dens = get_lipo_table(with_densities=True)
-    >>> lipo_dens[['id', 'fraction', 'density']].head()
+    >>> lipo[['id', 'value', 'unit']].head()
     """
-    if with_densities:
-        file_path = DATA_DIR / "lipo_densities.csv"
-    else:
-        file_path = DATA_DIR / "lipo.csv"
+    from nmr_parser.xml_parsers.lipoproteins import read_lipo
 
-    if not file_path.exists():
+    xml_path = DATA_DIR / "lipo_results.xml"
+
+    if not xml_path.exists():
         raise FileNotFoundError(
-            f"Reference data file not found: {file_path}\n"
-            f"Please run data-raw/convert_rda_to_csv.R to generate CSV files."
+            f"Lipoprotein reference data not found: {xml_path}"
         )
 
-    df = pd.read_csv(file_path)
+    lipo = read_lipo(xml_path)
+    if lipo is None:
+        raise ValueError(f"Failed to read lipoprotein data from {xml_path}")
 
-    if extended and not with_densities:
-        # For extended table, we would need to apply extend_lipo
-        # For now, return the base table with a note
-        # In practice, users should call extend_lipo() on read_lipo() results
-        pass
+    df = lipo['data'].copy()
+
+    if extended:
+        from nmr_parser.processing.lipoprotein_calc import extend_lipo
+        result = extend_lipo(lipo)
+        df = result['data']
 
     return df
 
@@ -244,59 +222,49 @@ def get_sm_table(matrix_type: Literal["SER", "PLA", "URI"] = "SER") -> pd.DataFr
     """
     Get small molecules (metabolites) reference table.
 
-    Returns reference data for metabolite quantification with compound
-    names, units, and reference ranges.
+    Returns reference data for metabolite quantification from test reports.
 
     Parameters
     ----------
     matrix_type : {"SER", "PLA", "URI"}, default="SER"
         Sample matrix type:
-        - "SER": Serum
+        - "SER": Serum (uses plasma data)
         - "PLA": Plasma
         - "URI": Urine
 
     Returns
     -------
     pd.DataFrame
-        DataFrame with columns:
-        - Compound: Metabolite name
-        - Unit: Concentration unit
-        - Min Value: Minimum reference value
-        - Max Value: Maximum reference value
-        - Reference Unit: Reference unit
-        - Reference Range: Formatted range string
+        DataFrame with metabolite data including reference ranges
 
     Examples
     --------
-    >>> # Get serum/plasma metabolites (41 compounds)
-    >>> sm_pla = get_sm_table("SER")
-    >>> len(sm_pla)
-    41
+    >>> # Get plasma metabolites (41 compounds)
+    >>> sm_pla = get_sm_table("PLA")
+    >>> sm_pla[['name', 'conc_v', 'concUnit_v']].head()
 
     >>> # Get urine metabolites (150 compounds)
     >>> sm_uri = get_sm_table("URI")
     >>> len(sm_uri)
     150
     """
+    from nmr_parser.xml_parsers.quantification import read_quant
+
     if matrix_type in ["SER", "PLA"]:
-        file_path = DATA_DIR / "brxsm_pla.csv"
-        if not file_path.exists():
-            raise FileNotFoundError(
-                f"Reference data file not found: {file_path}\n"
-                f"Please run data-raw/convert_rda_to_csv.R to generate CSV files."
-            )
-        df = pd.read_csv(file_path)
-
+        xml_path = DATA_DIR / "plasma_quant_report.xml"
     else:  # URI
-        file_path = DATA_DIR / "brxsm_uri.csv"
-        if not file_path.exists():
-            raise FileNotFoundError(
-                f"Reference data file not found: {file_path}\n"
-                f"Please run data-raw/convert_rda_to_csv.R to generate CSV files."
-            )
-        df = pd.read_csv(file_path)
+        xml_path = DATA_DIR / "urine_quant_report_e.xml"
 
-    return df
+    if not xml_path.exists():
+        raise FileNotFoundError(
+            f"Small molecule reference data not found: {xml_path}"
+        )
+
+    quant = read_quant(xml_path)
+    if quant is None:
+        raise ValueError(f"Failed to read quantification data from {xml_path}")
+
+    return quant['data'].copy()
 
 
 # Alias for backwards compatibility
