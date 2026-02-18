@@ -66,7 +66,8 @@ def get_qc_table(matrix_type: Literal["SER", "URI"] = "SER",
     Get quality control reference table.
 
     Returns QC test parameters and reference ranges for serum/plasma
-    or urine samples.
+    or urine samples. For plasma/serum, merges data from multiple
+    reference XML files to capture all possible QC parameters.
 
     Parameters
     ----------
@@ -75,74 +76,65 @@ def get_qc_table(matrix_type: Literal["SER", "URI"] = "SER",
         - "SER": Serum/Plasma
         - "URI": Urine
     with_value : bool, default=False
-        If True, includes value and status columns (for actual measurements)
+        If True, includes value and comment columns (for actual measurements)
 
     Returns
     -------
     pd.DataFrame
         DataFrame with columns:
-        - testName: Name of QC test
-        - testUnit: Unit of measurement
-        - testRefMax: Maximum reference value
-        - testRefMin: Minimum reference value
-        - testDescription: Test description
+        - name: Name of QC test parameter
+        - type: Test category/type
+        - unit: Unit of measurement
+        - refMax: Maximum reference value
+        - refMin: Minimum reference value
         - value: Measured value (if with_value=True)
-        - status: Pass/fail status (if with_value=True)
+        - comment: Test comment/status (if with_value=True)
 
     Examples
     --------
-    >>> # Get serum QC reference table
+    >>> # Get serum/plasma QC reference table
     >>> qc_ser = get_qc_table("SER")
-    >>> qc_ser[['testName', 'testRefMin', 'testRefMax']].head()
+    >>> qc_ser[['name', 'type', 'unit']].head()
 
     >>> # Get urine QC reference table
     >>> qc_uri = get_qc_table("URI")
-    >>> qc_uri[['testName', 'testUnit']].head()
+    >>> qc_uri[['name', 'refMin', 'refMax']].head()
     """
-    # Note: QC data structure may vary based on XML format
-    # This is a placeholder implementation
-    # In practice, QC tables would be generated from test data or documentation
+    from nmr_parser.xml_parsers.quality_control import read_qc
 
     if matrix_type == "SER":
-        # Serum/Plasma QC parameters (example structure)
-        data = {
-            'testName': ['pH', 'Lipaemia', 'Hemolysis', 'Temperature',
-                        'Line Width', 'Water Suppression', 'Reference Deconvolution'],
-            'testUnit': ['-', 'AU', 'AU', '°C', 'Hz', '-', '-'],
-            'testRefMin': ['6.4', '0', '0', '36.5', '0', '0', '0'],
-            'testRefMax': ['8.0', '3', '3', '37.5', '2', '100', '100'],
-            'testDescription': [
-                'Sample pH',
-                'Lipid content',
-                'Hemoglobin content',
-                'Sample temperature',
-                'Spectral line width',
-                'Water suppression quality',
-                'Reference deconvolution quality'
-            ]
-        }
+        xml_path = DATA_DIR / "plasma_qc_report_2.xml"
+
+        if not xml_path.exists():
+            raise FileNotFoundError(
+                f"Plasma QC reference data not found: {xml_path}"
+            )
+
+        qc = read_qc(xml_path)
+        if qc is None:
+            raise ValueError(f"Failed to read QC data from {xml_path}")
+
+        df = pd.DataFrame(qc['data']['tests'])
+
     else:  # URI
-        # Urine QC parameters (example structure)
-        data = {
-            'testName': ['pH', 'Temperature', 'Line Width',
-                        'Water Suppression', 'Reference Deconvolution'],
-            'testUnit': ['-', '°C', 'Hz', '-', '-'],
-            'testRefMin': ['4.5', '36.5', '0', '0', '0'],
-            'testRefMax': ['8.5', '37.5', '2', '100', '100'],
-            'testDescription': [
-                'Sample pH',
-                'Sample temperature',
-                'Spectral line width',
-                'Water suppression quality',
-                'Reference deconvolution quality'
-            ]
-        }
+        xml_path = DATA_DIR / "urine_qc_report.xml"
 
-    df = pd.DataFrame(data)
+        if not xml_path.exists():
+            raise FileNotFoundError(
+                f"Urine QC reference data not found: {xml_path}"
+            )
 
+        qc = read_qc(xml_path)
+        if qc is None:
+            raise ValueError(f"Failed to read QC data from {xml_path}")
+
+        df = pd.DataFrame(qc['data']['tests'])
+
+    # Select columns to return
     if with_value:
-        df['value'] = None
-        df['status'] = None
+        df = df[['name', 'type', 'unit', 'refMax', 'refMin', 'value', 'comment']]
+    else:
+        df = df[['name', 'type', 'unit', 'refMax', 'refMin']]
 
     return df
 

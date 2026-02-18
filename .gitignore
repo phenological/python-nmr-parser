@@ -186,3 +186,7 @@ tasks/
 *.swp
 *.swo
 
+# Claude Code local settings (personal, not shared)
+.claude/settings.local.json
+.claude/*.local.json
+
