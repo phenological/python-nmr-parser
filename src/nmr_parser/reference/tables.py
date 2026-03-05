@@ -80,21 +80,20 @@ def get_qc_table(matrix_type: Literal["SER", "URI"] = "SER",
 
     Returns
     -------
-    pd.DataFrame
-        DataFrame with columns:
-        - name: Name of QC test parameter
-        - type: Test category/type
-        - unit: Unit of measurement
-        - refMax: Maximum reference value
-        - refMin: Minimum reference value
-        - value: Measured value (if with_value=True)
-        - comment: Test comment/status (if with_value=True)
+    pd.DataFrame or dict
+        For "URI": DataFrame with columns name, type, unit, refMax, refMin
+        (plus value, comment if with_value=True).
+
+        For "SER": dict keyed by version string, each value a dict with:
+        - tests: DataFrame of PARAMETER elements (name, type, unit, refMax, refMin)
+        - infos: DataFrame of INFO elements (name, comment, value, ref)
 
     Examples
     --------
     >>> # Get serum/plasma QC reference table
     >>> qc_ser = get_qc_table("SER")
-    >>> qc_ser[['name', 'type', 'unit']].head()
+    >>> for version, tables in qc_ser.items():
+    ...     print(version, len(tables['tests']), len(tables['infos']))
 
     >>> # Get urine QC reference table
     >>> qc_uri = get_qc_table("URI")
@@ -103,18 +102,27 @@ def get_qc_table(matrix_type: Literal["SER", "URI"] = "SER",
     from nmr_parser.xml_parsers.quality_control import read_qc
 
     if matrix_type == "SER":
-        xml_path = DATA_DIR / "plasma_qc_report_2.xml"
+        xml_paths = [
+            DATA_DIR / "plasma_qc_report_2.xml",
+            DATA_DIR / "plasma_qc_report_1_1_0.xml",
+        ]
 
-        if not xml_path.exists():
-            raise FileNotFoundError(
-                f"Plasma QC reference data not found: {xml_path}"
-            )
+        result = {}
+        for xml_path in xml_paths:
+            if not xml_path.exists():
+                raise FileNotFoundError(
+                    f"Plasma QC reference data not found: {xml_path}"
+                )
+            qc = read_qc(xml_path)
+            if qc is None:
+                raise ValueError(f"Failed to read QC data from {xml_path}")
+            test_cols = ['name', 'type', 'unit', 'refMax', 'refMin', 'value', 'comment'] if with_value else ['name', 'type', 'unit', 'refMax', 'refMin']
+            result[qc['version']] = {
+                'tests': pd.DataFrame(qc['data']['tests'])[test_cols],
+                'infos': pd.DataFrame(qc['data']['infos'])[['name', 'comment', 'value', 'ref']],
+            }
 
-        qc = read_qc(xml_path)
-        if qc is None:
-            raise ValueError(f"Failed to read QC data from {xml_path}")
-
-        df = pd.DataFrame(qc['data']['tests'])
+        return result
 
     else:  # URI
         xml_path = DATA_DIR / "urine_qc_report.xml"
@@ -128,15 +136,13 @@ def get_qc_table(matrix_type: Literal["SER", "URI"] = "SER",
         if qc is None:
             raise ValueError(f"Failed to read QC data from {xml_path}")
 
-        df = pd.DataFrame(qc['data']['tests'])
-
-    # Select columns to return
-    if with_value:
-        df = df[['name', 'type', 'unit', 'refMax', 'refMin', 'value', 'comment']]
-    else:
-        df = df[['name', 'type', 'unit', 'refMax', 'refMin']]
-
-    return df
+        test_cols = ['name', 'type', 'unit', 'refMax', 'refMin', 'value', 'comment'] if with_value else ['name', 'type', 'unit', 'refMax', 'refMin']
+        return {
+            qc['version']: {
+                'tests': pd.DataFrame(qc['data']['tests'])[test_cols],
+                'infos': pd.DataFrame(qc['data']['infos'])[['name', 'comment', 'value', 'ref']],
+            }
+        }
 
 
 @lru_cache(maxsize=1)

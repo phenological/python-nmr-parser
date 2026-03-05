@@ -32,6 +32,18 @@ class TestReadQc:
         qc = read_qc(qc_urine_xml)
         assert qc is not None
 
+    def test_read_plasma_qc_1_1_0(self, qc_plasma_1_1_0_xml):
+        """Test reading plasma QC data from v1.1.0 XML."""
+        qc = read_qc(qc_plasma_1_1_0_xml)
+        assert qc is not None
+        assert 'data' in qc
+        assert 'version' in qc
+        assert '1.1.0' in qc['version']
+        assert 'infos' in qc['data']
+        assert 'tests' in qc['data']
+        assert len(qc['data']['infos']['name']) > 0
+        assert len(qc['data']['tests']['name']) > 0
+
     def test_nonexistent_file(self):
         """Test reading non-existent file."""
         result = read_qc("nonexistent.xml")

@@ -71,6 +71,14 @@ def qc_plasma_xml(test_data_dir):
 
 
 @pytest.fixture
+def qc_plasma_1_1_0_xml():
+    """Path to plasma QC XML v1.1.0 (packaged reference data)."""
+    from pathlib import Path
+    import nmr_parser.reference.tables as _t
+    return Path(_t.__file__).parent / "data" / "plasma_qc_report_1_1_0.xml"
+
+
+@pytest.fixture
 def qc_urine_xml(test_data_dir):
     """Path to urine QC XML."""
     return test_data_dir / "urine_qc_report.xml"

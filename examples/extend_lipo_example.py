@@ -20,6 +20,7 @@ IMPORTANT: extend_lipo() only works with read_lipo() output (single experiment),
 not with read_experiment() output (multiple experiments in wide format).
 """
 
+import argparse
 import sys
 import time
 from pathlib import Path
@@ -324,13 +325,17 @@ def show_comparison(lipo_value: pd.DataFrame, lipo_full: dict):
 
 
 def main():
-    if len(sys.argv) < 2:
-        console.print("[red]Error: Please provide path to lipo XML or experiment folder[/red]")
-        console.print(f"\nUsage: {sys.argv[0]} <path_to_lipo.xml>")
-        console.print(f"       {sys.argv[0]} <experiment_folder>")
-        sys.exit(1)
+    parser = argparse.ArgumentParser(
+        description="Extend lipoprotein data with calculated metrics using extend_lipo().",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="Examples:\n"
+               "  python extend_lipo_example.py path/to/lipo.xml\n"
+               "  python extend_lipo_example.py path/to/experiment_folder",
+    )
+    parser.add_argument("path", help="Path to lipo XML file or experiment folder")
+    args = parser.parse_args()
 
-    input_path = Path(sys.argv[1])
+    input_path = Path(args.path)
 
     if not input_path.exists():
         console.print(f"[red]Error: Path not found: {input_path}[/red]")
