@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RESULTS version="BioBankQC PS 1.1.0+release.BioBankQC_PS_1.1.ac8eb1f">
+   <SAMPLE date="05-Sep-2025 07:33:01" name="covid19_harvardFU_COVp345_short_name_DAS"
+           project=""
+           type="plasma/serum">
+      <INFO name="NMR Experiment Quality Test" value="passed"/>
+      <INFO name="NMR Preparation Quality Test" value="passed"/>
+      <INFO name="Matrix Identity Test" value="Heparine plasma/Serum"/>
+      <INFO name="Matrix Integrity Test" value="not passed"/>
+      <INFO name="Matrix Contamination Test" value="not passed"/>
+      <INFO name="PULPROG Test (specified: noesygppr1d,  applied: noesygppr1d)"
+            value="passed"/>
+      <INFO name="AUNM Test (specified: au_ivdr_noesy,  applied: au_ivdr_noesy)"
+            value="passed"/>
+      <INFO name="AUNMP Test (specified: proc_ivdr_noesy,  applied: proc_ivdr_noesy)"
+            value="passed"/>
+      <INFO name="SOLVENT Test (specified: Plasma_3mm,  applied: Plasma_3mm)"
+            value="passed"/>
+      <INFO name="TE Test (specified: 309.9 - 310.1,  applied: 310.0001)" value="passed"/>
+      <INFO name="P1 Test (specified: 9 - 15,  applied: 9.49)" value="passed"/>
+      <INFO name="PRESAT Test (specified: 24 - 26,  applied: 25)" value="passed"/>
+      <INFO name="BF1 Test (specified: 599 - 601,  applied: 600.21)" value="passed"/>
+      <INFO name="O1 Test (specified: 2700 - 2900,  applied: 2822.462)" value="passed"/>
+      <INFO name="D1 Test (specified: 4,  applied: 4)" value="passed"/>
+      <INFO name="ERETIC Test (specified: &gt;300 ,  applied: 4907)" value="passed"/>
+      <INFO name="SWH Test (specified: 18028.846,  applied: 18028.846)" value="passed"/>
+      <INFO name="OVERFLW Test (specified: 0,  applied: 0)" value="passed"/>
+      <INFO name="TD Test (specified: 98304,  applied: 98304)" value="passed"/>
+      <INFO name="NS Test (specified: 128,  applied: 128)" value="passed"/>
+      <INFO name="DS Test (specified: 4,  applied: 4)" value="passed"/>
+      <INFO name="LB Test (specified: 0.3,  applied: 0.3)" value="passed"/>
+      <INFO name="SIZE Test (specified: 131072,  applied: 131072)" value="passed"/>
+      <INFO name="PHC1 Test (specified: 0,  applied: 0)" value="passed"/>
+   </SAMPLE>
+   <CLASSIFICATION/>
+   <VERIFICATION/>
+   <QUANTIFICATION version="1.1.0+release.BioBankQC_PS_1.1.ac8eb1f Research Use Only">
+      <PARAMETER comment="passed" name="Linewidth in Hz" type="NMR Spectral Quality">
+         <VALUE lod="-/-" loq="-/-" unit="Hz" value="1.40" valueext="1.40"/>
+         <REFERENCE source="NMR Database" unit="Hz" vmax=" 1.50" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="Residual Water Signal in mmol/L"
+                 type="NMR Spectral Quality">
+         <VALUE lod="-/-" loq="-/-" unit="mmol/L" value="22.5" valueext="22.5"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax=" 30.0" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="Baseline Signal in mmol/L/Hz"
+                 type="NMR Spectral Quality">
+         <VALUE lod="-/-" loq="-/-" unit="mmol/L/Hz" value="0.0010" valueext="0.0010"/>
+         <REFERENCE source="NMR Database" unit="mmol/L/Hz" vmax=" 0.0020" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="TSP Region Integral -0.5-0.5 ppm in mmol/L"
+                 type="NMR Preparation Quality">
+         <VALUE lod="-/-" loq="-/-" unit="mmol/L" value="32.5" valueext="32.5"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="43.7" vmin="28.1"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="Integral 6-12 ppm in mmol/L"
+                 type="NMR Preparation Quality">
+         <VALUE lod="-/-" loq="-/-" unit="mmol/L" value="114.2" valueext="114.2"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="159.0" vmin="87.0"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="Alanine Chemical Shift in ppm"
+                 type="NMR Preparation Quality">
+         <VALUE lod="-/-" loq="-/-" unit="ppm" value="1.4959" valueext="1.4959"/>
+         <REFERENCE source="NMR Database" unit="ppm" vmax="1.5080" vmin="1.4940"/>
+      </PARAMETER>
+      <PARAMETER comment="Heparine plasma/Serum" name="K-EDTA" type="Matrix Identity Test">
+         <VALUE lod="-/-" loq="-/-" unit="mmol/L" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database: EDTA plasma" unit="mmol/L" vmax="13.000" vmin="2.500"/>
+         <REFERENCE source="NMR Database: Citrate Plasma" unit="mmol/L" vmax=" 0.050" vmin="-/-"/>
+         <REFERENCE source="NMR Database: Heparine Plasma" unit="mmol/L" vmax=" 0.050" vmin="-/-"/>
+         <REFERENCE source="NMR Database: Serum" unit="mmol/L" vmax=" 0.050" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="Heparine plasma/Serum" name="Ca-EDTA" type="Matrix Identity Test">
+         <VALUE lod="-/-" loq="-/-" unit="mmol/L" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database: EDTA plasma" unit="mmol/L" vmax="3.600" vmin="1.300"/>
+         <REFERENCE source="NMR Database: Citrate Plasma" unit="mmol/L" vmax=" 0.010" vmin="-/-"/>
+         <REFERENCE source="NMR Database: Heparine Plasma" unit="mmol/L" vmax=" 0.010" vmin="-/-"/>
+         <REFERENCE source="NMR Database: Serum" unit="mmol/L" vmax=" 0.010" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="Heparine plasma/Serum" name="Citric acid-B"
+                 type="Matrix Identity Test">
+         <VALUE lod="-/-" loq="-/-" unit="mmol/L" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database: EDTA plasma" unit="mmol/L" vmax=" 3.000" vmin="-/-"/>
+         <REFERENCE source="NMR Database: Citrate Plasma" unit="mmol/L" vmax="20.000" vmin="3.100"/>
+         <REFERENCE source="NMR Database: Heparine Plasma" unit="mmol/L" vmax=" 3.000" vmin="-/-"/>
+         <REFERENCE source="NMR Database: Serum" unit="mmol/L" vmax=" 3.000" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="Acetic acid" type="Matrix Integrity Test : Conc.">
+         <VALUE lod="0.010" loq="-/-" unit="mmol/L" value="0.021" valueext="0.021"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax=" 0.100" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="Acetic acid" type="Matrix Integrity Test : Shift">
+         <VALUE lod="-/-" loq="-/-" unit="ppm" value="1.918" valueext="1.918"/>
+         <REFERENCE source="NMR Database" unit="ppm" vmax="1.918" vmin="1.916"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="Citric acid-B" type="Matrix Integrity Test : Conc.">
+         <VALUE lod="0.030" loq="-/-" unit="mmol/L" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax=" 3.000" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="not detected" name="Citric acid-B"
+                 type="Matrix Integrity Test : Shift">
+         <VALUE lod="-/-" loq="-/-" unit="ppm" value="" valueext=""/>
+         <REFERENCE source="NMR Database" unit="ppm" vmax="2.680" vmin="2.657"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="Formic acid" type="Matrix Integrity Test : Conc.">
+         <VALUE lod="0.020" loq="-/-" unit="mmol/L" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax=" 0.200" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="not detected" name="Formic acid" type="Matrix Integrity Test : Shift">
+         <VALUE lod="-/-" loq="-/-" unit="ppm" value="" valueext=""/>
+         <REFERENCE source="NMR Database" unit="ppm" vmax="8.460" vmin="8.458"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="D-Glucose-alpha" type="Matrix Integrity Test : Conc.">
+         <VALUE lod="0.200" loq="-/-" unit="mmol/L" value="1.750" valueext="1.750"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax=" 3.200" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="D-Glucose-alpha" type="Matrix Integrity Test : Shift">
+         <VALUE lod="-/-" loq="-/-" unit="ppm" value="5.239" valueext="5.239"/>
+         <REFERENCE source="NMR Database" unit="ppm" vmax="5.239" vmin="5.237"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="Lactic acid" type="Matrix Integrity Test : Conc.">
+         <VALUE lod="0.030" loq="-/-" unit="mmol/L" value="3.136" valueext="3.136"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax=" 8.100" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="Lactic acid" type="Matrix Integrity Test : Shift">
+         <VALUE lod="-/-" loq="-/-" unit="ppm" value="1.330" valueext="1.330"/>
+         <REFERENCE source="NMR Database" unit="ppm" vmax="1.330" vmin="1.327"/>
+      </PARAMETER>
+      <PARAMETER comment="not passed" name="Contamination-0.88ppm in mmol/L"
+                 type="Contamination Test">
+         <VALUE lod="0.015" loq="-/-" unit="mmol/L" value="0.041" valueext="0.041"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="-/-" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="Contamination-1.25ppm in mmol/L"
+                 type="Contamination Test">
+         <VALUE lod="0.015" loq="-/-" unit="mmol/L" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="-/-" vmin="-/-"/>
+      </PARAMETER>
+      <PARAMETER comment="passed" name="Isopropanol in mmol/L" type="Contamination Test">
+         <VALUE lod="0.020" loq="-/-" unit="mmol/L" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="-/-" vmin="-/-"/>
+      </PARAMETER>
+   </QUANTIFICATION>
+</RESULTS>
