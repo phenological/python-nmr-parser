@@ -267,6 +267,72 @@ eretic = read_eretic("experiment/QuantFactorSample.xml")
 print(eretic['ereticFactor'].iloc[0])
 ```
 
+## Reference Tables
+
+Built-in reference data is bundled with the package and accessible without external files:
+
+```python
+from nmr_parser.reference import get_lipo_table, get_qc_table, get_pacs_table, get_sm_table
+```
+
+### Lipoprotein Table (`get_lipo_table`)
+
+| Rows | Columns |
+|------|---------|
+| 112  | fraction, name, abbr, id, type, value, unit, refMax, refMin, refUnit |
+
+```python
+lipo = get_lipo_table()          # 112 × 10
+lipo_ext = get_lipo_table(extended=True)  # adds 200+ calculated metrics
+```
+
+### QC Tables (`get_qc_table`)
+
+Returns a `dict` keyed by version string, each containing `tests` and `infos` DataFrames.
+
+#### Plasma/Serum (`"SER"`) — 2 versions
+
+| Version | tests rows | infos rows |
+|---------|-----------|-----------|
+| BioBankQC PS 1.0.0 | 22 | 24 |
+| BioBankQC PS 1.1.0 | 22 | 24 |
+
+#### Urine (`"URI"`) — 1 version
+
+| Version | tests rows | infos rows |
+|---------|-----------|-----------|
+| BioBankQC Urine | 28 | 27 |
+
+```python
+qc_ser = get_qc_table("SER")   # dict with 2 versions
+qc_uri = get_qc_table("URI")   # dict with 1 version
+
+for version, tables in qc_ser.items():
+    print(version, len(tables['tests']), len(tables['infos']))
+```
+
+### PACS Table (`get_pacs_table`)
+
+| Rows | Columns |
+|------|---------|
+| 16   | name, unit, refMax, refMin, refUnit |
+
+```python
+pacs = get_pacs_table()   # 16 × 5
+```
+
+### Small Molecule Tables (`get_sm_table`)
+
+| Matrix | Rows | Description |
+|--------|------|-------------|
+| `"PLA"` / `"SER"` | 41  | Plasma metabolites |
+| `"URI"` | 150 | Urine metabolites |
+
+```python
+sm_pla = get_sm_table("PLA")   # 41 metabolites
+sm_uri = get_sm_table("URI")   # 150 metabolites
+```
+
 ## Architecture
 
 ```
@@ -356,7 +422,7 @@ MIT License - See LICENSE file for details
 
 If you use this package, please cite:
 - Original R package: nmr.parser v0.3.4
-- Python package: nmr-parser v0.4.0
+- Python package: nmr-parser v0.4.2
 
 ## Contributing
 
