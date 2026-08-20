@@ -8,6 +8,17 @@ from rich.console import Console
 
 console = Console()
 
+#: Column order of the returned frame, shared by both document shapes so an
+#: empty report still has the same columns as a populated one.
+QUANT_COLUMNS = [
+    'name',
+    'conc_v', 'concUnit_v', 'lod_v', 'lodUnit_v', 'loq_v', 'loqUnit_v',
+    'conc_vr', 'concUnit_vr', 'lod_vr', 'lodUnit_vr', 'loq_vr', 'loqUnit_vr',
+    'sigCorrUnit', 'sigCorr', 'rawConcUnit', 'rawConc', 'errConc', 'errConcUnit',
+    'refMax', 'refMin', 'refUnit',
+]
+
+
 
 def read_quant(file: Union[str, Path]) -> Optional[Dict[str, Any]]:
     """
@@ -194,77 +205,50 @@ def _parse_quant_standard_format(root) -> pd.DataFrame:
     Parse quantification data in standard Quant format.
 
     Uses 'conc' attribute with separate VALUERELATIVE elements.
+
+    Each PARAMETER carries its own VALUE, VALUERELATIVE, RELDATA and
+    REFERENCE, so they are read from inside it. Sweeping the whole document
+    once per attribute and zipping the lists together lines them up by
+    position, which silently shifts every later compound onto its
+    neighbour's numbers as soon as one parameter has fewer children. It also
+    needed a hard coded pad at the front of the six _vr columns, correct
+    only while the one parameter without a VALUERELATIVE is the first one.
     """
-    parameters = root.findall(".//PARAMETER")
-    value_elems = root.findall(".//VALUE")
-    value_relative_elems = root.findall(".//VALUERELATIVE")
-    reldata_elems = root.findall(".//RELDATA")
-    reference_elems = root.findall(".//REFERENCE")
+    records = []
 
-    # Extract parameter names
-    names = [p.get("name", "") for p in parameters]
+    for param in root.findall(".//PARAMETER"):
+        value = param.find("./VALUE")
+        relative = param.find("./VALUERELATIVE")
+        rel_data = param.find("./RELDATA")
+        reference = param.find("./REFERENCE")
 
-    # Extract VALUE attributes
-    conc_v = [v.get("conc", "") for v in value_elems]
-    conc_unit_v = [v.get("concUnit", "") for v in value_elems]
-    lod_v = [v.get("lod", "") for v in value_elems]
-    lod_unit_v = [v.get("lodUnit", "") for v in value_elems]
-    loq_v = [v.get("loq", "") for v in value_elems]
-    loq_unit_v = [v.get("loqUnit", "") for v in value_elems]
+        def attr(elem, name):
+            """Absent element or absent attribute both read as missing."""
+            return None if elem is None else elem.get(name)
 
-    # Extract VALUERELATIVE attributes (prepend NA for first compound)
-    conc_vr = [None] + [v.get("conc", "") for v in value_relative_elems]
-    conc_unit_vr = [None] + [v.get("concUnit", "") for v in value_relative_elems]
-    lod_vr = [None] + [v.get("lod", "") for v in value_relative_elems]
-    lod_unit_vr = [None] + [v.get("lodUnit", "") for v in value_relative_elems]
-    loq_vr = [None] + [v.get("loq", "") for v in value_relative_elems]
-    loq_unit_vr = [None] + [v.get("loqUnit", "") for v in value_relative_elems]
+        records.append({
+            'name': param.get("name", ""),
+            'conc_v': attr(value, "conc"),
+            'concUnit_v': attr(value, "concUnit"),
+            'lod_v': attr(value, "lod"),
+            'lodUnit_v': attr(value, "lodUnit"),
+            'loq_v': attr(value, "loq"),
+            'loqUnit_v': attr(value, "loqUnit"),
+            'conc_vr': attr(relative, "conc"),
+            'concUnit_vr': attr(relative, "concUnit"),
+            'lod_vr': attr(relative, "lod"),
+            'lodUnit_vr': attr(relative, "lodUnit"),
+            'loq_vr': attr(relative, "loq"),
+            'loqUnit_vr': attr(relative, "loqUnit"),
+            'sigCorrUnit': attr(rel_data, "sigCorrUnit"),
+            'sigCorr': attr(rel_data, "sigCorr"),
+            'rawConcUnit': attr(rel_data, "rawConcUnit"),
+            'rawConc': attr(rel_data, "rawConc"),
+            'errConc': attr(rel_data, "errConc"),
+            'errConcUnit': attr(rel_data, "errConcUnit"),
+            'refMax': attr(reference, "vmax"),
+            'refMin': attr(reference, "vmin"),
+            'refUnit': attr(reference, "unit"),
+        })
 
-    # Extract RELDATA attributes
-    sig_corr_unit = [r.get("sigCorrUnit", "") for r in reldata_elems]
-    sig_corr = [r.get("sigCorr", "") for r in reldata_elems]
-    raw_conc_unit = [r.get("rawConcUnit", "") for r in reldata_elems]
-    raw_conc = [r.get("rawConc", "") for r in reldata_elems]
-    err_conc = [r.get("errConc", "") for r in reldata_elems]
-    err_conc_unit = [r.get("errConcUnit", "") for r in reldata_elems]
-
-    # Extract REFERENCE attributes
-    ref_max = [r.get("vmax", "") for r in reference_elems]
-    ref_min = [r.get("vmin", "") for r in reference_elems]
-    ref_unit = [r.get("unit", "") for r in reference_elems]
-
-    # Ensure all lists have the same length (pad if necessary)
-    n = len(names)
-    for lst in [conc_v, conc_unit_v, lod_v, lod_unit_v, loq_v, loq_unit_v,
-                conc_vr, conc_unit_vr, lod_vr, lod_unit_vr, loq_vr, loq_unit_vr,
-                sig_corr_unit, sig_corr, raw_conc_unit, raw_conc, err_conc, err_conc_unit,
-                ref_max, ref_min, ref_unit]:
-        while len(lst) < n:
-            lst.append("")
-
-    df = pd.DataFrame({
-        'name': names,
-        'conc_v': conc_v,
-        'concUnit_v': conc_unit_v,
-        'lod_v': lod_v,
-        'lodUnit_v': lod_unit_v,
-        'loq_v': loq_v,
-        'loqUnit_v': loq_unit_v,
-        'conc_vr': conc_vr,
-        'concUnit_vr': conc_unit_vr,
-        'lod_vr': lod_vr,
-        'lodUnit_vr': lod_unit_vr,
-        'loq_vr': loq_vr,
-        'loqUnit_vr': loq_unit_vr,
-        'sigCorrUnit': sig_corr_unit,
-        'sigCorr': sig_corr,
-        'rawConcUnit': raw_conc_unit,
-        'rawConc': raw_conc,
-        'errConc': err_conc,
-        'errConcUnit': err_conc_unit,
-        'refMax': ref_max,
-        'refMin': ref_min,
-        'refUnit': ref_unit
-    })
-
-    return df
+    return pd.DataFrame(records, columns=QUANT_COLUMNS)
