@@ -141,3 +141,51 @@ class TestStandardFormatAlignment:
         assert data["conc_vr"].notna().iloc[0]
         assert pd.isna(data["conc_vr"].iloc[10])
         assert data["conc_vr"].isna().sum() == 1
+
+
+class TestFormatDispatch:
+    """The document decides which parser runs, not the file name (issue #9).
+
+    Bruker gives both shapes the same version attribute, so the name used to
+    pick the branch. Renaming a report then read it with the wrong parser,
+    which returned a full set of compounds with blank concentrations.
+    """
+
+    @pytest.mark.parametrize("fixture_name", [
+        "plasma_quant_report_ver_1_0.xml",
+        "urine_quant_report_b_ver_1_0.xml",
+    ])
+    def test_an_extended_report_renamed_without_ver_still_parses(
+            self, test_data_dir, tmp_path, fixture_name):
+        source = next(test_data_dir.rglob(fixture_name))
+        renamed = tmp_path / "plasma_quant_report_copy.xml"
+        renamed.write_bytes(source.read_bytes())
+
+        original = read_quant(source)["data"]
+        copied = read_quant(renamed)["data"]
+
+        pd.testing.assert_frame_equal(copied, original)
+        assert copied["conc_v"].notna().any(), "renaming blanked the concentrations"
+
+    def test_a_standard_report_renamed_with_ver_still_parses(
+            self, test_data_dir, tmp_path):
+        source = next(test_data_dir.rglob("urine_quant_report_b.xml"))
+        renamed = tmp_path / "urine_quant_report_b_ver_9_9.xml"
+        renamed.write_bytes(source.read_bytes())
+
+        original = read_quant(source)["data"]
+        copied = read_quant(renamed)["data"]
+
+        pd.testing.assert_frame_equal(copied, original)
+        assert copied["rawConc"].notna().any()
+
+    def test_a_document_of_neither_shape_is_refused(self, tmp_path):
+        report = tmp_path / "not_a_quant_report.xml"
+        report.write_text(
+            '<?xml version="1.0" encoding="utf-8"?>'
+            '<RESULTS version="Quant-UR B.1.1.0  Reseach Use Only">'
+            '<QUANTIFICATION version="Quant-UR B.1.1.0  Reseach Use Only">'
+            '<PARAMETER name="Alpha" type="quantification"/>'
+            '</QUANTIFICATION></RESULTS>'
+        )
+        assert read_quant(report) is None

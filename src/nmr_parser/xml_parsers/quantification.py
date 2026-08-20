@@ -85,18 +85,28 @@ def read_quant(file: Union[str, Path]) -> Optional[Dict[str, Any]]:
         version_elem = root.find(".//QUANTIFICATION")
         version = version_elem.get("version", "") if version_elem is not None else ""
 
-        # Determine format based on filename or version
-        file_str = str(file)
-        is_ver_format = "_ver_" in file_str
+        # Ask the document which shape it is, not the file name. Bruker gives
+        # both shapes the same version attribute (plasma_quant_report.xml and
+        # plasma_quant_report_ver_1_0.xml both say "Quant-PS 2.0.0"), so the
+        # version cannot separate them and the name used to. A name is an
+        # external label: copying a report out of pdata/1 under a tidier name
+        # made the wrong branch read it, which returns every compound with a
+        # blank concentration rather than an error.
+        # The content is unambiguous: the extended shape puts valueext on its
+        # VALUE nodes and carries no RELDATA.
+        is_ver_format = root.find(".//VALUE[@valueext]") is not None
+        has_reldata = root.find(".//RELDATA") is not None
 
         if is_ver_format:
-            # Version 1 format: Uses valueext attribute
+            # Extended format: concentrations live on VALUE/@valueext
             data = _parse_quant_ver_format(root)
-        elif "Quant" in version:
-            # Version 2 format: Uses conc attribute
+        elif has_reldata and "Quant" in version:
+            # Standard format: concentrations live on VALUE/@conc and RELDATA
             data = _parse_quant_standard_format(root)
         else:
-            console.print(f"[red]readQuant >> {file} version not recognized[/red]")
+            console.print(
+                f"[red]readQuant >> {file} version not recognized: {version}[/red]"
+            )
             return None
 
         result = {
