@@ -134,35 +134,32 @@ def _parse_quant_ver_format(root) -> pd.DataFrame:
     for param in parameters:
         name = param.get("name", "")
 
-        # Get VALUE elements
-        value_elems = param.findall(".//VALUE")
+        # The absolute concentration is on the first VALUE and the creatinine
+        # relative one on the second, where there is one. An absent element or
+        # attribute reads as missing rather than as an empty string, which is
+        # what R records and what the standard shape above now returns.
+        value_elems = param.findall("./VALUE")
+        absolute = value_elems[0] if len(value_elems) > 0 else None
+        relative = value_elems[1] if len(value_elems) > 1 else None
 
-        # First VALUE element
-        if len(value_elems) > 0:
-            val1 = value_elems[0]
-            conc_v = val1.get("valueext", "")
-            conc_unit_v = val1.get("unit", "")
-            lod_v = val1.get("lod", "")
-            lod_unit_v = val1.get("unit", "")
-            loq_v = val1.get("loq", "")
-            loq_unit_v = val1.get("unit", "")
-            raw_conc_unit = val1.get("unit", "")
-            raw_conc = val1.get("valueext", "")
-        else:
-            conc_v = conc_unit_v = lod_v = lod_unit_v = loq_v = loq_unit_v = ""
-            raw_conc_unit = raw_conc = ""
+        def attr(elem, name):
+            return None if elem is None else elem.get(name)
 
-        # Second VALUE element (relative values)
-        if len(value_elems) > 1:
-            val2 = value_elems[1]
-            conc_vr = val2.get("valueext", "")
-            conc_unit_vr = val2.get("unit", "")
-            lod_vr = val2.get("lod", "")
-            lod_unit_vr = val2.get("unit", "")
-            loq_vr = val2.get("loq", "")
-            loq_unit_vr = val2.get("unit", "")
-        else:
-            conc_vr = conc_unit_vr = lod_vr = lod_unit_vr = loq_vr = loq_unit_vr = ""
+        conc_v = attr(absolute, "valueext")
+        conc_unit_v = attr(absolute, "unit")
+        lod_v = attr(absolute, "lod")
+        lod_unit_v = attr(absolute, "unit")
+        loq_v = attr(absolute, "loq")
+        loq_unit_v = attr(absolute, "unit")
+        raw_conc_unit = attr(absolute, "unit")
+        raw_conc = attr(absolute, "valueext")
+
+        conc_vr = attr(relative, "valueext")
+        conc_unit_vr = attr(relative, "unit")
+        lod_vr = attr(relative, "lod")
+        lod_unit_vr = attr(relative, "unit")
+        loq_vr = attr(relative, "loq")
+        loq_unit_vr = attr(relative, "unit")
 
         # Signal correction and error (not available in this format)
         sig_corr_unit = None
@@ -170,17 +167,15 @@ def _parse_quant_ver_format(root) -> pd.DataFrame:
         err_conc = None
         err_conc_unit = None
 
-        # Get REFERENCE element (skip for Creatinine)
-        if name != "Creatinine":
-            ref_elems = param.findall(".//REFERENCE")
-            if ref_elems:
-                ref_max = ref_elems[0].get("vmax", "")
-                ref_min = ref_elems[0].get("vmin", "")
-                ref_unit = ref_elems[0].get("unit", "")
-            else:
-                ref_max = ref_min = ref_unit = ""
-        else:
-            ref_max = ref_min = ref_unit = ""
+        # Creatinine used to be special cased to blank here, although its
+        # REFERENCE is present and is the same node the standard shape reads,
+        # so the same sample carried a range in one report version and not in
+        # the other. find() rather than findall()[0]: a parameter with no
+        # REFERENCE reads as missing in place.
+        reference = param.find("./REFERENCE")
+        ref_max = reference.get("vmax") if reference is not None else None
+        ref_min = reference.get("vmin") if reference is not None else None
+        ref_unit = reference.get("unit") if reference is not None else None
 
         records.append({
             'name': name,
@@ -207,7 +202,7 @@ def _parse_quant_ver_format(root) -> pd.DataFrame:
             'refUnit': ref_unit
         })
 
-    return pd.DataFrame(records)
+    return pd.DataFrame(records, columns=QUANT_COLUMNS)
 
 
 def _parse_quant_standard_format(root) -> pd.DataFrame:

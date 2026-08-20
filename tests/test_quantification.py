@@ -189,3 +189,53 @@ class TestFormatDispatch:
             '</QUANTIFICATION></RESULTS>'
         )
         assert read_quant(report) is None
+
+
+class TestCreatinineReference:
+    """Both report shapes must report creatinine's reference range (issue #12).
+
+    The extended parser special cased it to blank although the REFERENCE node
+    is present and identical to the one the standard parser reads, so the same
+    sample carried a range in one version and not in the other.
+    """
+
+    @pytest.mark.parametrize("extended_name,standard_name", [
+        ("plasma_quant_report_ver_1_0.xml", "plasma_quant_report.xml"),
+        ("urine_quant_report_b_ver_1_0.xml", "urine_quant_report_b.xml"),
+        ("urine_quant_report_ne_ver_1_0.xml", "urine_quant_report_ne.xml"),
+        ("urine_quant_report_e_ver_1_0.xml", "urine_quant_report_e.xml"),
+    ])
+    def test_the_two_shapes_agree(self, test_data_dir, extended_name, standard_name):
+        def reference(path):
+            data = read_quant(path)["data"]
+            row = data.index[data["name"] == "Creatinine"]
+            assert len(row) == 1, f"no creatinine in {path.name}"
+            return tuple(data.loc[row[0], c] for c in ("refMax", "refMin", "refUnit"))
+
+        extended = reference(next(test_data_dir.rglob(extended_name)))
+        standard = reference(next(test_data_dir.rglob(standard_name)))
+
+        assert not any(pd.isna(v) for v in extended), "extended shape dropped the range"
+        assert extended == standard
+
+    def test_a_parameter_without_a_reference_reads_missing_not_blank(self, tmp_path):
+        report = tmp_path / "extended_noref.xml"
+        report.write_text(
+            '<?xml version="1.0" encoding="utf-8"?>'
+            '<RESULTS version="Quant-UR B.1.1.0  Reseach Use Only">'
+            '<QUANTIFICATION version="Quant-UR B.1.1.0  Reseach Use Only">'
+            '<PARAMETER name="Alanine" type="quantification">'
+            '<VALUE lod="0.3" loq="-" unit="mmol/L" value="1" valueext="1"/>'
+            '<REFERENCE source="NMR Database" unit="mmol/L" vmax="19" vmin="1"/>'
+            '</PARAMETER>'
+            '<PARAMETER name="Betaine" type="quantification">'
+            '<VALUE lod="0.3" loq="-" unit="mmol/L" value="2" valueext="2"/>'
+            '</PARAMETER>'
+            '</QUANTIFICATION></RESULTS>'
+        )
+        data = read_quant(report)["data"]
+
+        assert list(data["name"]) == ["Alanine", "Betaine"]
+        assert data["refMax"].iloc[0] == "19"
+        assert pd.isna(data["refMax"].iloc[1])
+        assert list(data["conc_v"]) == ["1", "2"]
