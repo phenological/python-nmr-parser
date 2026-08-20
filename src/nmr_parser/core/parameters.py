@@ -56,14 +56,24 @@ def read_param(path: Union[str, Path], param_name: Union[str, List[str]]) -> Opt
     parameters = []
 
     for pname in param_name:
-        # Look for lines like ##$PARAMNAME= or ##PARAMNAME=
-        pattern = f"{pname}="
-        matching_lines = [i for i, line in enumerate(txt) if pattern in line]
+        # Anchored on the declaration. Matching the name anywhere in the line
+        # read the first line that happened to contain it, and acqus files are
+        # ordered alphabetically, which put LOCSW ahead of SW, DATE ahead of TE
+        # and CPDPRG ahead of RG. A prefix comparison also takes the name
+        # literally, so one containing . or + is not read as a pattern.
+        prefixes = (f"##${pname}=", f"##{pname}=")
+        matching_lines = [i for i, line in enumerate(txt) if line.startswith(prefixes)]
 
         if not matching_lines:
             console.print(f"[yellow]readParam param {pname} not found in {path}[/yellow]")
             parameters.append(None)
             continue
+
+        if len(matching_lines) > 1:
+            console.print(
+                f"[yellow]readParam param {pname} declared "
+                f"{len(matching_lines)} times in {path}, using the first[/yellow]"
+            )
 
         idx = matching_lines[0]
         line = txt[idx]
