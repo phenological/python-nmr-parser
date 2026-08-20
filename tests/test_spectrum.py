@@ -82,3 +82,38 @@ class TestReadSpectrum:
         """Test reading non-existent experiment."""
         result = read_spectrum("nonexistent/experiment")
         assert result is None
+
+
+class TestMissingProcsParameter:
+    """A procs missing a parameter must be refused, not guessed at (#11)."""
+
+    @staticmethod
+    def _expno_without(tmp_path, source_expno, param):
+        import shutil
+        expno = tmp_path / "10"
+        shutil.copytree(source_expno, expno)
+        procs = expno / "pdata" / "1" / "procs"
+        kept = [line for line in procs.read_text().splitlines(True)
+                if not line.startswith(f"##${param}=")]
+        procs.write_text("".join(kept))
+        return expno
+
+    @pytest.mark.parametrize("param", ["BYTORDP", "SW_p", "OFFSET", "NC_proc"])
+    def test_a_missing_parameter_gives_none(self, covid_sample_10, tmp_path, param):
+        expno = self._expno_without(tmp_path, covid_sample_10, param)
+        assert read_spectrum(expno) is None
+
+    def test_missing_bytordp_does_not_silently_byte_swap(self, covid_sample_10, tmp_path):
+        """endian was derived before the guard and the guard checked endian,
+        a string, rather than bytordp, so this returned garbage that looks
+        like a spectrum."""
+        good = read_spectrum(covid_sample_10)
+        assert good is not None
+
+        expno = self._expno_without(tmp_path, covid_sample_10, "BYTORDP")
+        assert read_spectrum(expno) is None
+
+    def test_the_message_names_the_missing_parameter(self, covid_sample_10, tmp_path, capsys):
+        expno = self._expno_without(tmp_path, covid_sample_10, "SW_p")
+        read_spectrum(expno)
+        assert "SW_p" in capsys.readouterr().out

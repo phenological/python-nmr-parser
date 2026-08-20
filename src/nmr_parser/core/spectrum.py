@@ -192,8 +192,6 @@ def read_spectrum(expno: Union[str, Path],
 
     # Read important parameters
     bytordp = read_param(file_procs, "BYTORDP")
-    endian = "little" if bytordp == 0 else "big"
-
     nc = read_param(file_procs, "NC_proc")
     size = read_param(file_procs, "FTSIZE")
     sf = read_param(file_procs, "SF")
@@ -202,11 +200,24 @@ def read_spectrum(expno: Union[str, Path],
     phc0 = read_param(file_procs, "PHC0")
     phc1 = read_param(file_procs, "PHC1")
 
-    # Check for empty parameters
-    params = [endian, nc, size, sf, sw_p, offset, phc0, phc1, bf1]
-    if any(p is None for p in params):
-        console.print(f"[yellow]readSpectrum >> empty parameter for {expno}[/yellow]")
+    # Check for empty parameters, naming the ones that are missing.
+    # bytordp has to be in here rather than the endianness derived from it:
+    # read_param returns None when the parameter is absent, None == 0 is
+    # False, so endian silently became "big" and, being a string, could never
+    # trip the guard. A procs without BYTORDP then returned a byte swapped
+    # spectrum that looks like data and is not.
+    params = {"BYTORDP": bytordp, "NC_proc": nc, "FTSIZE": size, "SF": sf,
+              "SW_p": sw_p, "OFFSET": offset, "PHC0": phc0, "PHC1": phc1,
+              "BF1": bf1}
+    missing = [name for name, value in params.items() if value is None]
+    if missing:
+        console.print(
+            f"[yellow]readSpectrum >> empty parameter "
+            f"{', '.join(missing)} for {expno}[/yellow]"
+        )
         return None
+
+    endian = "little" if bytordp == 0 else "big"
 
     if phc1 != 0:
         console.print(f"[yellow]readSpectrum >> phc1 is expected to be 0 in IVDr experiments. Found: {phc1}[/yellow]")
