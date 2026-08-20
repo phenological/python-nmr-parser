@@ -630,9 +630,18 @@ def _calculate_spcglyc(
         trimmed_spectra[flip_idx, :] = -trimmed_spectra[flip_idx, :]
 
     # 3. Extract specific regions for output (lines 301-316)
-    # TSP region (0-0.5 ppm)
-    tsp_region = spectra[:, (ppm >= ppm.min()) & (ppm <= 0.5)]
-    tsp_ppm = ppm[(ppm >= ppm.min()) & (ppm <= 0.5)]
+    # TSP region (0-0.5 ppm). It has to come from the untrimmed spectra,
+    # since the trim removes everything below 0.2 ppm, which means the flip
+    # correction applied to trimmed_spectra above never reached it: a sample
+    # detected as flipped came back with an inverted TSP region while its SPC
+    # and Glyc regions, and every integral, were the right way up.
+    # .copy() so that negating below cannot write back into spectra.
+    tsp_mask = (ppm >= ppm.min()) & (ppm <= 0.5)
+    tsp_region = spectra[:, tsp_mask].copy()
+    tsp_ppm = ppm[tsp_mask]
+
+    if len(flip_idx) > 0:
+        tsp_region[flip_idx, :] = -tsp_region[flip_idx, :]
 
     # SPC region (3.18-3.32 ppm)
     spc_region = trimmed_spectra[:, (trimmed_ppm > 3.18) & (trimmed_ppm < 3.32)]

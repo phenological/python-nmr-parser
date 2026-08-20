@@ -78,3 +78,47 @@ class TestThreeMillimetreCorrection:
         df, _ = _run(["/data/normal/10", "/data/3MM/10"])
         assert df["SPC_All"].iloc[1] == pytest.approx(df["SPC_All"].iloc[0] / 2)
         assert df["SPC3_2"].iloc[1] == pytest.approx(df["SPC3_2"].iloc[0])
+
+
+class TestFlipCorrection:
+    """A flipped sample must come back consistent (issue #3).
+
+    The 180 degree correction was applied to trimmed_spectra, but the TSP
+    region was sliced out of the original, uncorrected spectra, so a flipped
+    sample had an inverted TSP while everything else was the right way up.
+    """
+
+    @staticmethod
+    def _run_with_flip(flip_second):
+        ppm, y = _synthetic_spectrum()
+        rows = [y, -y if flip_second else y]
+        spectra = np.vstack(rows)
+        loe = pd.DataFrame({"dataPath": ["/data/a/10", "/data/b/10"],
+                            "experiment": ["noesygppr1d"] * 2})
+        matrix, var_names, extra = _calculate_spcglyc(spectra, ppm, loe, _SilentLog())
+        return pd.DataFrame(matrix, columns=var_names), extra
+
+    def test_a_flipped_sample_gives_the_same_integrals_as_an_unflipped_one(self):
+        df, _ = self._run_with_flip(flip_second=True)
+        for column in ["SPC_All", "SPC3", "SPC2", "Glyc_All"]:
+            assert df[column].iloc[1] == pytest.approx(df[column].iloc[0]), column
+
+    def test_the_tsp_region_is_corrected_too(self):
+        """This is the inconsistency: TSP must point the same way as SPC."""
+        flipped, extra_flipped = self._run_with_flip(flip_second=True)
+        _, extra_plain = self._run_with_flip(flip_second=False)
+
+        tsp = np.asarray(extra_flipped["tsp"])
+        reference = np.asarray(extra_plain["tsp"])
+
+        np.testing.assert_allclose(tsp[1], reference[0], rtol=1e-9, atol=1e-12)
+
+    def test_the_input_array_is_not_modified(self):
+        """Negating a basic slice in place would write back into spectra."""
+        ppm, y = _synthetic_spectrum()
+        spectra = np.vstack([y, -y])
+        before = spectra.copy()
+        loe = pd.DataFrame({"dataPath": ["/data/a/10", "/data/b/10"],
+                            "experiment": ["noesygppr1d"] * 2})
+        _calculate_spcglyc(spectra, ppm, loe, _SilentLog())
+        np.testing.assert_array_equal(spectra, before)
