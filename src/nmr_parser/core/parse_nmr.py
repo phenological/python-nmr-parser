@@ -34,6 +34,12 @@ console = Console()
 logger = logging.getLogger(__name__)
 
 
+#: The measurements parse_nmr can read. Exactly one per call: the output
+#: carries a single data matrix, variable list and method, so a second value
+#: has nowhere to go.
+SUPPORTED_WHAT = ('spec', 'brxlipo', 'brxpacs', 'brxsm', 'spcglyc')
+
+
 def parse_nmr(
     folder: Union[str, Path, List[str], Dict[str, Any]],
     opts: Optional[Dict[str, Any]] = None
@@ -117,6 +123,7 @@ def parse_nmr(
     ...     "data/experiments/",
     ...     opts={
     ...         'what': ['spec'],
+        'tests': False,
     ...         'projectName': 'HB',
     ...         'cohortName': 'COVID',
     ...         'runName': 'EXTr01',
@@ -173,6 +180,27 @@ def parse_nmr(
 
     # Create logger with specified verbosity
     log = get_logger(opts['verbosity'])
+
+    # data_matrix, var_names, data_type and opts['method'] can each describe
+    # only one measurement, so more than one value could never be honoured.
+    # The if/elif chain below silently read whichever came first in the chain
+    # rather than whichever the caller wrote first, and an unsupported value
+    # fell through to "No data was read", which says nothing about the input.
+    what = opts['what']
+    if isinstance(what, str):
+        what = [what]
+    opts['what'] = list(what)
+
+    if len(opts['what']) != 1:
+        raise ValueError(
+            f"what must name a single measurement, got {opts['what']!r}. "
+            f"Each measurement is written to its own collection."
+        )
+    if opts['what'][0] not in SUPPORTED_WHAT:
+        raise ValueError(
+            f"unsupported what: {opts['what'][0]!r}, "
+            f"expected one of {SUPPORTED_WHAT}"
+        )
 
     # Handle spcglyc special case (lines 50-57 in R)
     if 'spcglyc' in opts['what']:
@@ -258,8 +286,16 @@ def parse_nmr(
     log.step("Reading acquisition parameters", LogLevel.INFO)
     acqus_data = _read_acqus_params(loe['dataPath'].tolist(), log)
 
-    log.step("Checking for IVDr QC data", LogLevel.INFO)
-    qc_data, is_ivdr = _read_qc_data(loe['dataPath'].tolist(), log)
+    # The QC report is a per sample XML parse whose output feeds only the
+    # is_ivdr flag and the QC rows in the parameters table, so on a run of a
+    # few hundred samples it is often work done for nothing. Behind an option,
+    # in the same shape as the R `tests` option.
+    qc_data, is_ivdr = None, False
+    if opts.get('tests', False):
+        log.step("Checking for IVDr QC data", LogLevel.INFO)
+        qc_data, is_ivdr = _read_qc_data(loe['dataPath'].tolist(), log)
+        if not is_ivdr:
+            log.warning("tests requested but no QC data found, none will be stored")
 
     # ========================================================================
     # MERGING AND ALIGNMENT
