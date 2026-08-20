@@ -69,25 +69,16 @@ def read_pacs(file: Union[str, Path]) -> Optional[Dict[str, Any]]:
         for param in parameters:
             name = param.get("name", "")
 
-            # Get VALUE element (using PARAMETER/VALUE path)
-            value_elem = param.find(".//VALUE")
-            if value_elem is not None:
-                conc_v = value_elem.get("conc", "")
-                conc_unit_v = value_elem.get("concUnit", "")
-            else:
-                conc_v = ""
-                conc_unit_v = ""
+            # Absent reads as missing rather than as an empty string, so that
+            # "not reported" is distinguishable downstream and matches R's NA.
+            value_elem = param.find("./VALUE")
+            conc_v = None if value_elem is None else value_elem.get("conc")
+            conc_unit_v = None if value_elem is None else value_elem.get("concUnit")
 
-            # Get REFERENCE element (using PARAMETER/REFERENCE path)
-            ref_elem = param.find(".//REFERENCE")
-            if ref_elem is not None:
-                ref_max = ref_elem.get("vmax", "")
-                ref_min = ref_elem.get("vmin", "")
-                ref_unit = ref_elem.get("unit", "")
-            else:
-                ref_max = ""
-                ref_min = ""
-                ref_unit = ""
+            ref_elem = param.find("./REFERENCE")
+            ref_max = None if ref_elem is None else ref_elem.get("vmax")
+            ref_min = None if ref_elem is None else ref_elem.get("vmin")
+            ref_unit = None if ref_elem is None else ref_elem.get("unit")
 
             names.append(name)
             conc_vs.append(conc_v)

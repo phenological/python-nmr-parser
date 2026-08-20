@@ -1,5 +1,6 @@
 """Tests for lipoprotein functions."""
 
+import pandas as pd
 import pytest
 from nmr_parser.xml_parsers import read_lipo
 from nmr_parser.processing import extend_lipo, extend_lipo_value
@@ -263,3 +264,57 @@ class TestLipoClosure:
         particle_number = (sum(val[f"L{i}PN_frac"] for i in range(1, 7))
                            + val["VLPN_pct"] + val["IDPN_pct"])
         assert particle_number == pytest.approx(100, abs=0.05)
+
+
+class TestMissingReadsAsMissing:
+    """Absent values must be NaN, not 0.0 (issue #13).
+
+    0.0 is a legitimate measurement, so encoding "not reported" the same way
+    made the two indistinguishable, and a missing reference became a range of
+    0 to 0 against which every value looks out of range.
+    """
+
+    @staticmethod
+    def _one_parameter(tmp_path, value_attrs, reference):
+        report = tmp_path / "lipo_results.xml"
+        report.write_text(
+            '<?xml version="1.0" encoding="utf-8"?>'
+            '<RESULTS><QUANTIFICATION version="PL-5009-01/001">'
+            '<PARAMETER comment="Main Parameters, Triglycerides, TG"'
+            ' name="TPTG" type="prediction">'
+            f'{value_attrs}{reference}'
+            '</PARAMETER>'
+            '</QUANTIFICATION></RESULTS>'
+        )
+        return read_lipo(report)["data"]
+
+    def test_a_parameter_with_no_value_is_nan_not_zero(self, tmp_path):
+        data = self._one_parameter(
+            tmp_path, "", '<REFERENCE unit="mg/dL" vmax="489" vmin="53"/>')
+        assert pd.isna(data["value"].iloc[0])
+
+    def test_a_parameter_with_no_reference_is_nan_not_zero(self, tmp_path):
+        data = self._one_parameter(
+            tmp_path, '<VALUE unit="mg/dL" value="99.68"/>', "")
+        assert data["value"].iloc[0] == pytest.approx(99.68)
+        assert pd.isna(data["refMax"].iloc[0])
+        assert pd.isna(data["refMin"].iloc[0])
+
+    def test_a_dash_reads_as_missing_rather_than_failing_the_file(self, tmp_path):
+        """Bruker writes "-" for a value it did not report. float() rejects it,
+        and the exception used to take the whole file down to None."""
+        data = self._one_parameter(
+            tmp_path, '<VALUE unit="mg/dL" value="-"/>',
+            '<REFERENCE unit="mg/dL" vmax="-" vmin="53"/>')
+        assert data is not None
+        assert pd.isna(data["value"].iloc[0])
+        assert pd.isna(data["refMax"].iloc[0])
+        assert data["refMin"].iloc[0] == pytest.approx(53)
+
+    def test_a_real_zero_is_still_zero(self, tmp_path):
+        data = self._one_parameter(
+            tmp_path, '<VALUE unit="mg/dL" value="0"/>',
+            '<REFERENCE unit="mg/dL" vmax="489" vmin="0"/>')
+        assert data["value"].iloc[0] == 0.0
+        assert not pd.isna(data["value"].iloc[0])
+        assert data["refMin"].iloc[0] == 0.0

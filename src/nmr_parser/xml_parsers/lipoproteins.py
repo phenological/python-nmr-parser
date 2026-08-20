@@ -9,6 +9,26 @@ from rich.console import Console
 console = Console()
 
 
+def _text_attr(elem, name):
+    """Attribute as text, or None when the element or attribute is absent."""
+    return None if elem is None else elem.get(name)
+
+
+def _float_attr(elem, name):
+    """Attribute as a float, or NaN when absent or not a number.
+
+    Bruker writes "-" for a value it did not report, which float() rejects.
+    """
+    raw = _text_attr(elem, name)
+    if raw is None:
+        return float("nan")
+    try:
+        return float(raw)
+    except ValueError:
+        return float("nan")
+
+
+
 def read_lipo(file: Union[str, Path]) -> Optional[Dict[str, Any]]:
     """
     Extract lipoprotein quantification information from a Bruker XML file.
@@ -90,25 +110,18 @@ def read_lipo(file: Union[str, Path]) -> Optional[Dict[str, Any]]:
             name = comment_parts[1].strip() if len(comment_parts) > 1 else ""
             abbr = comment_parts[2].strip() if len(comment_parts) > 2 else ""
 
-            # Get VALUE element
-            value_elem = param.find(".//VALUE")
-            if value_elem is not None:
-                value = float(value_elem.get("value", "0"))
-                unit = value_elem.get("unit", "")
-            else:
-                value = 0.0
-                unit = ""
+            # An absent element, an absent attribute or one Bruker wrote as
+            # "-" all read as missing. Substituting 0.0 made "not reported"
+            # indistinguishable from a measured zero, and a missing reference
+            # became a range of 0 to 0, so every value looked out of range.
+            value_elem = param.find("./VALUE")
+            value = _float_attr(value_elem, "value")
+            unit = _text_attr(value_elem, "unit")
 
-            # Get REFERENCE element
-            ref_elem = param.find(".//REFERENCE")
-            if ref_elem is not None:
-                ref_max = float(ref_elem.get("vmax", "0"))
-                ref_min = float(ref_elem.get("vmin", "0"))
-                ref_unit = ref_elem.get("unit", "")
-            else:
-                ref_max = 0.0
-                ref_min = 0.0
-                ref_unit = ""
+            ref_elem = param.find("./REFERENCE")
+            ref_max = _float_attr(ref_elem, "vmax")
+            ref_min = _float_attr(ref_elem, "vmin")
+            ref_unit = _text_attr(ref_elem, "unit")
 
             fractions.append(fraction)
             names.append(name)
