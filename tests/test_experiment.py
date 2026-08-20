@@ -124,3 +124,54 @@ class TestReportSelection:
         pdata = tmp_path / "10" / "pdata" / "1"
         pdata.mkdir(parents=True)
         assert _select_report(pdata, "*lipo*.xml", "1_1_0") is None
+
+
+class TestPlasmaExtendedReportIsReachable:
+    """plasma_quant_report_ver_1_0.xml was missing from the priority list.
+
+    The glob found it, the priority loop matched nothing, and the sample was
+    dropped from the quant table without a word. It is the most common quant
+    report in the archive: 20276 files against 11309 of the plain one.
+    """
+
+    def test_an_expno_holding_only_the_extended_report_yields_quant(
+            self, test_data_dir, tmp_path):
+        source = next(test_data_dir.rglob("plasma_quant_report_ver_1_0.xml"))
+        pdata = tmp_path / "10" / "pdata" / "1"
+        pdata.mkdir(parents=True)
+        (pdata / source.name).write_bytes(source.read_bytes())
+
+        result = read_experiment([str(tmp_path / "10")], opts={"what": ["quant"]})
+
+        assert result.get("quant") is not None
+        assert len(result["quant"]) == 1
+
+    def test_the_plain_report_still_wins_when_both_are_present(self, covid_sample_10):
+        """It ranks below the plain report, so an expno holding both keeps
+        reading the one it always read."""
+        from nmr_parser import read_quant
+
+        pdata = covid_sample_10 / "pdata" / "1"
+        plain = read_quant(pdata / "plasma_quant_report.xml")["data"]
+        extended = read_quant(pdata / "plasma_quant_report_ver_1_0.xml")["data"]
+
+        # the two shapes agree on conc_v here but disagree on rawConc for all
+        # 41 compounds, the plain one taking it from RELDATA and the extended
+        # one from valueext, so rawConc says which file was read
+        ethanol = plain.index[plain["name"] == "Ethanol"][0]
+        assert plain["rawConc"].iloc[ethanol] != extended["rawConc"].iloc[ethanol]
+
+        result = read_experiment([str(covid_sample_10)], opts={"what": ["quant"]})
+
+        assert len(result["quant"]) == 1
+        # read_experiment maps rawConc onto the value.* columns
+        assert (result["quant"]["value.Ethanol"].iloc[0]
+                == plain["rawConc"].iloc[ethanol])
+        assert (result["quant"]["value.Ethanol"].iloc[0]
+                != extended["rawConc"].iloc[ethanol])
+
+    def test_it_is_in_the_priority_list(self):
+        import inspect
+        from nmr_parser.core import experiment
+        source = inspect.getsource(experiment)
+        assert '"plasma_quant_report_ver_1_0.xml",' in source

@@ -425,9 +425,15 @@ def read_experiment(expname: Union[str, Path, List[Union[str, Path]]],
             folder_path = exp_path / "pdata" / "1"
 
             # Priority order for quant files
+            # plasma_quant_report_ver_1_0.xml sits below the plain report
+            # rather than above it, where the urine ordering would put it: an
+            # expno holding both keeps reading the one it always read, and
+            # only an expno holding just the extended report changes, from no
+            # quant data at all to its data.
             priority = [
                 "plasma_quant_report_2_1_0.xml",
                 "plasma_quant_report.xml",
+                "plasma_quant_report_ver_1_0.xml",
                 "urine_quant_report_e_1_2_0.xml",
                 "urine_quant_report_e_ver_1_0.xml",
                 "urine_quant_report_e.xml",
