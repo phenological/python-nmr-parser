@@ -15,6 +15,37 @@ from ..xml_parsers import (
 console = Console()
 
 
+
+def _select_report(folder, pattern, preferred=None):
+    """Pick one report file out of a pdata folder.
+
+    Path.glob yields entries in os.scandir order, which is filesystem
+    dependent and not sorted, so taking [0] made the choice depend on
+    directory order: the same data read on two machines could pick different
+    report versions with nothing in the output saying so.
+
+    There is one report of each kind per pdata, so anything left after the
+    preferred-version filter can only be version variants. Sorting puts the
+    highest version string last.
+
+    Returns the chosen path, or None when the folder holds none.
+    """
+    files = sorted(folder.glob(pattern))
+
+    if preferred is not None and any(preferred in f.name for f in files):
+        files = [f for f in files if preferred in f.name]
+
+    if not files:
+        return None
+
+    if len(files) > 1:
+        console.print(
+            f"[yellow]readExperiment >> {len(files)} {pattern} files in "
+            f"{folder}, using {files[-1].name}[/yellow]"
+        )
+
+    return files[-1]
+
 def merge_options(defaults: dict, provided: Optional[dict]) -> dict:
     """
     Deep merge provided options with defaults.
@@ -211,14 +242,10 @@ def read_experiment(expname: Union[str, Path, List[Union[str, Path]]],
 
             folder_path = exp_path / "pdata" / "1"
             # Find QC report files
-            qc_files = list(folder_path.glob("*qc_report*.xml"))
+            qc_file = _select_report(folder_path, "*qc_report*.xml", "1_1_0.xml")
 
-            # Prefer 1_1_0 version if available
-            if any("1_1_0.xml" in str(f) for f in qc_files):
-                qc_files = [f for f in qc_files if "1_1_0.xml" in str(f)]
-
-            if qc_files:
-                qc = read_qc(qc_files[0])
+            if qc_file is not None:
+                qc = read_qc(qc_file)
                 if qc is not None:
                     qc_data = qc['data']
                     # Create a flat dictionary from QC data
@@ -328,14 +355,10 @@ def read_experiment(expname: Union[str, Path, List[Union[str, Path]]],
         lst = []
         for exp_path in expname:
             folder_path = exp_path / "pdata" / "1"
-            lipo_files = list(folder_path.glob("*lipo*.xml"))
+            lipo_file = _select_report(folder_path, "*lipo*.xml", "1_1_0")
 
-            # Prefer 1_1_0 version
-            if any("1_1_0" in str(f) for f in lipo_files):
-                lipo_files = [f for f in lipo_files if "1_1_0" in str(f)]
-
-            if lipo_files:
-                lipoproteins = read_lipo(lipo_files[0])
+            if lipo_file is not None:
+                lipoproteins = read_lipo(lipo_file)
                 if lipoproteins is not None:
                     lipo_data = lipoproteins['data'].copy()
                     lipo_data['path'] = str(exp_path)
@@ -366,14 +389,10 @@ def read_experiment(expname: Union[str, Path, List[Union[str, Path]]],
         lst = []
         for exp_path in expname:
             folder_path = exp_path / "pdata" / "1"
-            pacs_files = list(folder_path.glob("*pacs*.xml"))
+            pacs_file = _select_report(folder_path, "*pacs*.xml", "1_1_0")
 
-            # Prefer 1_1_0 version
-            if any("1_1_0" in str(f) for f in pacs_files):
-                pacs_files = [f for f in pacs_files if "1_1_0" in str(f)]
-
-            if pacs_files:
-                pacs = read_pacs(pacs_files[0])
+            if pacs_file is not None:
+                pacs = read_pacs(pacs_file)
                 if pacs is not None:
                     pacs_data = pacs['data'].copy()
                     pacs_data['path'] = str(exp_path)
@@ -419,14 +438,15 @@ def read_experiment(expname: Union[str, Path, List[Union[str, Path]]],
             ]
 
             # Find all quant files
-            quant_files = list(folder_path.glob("*quant*.xml"))
+            quant_files = sorted(folder_path.glob("*quant*.xml"))
 
-            # Pick highest priority match
+            # Pick highest priority match, on the file name rather than on the
+            # priority entry read as a substring of the whole path
             chosen = None
             for priority_file in priority:
-                matches = [f for f in quant_files if priority_file in str(f)]
+                matches = [f for f in quant_files if f.name == priority_file]
                 if matches:
-                    chosen = matches[0]
+                    chosen = matches[-1]
                     break
 
             if chosen:
