@@ -388,12 +388,13 @@ def _process_local_folder(folder: Union[str, Path], opts: Dict, log) -> pd.DataF
     # Check for ANPC sampleID in USERA2 (lines 192-217)
     if not lof['USERA2'].isna().all() and lof['USERA2'].iloc[0] != '':
         log.info("ANPC sampleID (USERA2) found")
+        # USERA2 is kept as the instrument recorded it. The lowercasing that
+        # used to happen here existed only to help the sample type
+        # classification, but _classify_sample_types already lowercases a copy
+        # of the id to do that, so the rewrite bought nothing and changed the
+        # identifier everything downstream joins on. It also made the folder
+        # and rolodex branches disagree about the same physical sample.
         sample_ids = lof['USERA2'].tolist()
-        # Normalize QC labels (lines 196-200)
-        sample_ids = [s.replace('SLTR', 'sltr') for s in sample_ids]
-        sample_ids = [s.replace('LTR', 'ltr') for s in sample_ids]
-        sample_ids = [s.replace('PQC', 'pqc') for s in sample_ids]
-        sample_ids = [s.replace('QC', 'qc') for s in sample_ids]
     else:
         # Use interactive selection or timestamps
         log.warning("No USERA2 found. Using folder structure for sample IDs")
