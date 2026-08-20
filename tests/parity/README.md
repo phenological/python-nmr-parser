@@ -28,12 +28,20 @@ records which R version produced it.
 
 | Reader | Asserted |
 | --- | --- |
-| `read_lipo` | version, parameter order, `value`, `refMax`, `refMin` |
-| `extend_lipo` | all 316 derived values |
+| `read_lipo` | version, parameter order, `value`, `refMax`, `refMin`, on both report versions |
+| `extend_lipo` | all 316 derived values, on both report versions |
 | `read_pacs` | version, parameter order, `conc_v`, `refMax`, `refMin` |
 | `read_quant` | both document shapes, five value columns |
 | `read_param` | eleven acquisition parameters |
 | `read_spectrum` | point count, both axis ends, intensity range and total |
+
+## Report versions
+
+The lipoprotein fixtures cover two: `lipo_results.xml` is `PL-5009-01/001`,
+the older name the fixtures grew up with, and `plasma_lipo_report_1_1_0.xml`
+is `/002`, which is what the instruments write now. They carry the same 112
+parameters, units and reference ranges, so both are asserted to keep parity
+tied to the version actually in use rather than only to the historical one.
 
 ## Known divergences
 

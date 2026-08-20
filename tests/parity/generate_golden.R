@@ -21,6 +21,11 @@ out <- list()
 fixture <- function(...) file.path(data, ...)
 
 # ---- lipoproteins ---------------------------------------------------------
+# Two report versions are covered. lipo_results.xml is PL-5009-01/001, the
+# older name; plasma_lipo_report_1_1_0.xml is /002 and is what the
+# instruments write now. Same 112 parameters, same units, same reference
+# ranges, so the second is there to keep parity asserted on the version that
+# actually occurs rather than only on the one the fixtures grew up with.
 lipoFile <- fixture("HB-COVID0001", "10", "pdata", "1", "lipo_results.xml")
 lipo <- readLipo(lipoFile)
 out$read_lipo <- list(
@@ -38,6 +43,25 @@ out$extend_lipo <- list(
   n = nrow(ext$data),
   id = as.character(ext$data$id),
   value = as.numeric(ext$data$value)
+)
+
+currentLipoFile <- fixture("plasma_lipo_report_1_1_0.xml")
+currentLipo <- readLipo(currentLipoFile)
+out$read_lipo_current <- list(
+  version = currentLipo$version,
+  n = nrow(currentLipo$data),
+  id = as.character(currentLipo$data$id),
+  value = as.numeric(currentLipo$data$value),
+  unit = as.character(currentLipo$data$unit),
+  refMax = as.numeric(currentLipo$data$refMax),
+  refMin = as.numeric(currentLipo$data$refMin)
+)
+
+currentExt <- extend_lipo(currentLipo)
+out$extend_lipo_current <- list(
+  n = nrow(currentExt$data),
+  id = as.character(currentExt$data$id),
+  value = as.numeric(currentExt$data$value)
 )
 
 # ---- pacs -----------------------------------------------------------------
