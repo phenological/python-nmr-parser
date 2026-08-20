@@ -287,7 +287,9 @@ def parse_nmr(
     metadata_df = _create_metadata_df(loe, opts, data_type, is_ivdr)
 
     # 3. Parameters (long format)
-    params_df = _create_params_df(sample_keys, acqus_data, qc_data)
+    params_df = _create_params_df(
+        sample_keys, acqus_data, qc_data, paths=loe['dataPath'].tolist()
+    )
 
     # 4. Variables
     variables_df = _create_variables_df(var_names, data_type, opts, spcglyc)
@@ -778,16 +780,41 @@ def _merge_data_sources(
         for path in list(excluded)[:5]:  # Show first 5 at DEBUG level
             log.detail(path)
 
-    # Filter all data sources
-    loe_idx = loe['dataPath'].isin(intersection)
+    # Filter and order in one step. isin() is a membership test, so each
+    # frame used to keep its own row order and nothing checked that the
+    # orders agreed. _create_params_df then joined them by position, so any
+    # disagreement attached every acquisition parameter and every QC value to
+    # the wrong sample, silently, and unrecoverably because path is dropped
+    # on the way out.
+    loe_idx = loe['dataPath'].isin(intersection).to_numpy()
     data_matrix = data_matrix[loe_idx, :]
     loe = loe[loe_idx].reset_index(drop=True)
 
-    if len(acqus_data) > 0:
-        acqus_data = acqus_data[acqus_data['path'].isin(intersection)].reset_index(drop=True)
+    # loe's order is the one everything else is put into
+    order = loe['dataPath'].tolist()
 
-    if qc_data is not None and len(qc_data) > 0:
-        qc_data = qc_data[qc_data['path'].isin(intersection)].reset_index(drop=True)
+    def _align(frame, name):
+        if frame is None or len(frame) == 0:
+            return frame
+        duplicated = frame['path'].duplicated().any()
+        if duplicated:
+            log.warning(f"{name} holds more than one row per path, keeping the first")
+            frame = frame.drop_duplicates(subset='path', keep='first')
+        return (frame.set_index('path')
+                     .reindex(order)
+                     .reset_index()
+                     .rename(columns={'index': 'path'}))
+
+    acqus_data = _align(acqus_data, "acqus")
+    qc_data = _align(qc_data, "qc")
+
+    # the three sequences are now the same by construction; say so loudly if
+    # that ever stops being true rather than mislabelling the output
+    for frame, name in ((acqus_data, "acqus"), (qc_data, "qc")):
+        if frame is not None and len(frame) > 0:
+            assert frame['path'].tolist() == order, (
+                f"{name} could not be aligned to loe after merging"
+            )
 
     return data_matrix, loe, acqus_data, qc_data
 
@@ -847,36 +874,50 @@ def _create_metadata_df(
 def _create_params_df(
     sample_keys: List[str],
     acqus_data: pd.DataFrame,
-    qc_data: Optional[pd.DataFrame]
+    qc_data: Optional[pd.DataFrame],
+    paths: Optional[List[str]] = None,
 ) -> pd.DataFrame:
-    """Create parameters DataFrame in long format."""
+    """Create parameters DataFrame in long format.
+
+    Rows are attached to samples by `path` when it is available, not by
+    position. Joining by position assumed acqus and qc came back in the same
+    order as loe, which nothing enforced, and the evidence was then discarded
+    because `path` is not carried into the output.
+
+    `paths` is the dataPath of each sample_key, in the same order.
+    """
     params_list = []
+
+    key_of = dict(zip(paths, sample_keys)) if paths is not None else None
+
+    def _rows(frame, source):
+        for idx in range(len(frame)):
+            row = frame.iloc[idx]
+            if key_of is not None and 'path' in frame.columns:
+                key = key_of.get(row['path'])
+                if key is None:
+                    # aligned frames cannot get here; a stray path is dropped
+                    # rather than silently attached to whichever sample is
+                    # sitting at this position
+                    continue
+            else:
+                key = sample_keys[idx]
+            for col in frame.columns:
+                if col != 'path':
+                    params_list.append({
+                        'sample_key': key,
+                        'param_name': col,
+                        'param_value': row[col],
+                        'param_source': source
+                    })
 
     # Add acqus parameters
     if len(acqus_data) > 0:
-        for idx, key in enumerate(sample_keys):
-            row = acqus_data.iloc[idx]
-            for col in acqus_data.columns:
-                if col != 'path':
-                    params_list.append({
-                        'sample_key': key,
-                        'param_name': col,
-                        'param_value': row[col],
-                        'param_source': 'acqus'
-                    })
+        _rows(acqus_data, 'acqus')
 
     # Add QC parameters
     if qc_data is not None and len(qc_data) > 0:
-        for idx, key in enumerate(sample_keys):
-            row = qc_data.iloc[idx]
-            for col in qc_data.columns:
-                if col != 'path':
-                    params_list.append({
-                        'sample_key': key,
-                        'param_name': col,
-                        'param_value': row[col],
-                        'param_source': 'qc'
-                    })
+        _rows(qc_data, 'qc')
 
     if not params_list:
         return pd.DataFrame(columns=['sample_key', 'param_name', 'param_value', 'param_source'])
