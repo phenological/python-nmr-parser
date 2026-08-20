@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RESULTS version="PhenoRisk PACS RuO 1.1.0+release.PhenoriskPCS_1.1.7fe55b9">
+   <SAMPLE date="09-Sep-2025 23:58:39"
+           name="covid19_harvardFU_SER_NMR-PACS-3MM@fEPP_COVr75_COVp346_expno70.100000.13r"
+           project=""
+           type="plasma/serum"/>
+   <CLASSIFICATION/>
+   <VERIFICATION/>
+   <QUANTIFICATION version="1.1.0+release.PhenoriskPCS_1.1.7fe55b9 Research Use Only">
+      <PARAMETER name="Glucose" type="quantification">
+         <VALUE conc="5.035" concUnit="mmol/l"/>
+         <REFERENCE source="NMR Database" unit="mmol/l" vmax="6.08" vmin="1.73"/>
+      </PARAMETER>
+      <PARAMETER name="Creatinine" type="quantification">
+         <VALUE conc="0.066" concUnit="mmol/l"/>
+         <REFERENCE source="NMR Database" unit="mmol/l" vmax="0.14" vmin="0.06"/>
+      </PARAMETER>
+      <PARAMETER name="TG" type="quantification">
+         <VALUE conc="58.26" concUnit="mg/dL"/>
+         <REFERENCE source="NMR Database" unit="mg/dL" vmax="490" vmin="53"/>
+      </PARAMETER>
+      <PARAMETER name="Chol" type="quantification">
+         <VALUE conc="181.97" concUnit="mg/dL"/>
+         <REFERENCE source="NMR Database" unit="mg/dL" vmax="341" vmin="140"/>
+      </PARAMETER>
+      <PARAMETER name="LDL-Chol" type="quantification">
+         <VALUE conc="112.44" concUnit="mg/dL"/>
+         <REFERENCE source="NMR Database" unit="mg/dL" vmax="227" vmin="55"/>
+      </PARAMETER>
+      <PARAMETER name="HDL-Chol" type="quantification">
+         <VALUE conc="48.55" concUnit="mg/dL"/>
+         <REFERENCE source="NMR Database" unit="mg/dL" vmax="96" vmin="35"/>
+      </PARAMETER>
+      <PARAMETER name="LDL-Phos" type="quantification">
+         <VALUE conc="62.43" concUnit="mg/dL"/>
+         <REFERENCE source="NMR Database" unit="mg/dL" vmax="121" vmin="37"/>
+      </PARAMETER>
+      <PARAMETER name="HDL-Phos" type="quantification">
+         <VALUE conc="60.07" concUnit="mg/dL"/>
+         <REFERENCE source="NMR Database" unit="mg/dL" vmax="136" vmin="57"/>
+      </PARAMETER>
+      <PARAMETER name="Apo-A1" type="quantification">
+         <VALUE conc="101.99" concUnit="mg/dL"/>
+         <REFERENCE source="NMR Database" unit="mg/dL" vmax="217" vmin="112"/>
+      </PARAMETER>
+      <PARAMETER name="Apo-B100" type="quantification">
+         <VALUE conc="84.74" concUnit="mg/dL"/>
+         <REFERENCE source="NMR Database" unit="mg/dL" vmax="160" vmin="48"/>
+      </PARAMETER>
+      <PARAMETER name="Apo-B100/Apo-A1" type="quantification">
+         <VALUE conc="0.83" concUnit="-"/>
+         <REFERENCE source="NMR Database" unit="-" vmax="1.07" vmin="0.3"/>
+      </PARAMETER>
+      <PARAMETER name="GlycA" type="quantification">
+         <VALUE conc="1.7" concUnit="p.d.u."/>
+         <REFERENCE source="NMR Database" unit="p.d.u." vmax="1.35" vmin="0.85"/>
+      </PARAMETER>
+      <PARAMETER name="GlycB" type="quantification">
+         <VALUE conc="0.66" concUnit="p.d.u."/>
+         <REFERENCE source="NMR Database" unit="p.d.u." vmax="0.68" vmin="0.41"/>
+      </PARAMETER>
+      <PARAMETER name="Glyc" type="quantification">
+         <VALUE conc="2.37" concUnit="p.d.u."/>
+         <REFERENCE source="NMR Database" unit="p.d.u." vmax="2.11" vmin="1.24"/>
+      </PARAMETER>
+      <PARAMETER name="SPC" type="quantification">
+         <VALUE conc="2.64" concUnit="p.d.u."/>
+         <REFERENCE source="NMR Database" unit="p.d.u." vmax="3.68" vmin="1.41"/>
+      </PARAMETER>
+      <PARAMETER name="Glyc/SPC" type="quantification">
+         <VALUE conc="0.9" concUnit="-"/>
+         <REFERENCE source="NMR Database" unit="-" vmax="1.08" vmin="0.41"/>
+      </PARAMETER>
+   </QUANTIFICATION>
+</RESULTS>

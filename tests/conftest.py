@@ -37,7 +37,7 @@ def urine_sample(test_data_dir):
 @pytest.fixture
 def plasma_quant_xml(test_data_dir):
     """Path to plasma quantification XML."""
-    return test_data_dir / "plasma_quant_report.xml"
+    return test_data_dir / "HB-COVID0001" / "10" / "pdata" / "1" / "plasma_quant_report.xml"
 
 
 @pytest.fixture
@@ -61,13 +61,13 @@ def urine_quant_e_xml(test_data_dir):
 @pytest.fixture
 def lipo_xml(test_data_dir):
     """Path to lipoprotein XML."""
-    return test_data_dir / "lipo_results.xml"
+    return test_data_dir / "HB-COVID0001" / "10" / "pdata" / "1" / "lipo_results.xml"
 
 
 @pytest.fixture
 def qc_plasma_xml(test_data_dir):
     """Path to plasma QC XML."""
-    return test_data_dir / "plasma_qc_report.xml"
+    return test_data_dir / "HB-COVID0001" / "10" / "pdata" / "1" / "plasma_qc_report.xml"
 
 
 @pytest.fixture
@@ -87,7 +87,7 @@ def qc_urine_xml(test_data_dir):
 @pytest.fixture
 def eretic_xml(test_data_dir):
     """Path to ERETIC XML."""
-    return test_data_dir / "QuantFactorSample.xml"
+    return test_data_dir / "HB-COVID0001" / "10" / "QuantFactorSample.xml"
 
 
 @pytest.fixture

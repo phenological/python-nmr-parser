@@ -1,0 +1,760 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RESULTS version="Quant-UR NE.1.1.0  Reseach Use Only">
+   <SAMPLE date="16-Nov-2020 14:33:29" name="barwin20_IVDR04_BARWINp11_161120_expno170.100000.13r" project="" type="urine"/>
+   <CLASSIFICATION/>
+   <VERIFICATION>
+      <MODEL name="turkish newborn urine" text="There are no detected deviations in univariate verification analysis." type="univariate" version="Quant-UR NE.1.1.0  Reseach Use Only"/>
+      <MODEL name="turkish newborn urine" text="There are no detected deviations in multivariate verification analysis." type="multivariate" version="Quant-UR NE.1.1.0  Reseach Use Only"/>
+   </VERIFICATION>
+   <QUANTIFICATION version="Quant-UR NE.1.1.0  Reseach Use Only">
+      <PARAMETER name="Creatinine" type="quantification">
+         <VALUE lod="0.3" loq="-" unit="mmol/L" value="6.7" valueext="6.7"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="12" vmin="0"/>
+      </PARAMETER>
+      <PARAMETER name="Ethanol" type="quantification">
+         <VALUE lod="5.628" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="840" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="840" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Isopropanol" type="quantification">
+         <VALUE lod="0.060" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="9" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="9" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Methanol" type="quantification">
+         <VALUE lod="0.610" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="91" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="400" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Propylene glycol" type="quantification">
+         <VALUE lod="0.301" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="45" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="1200" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="1-Methylguanidine" type="quantification">
+         <VALUE lod="0.657" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="98" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="160" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Dimethylamine" type="quantification">
+         <VALUE lod="0.054" loq="-" unit="mmol/L" value="0.20" valueext="0.20"/>
+         <VALUE lod="8" loq="-" unit="mmol/mol Crea" value="30" valueext="30"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="160" vmin="38"/>
+      </PARAMETER>
+      <PARAMETER name="Trimethylamine" type="quantification">
+         <VALUE lod="0.013" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="2" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="6" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Tyramine" type="quantification">
+         <VALUE lod="0.576" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="86" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="86" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="1-Methylhistidine" type="quantification">
+         <VALUE lod="2.546" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="380" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="380" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="2-Furoylglycine" type="quantification">
+         <VALUE lod="0.261" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="39" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="39" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="3-Aminoisobutyric acid" type="quantification">
+         <VALUE lod="2.010" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="300" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="390" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="3-Methylcrotonylglycine" type="quantification">
+         <VALUE lod="0.402" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="60" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="60" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="4-Aminobutyric acid" type="quantification">
+         <VALUE lod="0.114" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="17" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="20" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="5-Aminopentanoic acid" type="quantification">
+         <VALUE lod="1.139" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="170" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="170" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Alanine" type="quantification">
+         <VALUE lod="0.094" loq="-" unit="mmol/L" value="0.42" valueext="0.42"/>
+         <VALUE lod="14" loq="-" unit="mmol/mol Crea" value="63" valueext="63"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="350" vmin="27"/>
+      </PARAMETER>
+      <PARAMETER name="Arginine" type="quantification">
+         <VALUE lod="32.160" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="4800" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="4800" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Argininosuccinic acid" type="quantification">
+         <VALUE lod="0.663" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="99" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="99" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Betaine" type="quantification">
+         <VALUE lod="0.295" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="44" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="1200" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Citrulline" type="quantification">
+         <VALUE lod="5.226" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="780" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="780" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Creatine" type="quantification">
+         <VALUE lod="0.335" loq="-" unit="mmol/L" value="0.75" valueext="0.75"/>
+         <VALUE lod="50" loq="-" unit="mmol/mol Crea" value="110" valueext="110"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="680" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Cystine" type="quantification">
+         <VALUE lod="0.502" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="75" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="75" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="DL-Alloisoleucine" type="quantification">
+         <VALUE lod="0.315" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="47" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="47" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="DL-Tyrosine" type="quantification">
+         <VALUE lod="0.288" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="43" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="43" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Glutamic acid" type="quantification">
+         <VALUE lod="2.211" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="330" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="330" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Glutamine" type="quantification">
+         <VALUE lod="5.561" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="830" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="830" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Glycine" type="quantification">
+         <VALUE lod="0.201" loq="-" unit="mmol/L" value="1.8" valueext="1.8"/>
+         <VALUE lod="30" loq="-" unit="mmol/mol Crea" value="270" valueext="270"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="1900" vmin="87"/>
+      </PARAMETER>
+      <PARAMETER name="Guanidinoacetic acid" type="quantification">
+         <VALUE lod="0.623" loq="-" unit="mmol/L" value="0.88" valueext="0.88"/>
+         <VALUE lod="93" loq="-" unit="mmol/mol Crea" value="130" valueext="130"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="190" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Isobutyrylglycine" type="quantification">
+         <VALUE lod="0.194" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="29" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="29" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="L-Homocystine" type="quantification">
+         <VALUE lod="1.139" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="170" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="170" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="L-Isoleucine" type="quantification">
+         <VALUE lod="0.315" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="47" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="47" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="L-Pyroglutamic acid" type="quantification">
+         <VALUE lod="0.034" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="5" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="44" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="L-Tryptophan" type="quantification">
+         <VALUE lod="0.328" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="49" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="49" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Leucine" type="quantification">
+         <VALUE lod="0.087" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="13" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="40" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Methionine" type="quantification">
+         <VALUE lod="0.087" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="13" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="22" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="N,N-Dimethylglycine" type="quantification">
+         <VALUE lod="0.101" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="15" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="220" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="N-Acetylaspartic acid" type="quantification">
+         <VALUE lod="0.322" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="48" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="48" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="N-Acetylglutamate" type="quantification">
+         <VALUE lod="0.281" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="42" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="42" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="N-Acetylphenylalanine" type="quantification">
+         <VALUE lod="0.583" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="87" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="87" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="N-Acetyltyrosine" type="quantification">
+         <VALUE lod="7.370" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="1100" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="1100" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="N-Isovaleroylglycine" type="quantification">
+         <VALUE lod="0.013" loq="-" unit="mmol/L" value="0.02" valueext="0.02"/>
+         <VALUE lod="2" loq="-" unit="mmol/mol Crea" value="3" valueext="3"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="5" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Phenylalanine" type="quantification">
+         <VALUE lod="0.804" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="120" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="120" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Proline betaine" type="quantification">
+         <VALUE lod="0.161" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="24" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="120" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Propionylglycine" type="quantification">
+         <VALUE lod="0.013" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="2" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="2" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Sarcosine" type="quantification">
+         <VALUE lod="0.034" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="5" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="25" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Taurine" type="quantification">
+         <VALUE lod="1.675" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="250" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="910" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Tiglylglycine" type="quantification">
+         <VALUE lod="0.496" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="74" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="74" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Valine" type="quantification">
+         <VALUE lod="0.034" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="5" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="24" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="2-Hydroxyphenylacetic acid" type="quantification">
+         <VALUE lod="0.067" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="10" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="10" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="3-Phenyllactic acid" type="quantification">
+         <VALUE lod="0.570" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="85" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="85" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="4-Aminohippuric acid" type="quantification">
+         <VALUE lod="11.390" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="1700" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="1700" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="4-Ethylphenol" type="quantification">
+         <VALUE lod="0.054" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="8" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="8" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="4-Hydroxyhippuric acid" type="quantification">
+         <VALUE lod="6.566" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="980" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="980" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="4-Hydroxyphenylacetic acid" type="quantification">
+         <VALUE lod="0.241" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="36" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="69" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="4-Hydroxyphenyllactic acid" type="quantification">
+         <VALUE lod="3.149" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="470" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="470" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Benzoic acid" type="quantification">
+         <VALUE lod="0.080" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="12" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="12" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="D-Mandelic acid" type="quantification">
+         <VALUE lod="0.027" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="4" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="43" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Hippuric acid" type="quantification">
+         <VALUE lod="0.328" loq="-" unit="mmol/L" value="1.3" valueext="1.3"/>
+         <VALUE lod="49" loq="-" unit="mmol/mol Crea" value="190" valueext="190"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="510" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Phenylacetic acid" type="quantification">
+         <VALUE lod="3.149" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="470" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="470" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Phenylpyruvic acid" type="quantification">
+         <VALUE lod="0.570" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="85" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="85" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Pyrocatechol" type="quantification">
+         <VALUE lod="1.139" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="170" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="170" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Syringic acid" type="quantification">
+         <VALUE lod="0.067" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="10" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="23" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="5-Aminolevulinic acid" type="quantification">
+         <VALUE lod="0.020" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="3" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="3" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Acetic acid" type="quantification">
+         <VALUE lod="0.067" loq="-" unit="mmol/L" value="0.08" valueext="0.08"/>
+         <VALUE lod="10" loq="-" unit="mmol/mol Crea" value="11" valueext="11"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="790" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Citric acid" type="quantification">
+         <VALUE lod="0.308" loq="-" unit="mmol/L" value="2.1" valueext="2.1"/>
+         <VALUE lod="46" loq="-" unit="mmol/mol Crea" value="310" valueext="310"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="1400" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="E-Glutaconic acid" type="quantification">
+         <VALUE lod="0.871" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="130" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="130" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Ethylmalonic acid" type="quantification">
+         <VALUE lod="0.134" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="20" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="42" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Formic acid" type="quantification">
+         <VALUE lod="0.616" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="92" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="660" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Fumaric acid" type="quantification">
+         <VALUE lod="0.013" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="2" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="40" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Glutaric acid" type="quantification">
+         <VALUE lod="0.449" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="67" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="67" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Imidazole" type="quantification">
+         <VALUE lod="0.255" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="38" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="38" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Lactic acid" type="quantification">
+         <VALUE lod="0.301" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="45" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="410" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Maleic acid" type="quantification">
+         <VALUE lod="0.047" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="7" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="10" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Methylmalonic acid" type="quantification">
+         <VALUE lod="0.067" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="10" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="20" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Propionic acid" type="quantification">
+         <VALUE lod="0.509" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="76" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="76" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Succinic acid" type="quantification">
+         <VALUE lod="0.054" loq="-" unit="mmol/L" value="0.08" valueext="0.08"/>
+         <VALUE lod="8" loq="-" unit="mmol/mol Crea" value="12" valueext="12"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="360" vmin="9"/>
+      </PARAMETER>
+      <PARAMETER name="Tartaric acid" type="quantification">
+         <VALUE lod="0.301" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="45" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="60" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Trigonelline" type="quantification">
+         <VALUE lod="0.221" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="33" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="33" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Xanthurenic acid" type="quantification">
+         <VALUE lod="0.121" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="18" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="18" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Choline" type="quantification">
+         <VALUE lod="0.630" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="94" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="94" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="D-Panthenol" type="quantification">
+         <VALUE lod="0.127" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="19" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="19" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="L-Ascorbic acid" type="quantification">
+         <VALUE lod="1.809" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="270" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="270" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Pantothenic acid" type="quantification">
+         <VALUE lod="0.134" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="20" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="50" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Paracetamol" type="quantification">
+         <VALUE lod="0.335" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="50" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="50" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Paracetamol-glucuronide" type="quantification">
+         <VALUE lod="10.050" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="1500" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="1500" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="2-Hydroxy-4-methylvaleric acid" type="quantification">
+         <VALUE lod="0.248" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="37" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="37" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="2-Hydroxyisovaleric acid" type="quantification">
+         <VALUE lod="0.027" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="4" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="4" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="2-Methylsuccinic acid" type="quantification">
+         <VALUE lod="0.228" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="34" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="34" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="3-Hydroxy-3-methylglutaric acid" type="quantification">
+         <VALUE lod="0.737" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="110" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="110" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="3-Hydroxyisovaleric acid" type="quantification">
+         <VALUE lod="0.121" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="18" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="33" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="3-Hydroxyvaleric acid" type="quantification">
+         <VALUE lod="0.040" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="6" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="8" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="3-Methylglutaconic acid" type="quantification">
+         <VALUE lod="0.114" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="17" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="26" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Butyric acid" type="quantification">
+         <VALUE lod="0.174" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="26" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="34" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Citraconic acid" type="quantification">
+         <VALUE lod="0.576" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="86" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="86" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="L-Citramalic acid" type="quantification">
+         <VALUE lod="3.752" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="560" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="560" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Pimelic acid" type="quantification">
+         <VALUE lod="0.496" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="74" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="74" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Thymol" type="quantification">
+         <VALUE lod="1.139" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="170" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="170" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="3-Hydroxyglutaric acid" type="quantification">
+         <VALUE lod="0.275" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="41" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="44" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="3-Hydroxypropionic acid" type="quantification">
+         <VALUE lod="0.623" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="93" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="93" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="D-Galactonic acid" type="quantification">
+         <VALUE lod="0.871" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="130" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="130" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="D-Gluconic acid" type="quantification">
+         <VALUE lod="1.273" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="190" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="550" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Glycolic acid" type="quantification">
+         <VALUE lod="1.273" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="190" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="480" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Malic acid" type="quantification">
+         <VALUE lod="0.543" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="81" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="250" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="2-Ketobutyric acid" type="quantification">
+         <VALUE lod="0.362" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="54" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="54" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="2-Oxoglutaric acid" type="quantification">
+         <VALUE lod="1.072" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="160" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="590" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="2-Oxoisocaproic acid" type="quantification">
+         <VALUE lod="0.034" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="5" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="10" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="2-Oxoisovaleric acid" type="quantification">
+         <VALUE lod="0.027" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="4" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="4" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="3-Hydroxybutyric acid" type="quantification">
+         <VALUE lod="0.650" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="97" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="100" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="3-Methyl-2-oxovaleric acid" type="quantification">
+         <VALUE lod="0.127" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="19" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="19" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="4-Hydroxyphenylpyruvic acid" type="quantification">
+         <VALUE lod="0.301" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="45" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="45" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Acetoacetic acid" type="quantification">
+         <VALUE lod="0.034" loq="-" unit="mmol/L" value="0.06" valueext="0.06"/>
+         <VALUE lod="5" loq="-" unit="mmol/mol Crea" value="8" valueext="8"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="28" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Acetoine" type="quantification">
+         <VALUE lod="0.060" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="9" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="9" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Acetone" type="quantification">
+         <VALUE lod="0.094" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="14" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="110" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="DL-Kynurenin" type="quantification">
+         <VALUE lod="5.293" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="790" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="790" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Oxaloacetic acid" type="quantification">
+         <VALUE lod="0.295" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="44" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="210" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Pyruvic acid" type="quantification">
+         <VALUE lod="0.087" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="13" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="41" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Succinylacetone" type="quantification">
+         <VALUE lod="2.747" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="410" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="410" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="1,3-Dimethyluric acid" type="quantification">
+         <VALUE lod="0.087" loq="-" unit="mmol/L" value="0.08" valueext="0.08"/>
+         <VALUE lod="13" loq="-" unit="mmol/mol Crea" value="13" valueext="13"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="150" vmin="20"/>
+      </PARAMETER>
+      <PARAMETER name="1-Methyladenosine" type="quantification">
+         <VALUE lod="0.060" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="9" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="9" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="1-Methylhydantoin" type="quantification">
+         <VALUE lod="0.328" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="49" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="370" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="1-Methylnicotinamide" type="quantification">
+         <VALUE lod="0.308" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="46" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="120" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="4-Pyridoxic acid" type="quantification">
+         <VALUE lod="0.040" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="6" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="92" vmin="11"/>
+      </PARAMETER>
+      <PARAMETER name="Adenine" type="quantification">
+         <VALUE lod="0.087" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="13" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="20" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Adenosine" type="quantification">
+         <VALUE lod="6.365" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="950" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="950" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Allantoin" type="quantification">
+         <VALUE lod="0.127" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="19" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="120" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Allopurinol" type="quantification">
+         <VALUE lod="0.121" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="18" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="23" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Caffeine" type="quantification">
+         <VALUE lod="0.054" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="8" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="450" vmin="21"/>
+      </PARAMETER>
+      <PARAMETER name="Cytosine" type="quantification">
+         <VALUE lod="0.060" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="9" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="9" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Dihydrothymine" type="quantification">
+         <VALUE lod="2.881" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="430" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="560" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Dihydrouracil" type="quantification">
+         <VALUE lod="0.871" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="130" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="130" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Inosine" type="quantification">
+         <VALUE lod="0.114" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="17" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="17" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Neopterin" type="quantification">
+         <VALUE lod="0.114" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="17" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="17" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Orotic acid" type="quantification">
+         <VALUE lod="0.034" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="5" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="6" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Oxypurinol" type="quantification">
+         <VALUE lod="0.127" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="19" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="37" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Quinolinic acid" type="quantification">
+         <VALUE lod="0.255" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="38" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="38" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Theobromine" type="quantification">
+         <VALUE lod="0.543" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="81" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="150" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Thymine" type="quantification">
+         <VALUE lod="0.027" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="4" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="4" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Uracil" type="quantification">
+         <VALUE lod="0.054" loq="-" unit="mmol/L" value="0.55" valueext="0.55"/>
+         <VALUE lod="8" loq="-" unit="mmol/mol Crea" value="83" valueext="83"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="110" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Uridine" type="quantification">
+         <VALUE lod="0.101" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="15" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="15" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="D-Galactose" type="quantification">
+         <VALUE lod="0.570" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="85" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="1400" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="D-Glucose" type="quantification">
+         <VALUE lod="0.509" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="76" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="810" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="D-Lactose" type="quantification">
+         <VALUE lod="0.643" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="96" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="850" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="D-Mannitol" type="quantification">
+         <VALUE lod="2.881" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="430" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="430" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="D-Mannose" type="quantification">
+         <VALUE lod="0.134" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="20" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="310" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="D-Xylose" type="quantification">
+         <VALUE lod="5.628" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="840" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="840" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Galactitol" type="quantification">
+         <VALUE lod="2.010" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="300" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="300" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Glycerol" type="quantification">
+         <VALUE lod="5.293" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="790" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="790" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="L-Fucose" type="quantification">
+         <VALUE lod="2.010" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="300" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="460" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="L-Threonic acid" type="quantification">
+         <VALUE lod="1.206" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="180" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="180" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Myo-Inositol" type="quantification">
+         <VALUE lod="16.750" loq="-" unit="mmol/L" value="0" valueext="0"/>
+         <VALUE lod="2500" loq="-" unit="mmol/mol Crea" value="0" valueext="0"/>
+         <REFERENCE source="NMR Database" unit="mmol/mol Crea" vmax="2500" vmin="-"/>
+      </PARAMETER>
+   </QUANTIFICATION>
+</RESULTS>

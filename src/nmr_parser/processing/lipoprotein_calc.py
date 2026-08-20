@@ -4,6 +4,12 @@ import pandas as pd
 import numpy as np
 from typing import Dict, Any
 
+#: Subfraction letter to its parent lipoprotein class. The component and CE
+#: fraction loops both divide by the parent of the subfraction's own class;
+#: keeping one map means they cannot drift apart again (issue #1, where an
+#: inner loop over all prefixes left every H* and V* divided by LD).
+PARENT = {'H': 'HD', 'V': 'VL', 'L': 'LD'}
+
 
 def extend_lipo_value(lipo: Dict[str, Any]) -> pd.DataFrame:
     """
@@ -165,13 +171,7 @@ def extend_lipo_value(lipo: Dict[str, Any]) -> pd.DataFrame:
                 fc_col = f'{letter}{i}FC'
                 ce_col = f'{letter}{i}CE'
 
-                # Determine denominator
-                if letter == 'V':
-                    denom = 'VLCE'
-                elif letter == 'H':
-                    denom = 'HDCE'
-                else:  # letter == 'L'
-                    denom = 'LDCE'
+                denom = f'{PARENT[letter]}CE'
 
                 frac[ce_col] = np.round((row[ch_col] - row[fc_col]) / calc[denom], 4) * 100
 
@@ -180,10 +180,9 @@ def extend_lipo_value(lipo: Dict[str, Any]) -> pd.DataFrame:
         for letter, rng in [('H', range(1, 5)), ('V', range(1, 6)), ('L', range(1, 7))]:
             for i in rng:
                 for suffix in ['TG', 'CH', 'FC', 'PL']:
-                    for prefix in ['HD', 'VL', 'LD']:  # Skip 'ID'
-                        col = f'{letter}{i}{suffix}'
-                        denom_col = f'{prefix}{suffix}'
-                        frac[col] = np.round(row[col] / row[denom_col], 4) * 100
+                    col = f'{letter}{i}{suffix}'
+                    denom_col = f'{PARENT[letter]}{suffix}'
+                    frac[col] = np.round(row[col] / row[denom_col], 4) * 100
 
         # HDL Apo fractions
         for i in range(1, 5):

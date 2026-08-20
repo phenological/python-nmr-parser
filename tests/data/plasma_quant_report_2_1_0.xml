@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RESULTS version="B.I.Quant-PS 2.1.0+release.QuantPS_2.1.b9ea40f">
+   <SAMPLE date="09-Sep-2025 23:58:39"
+           name="covid19_harvardFU_SER_NMR-PACS-3MM@fEPP_COVr75_COVp346_expno70.100000.11r"
+           project=""
+           type="plasma/serum"/>
+   <CLASSIFICATION/>
+   <VERIFICATION/>
+   <QUANTIFICATION version="2.1.0+release.QuantPS_2.1.b9ea40f Research Use Only">
+      <PARAMETER name="Ethanol" type="quantification">
+         <VALUE conc="0.62" concUnit="mmol/L" lod="0.100" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="0.217" errConcUnit="mmol/L" rawConc="0.624" rawConcUnit="mmol/L"
+                  sigCorr="97"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.82" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Trimethylamine-N-oxide" type="quantification">
+         <VALUE conc="0" concUnit="mmol/L" lod="0.080" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="0.150" errConcUnit="mmol/L" rawConc="0.023" rawConcUnit="mmol/L"
+                  sigCorr="96"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.08" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="2-Aminobutyric acid" type="quantification">
+         <VALUE conc="0" concUnit="mmol/L" lod="0.050" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="2.075" errConcUnit="mmol/L" rawConc="0.000" rawConcUnit="mmol/L"
+                  sigCorr="0"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.10" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Alanine" type="quantification">
+         <VALUE conc="0.63" concUnit="mmol/L" lod="0.020" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="0.044" errConcUnit="mmol/L" rawConc="0.631" rawConcUnit="mmol/L"
+                  sigCorr="100"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.64" vmin="0.29"/>
+      </PARAMETER>
+      <PARAMETER name="Asparagine" type="quantification">
+         <VALUE conc="0" concUnit="mmol/L" lod="0.050" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="8.745" errConcUnit="mmol/L" rawConc="0.000" rawConcUnit="mmol/L"
+                  sigCorr="0"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.08" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Creatine" type="quantification">
+         <VALUE conc="0.02" concUnit="mmol/L" lod="0.010" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="0.006" errConcUnit="mmol/L" rawConc="0.024" rawConcUnit="mmol/L"
+                  sigCorr="100"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.07" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Creatinine" type="quantification">
+         <VALUE conc="0.11" concUnit="mmol/L" lod="0.020" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="0.006" errConcUnit="mmol/L" rawConc="0.115" rawConcUnit="mmol/L"
+                  sigCorr="100"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.14" vmin="0.06"/>
+      </PARAMETER>
+      <PARAMETER name="Glutamic acid" type="quantification">
+         <VALUE conc="0.49" concUnit="mmol/L" lod="0.050" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="0.051" errConcUnit="mmol/L" rawConc="0.489" rawConcUnit="mmol/L"
+                  sigCorr="98"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.24" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Glutamine" type="quantification">
+         <VALUE conc="0.19" concUnit="mmol/L" lod="0.020" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="0.033" errConcUnit="mmol/L" rawConc="0.195" rawConcUnit="mmol/L"
+                  sigCorr="97"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.83" vmin="0.30"/>
+      </PARAMETER>
+      <PARAMETER name="Glycine" type="quantification">
+         <VALUE conc="0.36" concUnit="mmol/L" lod="0.010" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="0.028" errConcUnit="mmol/L" rawConc="0.364" rawConcUnit="mmol/L"
+                  sigCorr="99"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.44" vmin="0.17"/>
+      </PARAMETER>
+      <PARAMETER name="Histidine" type="quantification">
+         <VALUE conc="0.15" concUnit="mmol/L" lod="0.020" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="0.006" errConcUnit="mmol/L" rawConc="0.149" rawConcUnit="mmol/L"
+                  sigCorr="100"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.16" vmin="0.07"/>
+      </PARAMETER>
+      <PARAMETER name="Isoleucine" type="quantification">
+         <VALUE conc="0.09" concUnit="mmol/L" lod="0.030" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="0.010" errConcUnit="mmol/L" rawConc="0.091" rawConcUnit="mmol/L"
+                  sigCorr="100"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.11" vmin="0.03"/>
+      </PARAMETER>
+      <PARAMETER name="Leucine" type="quantification">
+         <VALUE conc="0.19" concUnit="mmol/L" lod="0.010" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="0.026" errConcUnit="mmol/L" rawConc="0.187" rawConcUnit="mmol/L"
+                  sigCorr="99"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.20" vmin="0.07"/>
+      </PARAMETER>
+      <PARAMETER name="Lysine" type="quantification">
+         <VALUE conc="0.22" concUnit="mmol/L" lod="0.040" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="0.151" errConcUnit="mmol/L" rawConc="0.221" rawConcUnit="mmol/L"
+                  sigCorr="78"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.29" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Methionine" type="quantification">
+         <VALUE conc="0.06" concUnit="mmol/L" lod="0.050" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="0.021" errConcUnit="mmol/L" rawConc="0.064" rawConcUnit="mmol/L"
+                  sigCorr="89"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.13" vmin="0.05"/>
+      </PARAMETER>
+      <PARAMETER name="N,N-Dimethylglycine" type="quantification">
+         <VALUE conc="0" concUnit="mmol/L" lod="0.010" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="0.000" errConcUnit="mmol/L" rawConc="0.003" rawConcUnit="mmol/L"
+                  sigCorr="99"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.01" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Ornithine" type="quantification">
+         <VALUE conc="0" concUnit="mmol/L" lod="0.020" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="4.741" errConcUnit="mmol/L" rawConc="0.000" rawConcUnit="mmol/L"
+                  sigCorr="0"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.16" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Phenylalanine" type="quantification">
+         <VALUE conc="0.14" concUnit="mmol/L" lod="0.030" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="0.013" errConcUnit="mmol/L" rawConc="0.138" rawConcUnit="mmol/L"
+                  sigCorr="99"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.07" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Proline" type="quantification">
+         <VALUE conc="0.25" concUnit="mmol/L" lod="0.050" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="0.416" errConcUnit="mmol/L" rawConc="0.253" rawConcUnit="mmol/L"
+                  sigCorr="49"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.59" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Sarcosine" type="quantification">
+         <VALUE conc="0" concUnit="mmol/L" lod="0.010" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="0.197" errConcUnit="mmol/L" rawConc="0.000" rawConcUnit="mmol/L"
+                  sigCorr="0"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.01" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Threonine" type="quantification">
+         <VALUE conc="0" concUnit="mmol/L" lod="0.040" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="4.769" errConcUnit="mmol/L" rawConc="0.000" rawConcUnit="mmol/L"
+                  sigCorr="0"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.24" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Tyrosine" type="quantification">
+         <VALUE conc="0.07" concUnit="mmol/L" lod="0.030" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="0.008" errConcUnit="mmol/L" rawConc="0.071" rawConcUnit="mmol/L"
+                  sigCorr="99"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.08" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Valine" type="quantification">
+         <VALUE conc="0.29" concUnit="mmol/L" lod="0.030" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="0.025" errConcUnit="mmol/L" rawConc="0.293" rawConcUnit="mmol/L"
+                  sigCorr="100"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.36" vmin="0.15"/>
+      </PARAMETER>
+      <PARAMETER name="2-Hydroxybutyric acid" type="quantification">
+         <VALUE conc="0" concUnit="mmol/L" lod="0.150" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="5.011" errConcUnit="mmol/L" rawConc="0.000" rawConcUnit="mmol/L"
+                  sigCorr="0"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.17" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Acetic acid" type="quantification">
+         <VALUE conc="0.12" concUnit="mmol/L" lod="0.010" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="0.008" errConcUnit="mmol/L" rawConc="0.123" rawConcUnit="mmol/L"
+                  sigCorr="100"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.06" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Citric acid" type="quantification">
+         <VALUE conc="0" concUnit="mmol/L" lod="0.030" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="4.496" errConcUnit="mmol/L" rawConc="0.000" rawConcUnit="mmol/L"
+                  sigCorr="0"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.21" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Formic acid" type="quantification">
+         <VALUE conc="0" concUnit="mmol/L" lod="0.020" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="0.004" errConcUnit="mmol/L" rawConc="0.015" rawConcUnit="mmol/L"
+                  sigCorr="89"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.03" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Lactic acid" type="quantification">
+         <VALUE conc="2.3" concUnit="mmol/L" lod="0.030" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="0.177" errConcUnit="mmol/L" rawConc="2.274" rawConcUnit="mmol/L"
+                  sigCorr="100"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="7.14" vmin="2.23"/>
+      </PARAMETER>
+      <PARAMETER name="Succinic acid" type="quantification">
+         <VALUE conc="0" concUnit="mmol/L" lod="0.010" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="0.002" errConcUnit="mmol/L" rawConc="0.009" rawConcUnit="mmol/L"
+                  sigCorr="88"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.01" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Choline" type="quantification">
+         <VALUE conc="0.24" concUnit="mmol/L" lod="0.050" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="0.010" errConcUnit="mmol/L" rawConc="0.236" rawConcUnit="mmol/L"
+                  sigCorr="100"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.06" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="2-Oxoglutaric acid" type="quantification">
+         <VALUE conc="0" concUnit="mmol/L" lod="0.020" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="5.147" errConcUnit="mmol/L" rawConc="0.000" rawConcUnit="mmol/L"
+                  sigCorr="0"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.02" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="3-Hydroxybutyric acid" type="quantification">
+         <VALUE conc="0.25" concUnit="mmol/L" lod="0.020" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="0.120" errConcUnit="mmol/L" rawConc="0.246" rawConcUnit="mmol/L"
+                  sigCorr="86"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.26" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Acetoacetic acid" type="quantification">
+         <VALUE conc="0" concUnit="mmol/L" lod="0.010" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="0.000" errConcUnit="mmol/L" rawConc="0.003" rawConcUnit="mmol/L"
+                  sigCorr="96"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.02" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Acetone" type="quantification">
+         <VALUE conc="0.04" concUnit="mmol/L" lod="0.010" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="0.004" errConcUnit="mmol/L" rawConc="0.036" rawConcUnit="mmol/L"
+                  sigCorr="98"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.06" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Pyruvic acid" type="quantification">
+         <VALUE conc="0.04" concUnit="mmol/L" lod="0.030" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="0.013" errConcUnit="mmol/L" rawConc="0.043" rawConcUnit="mmol/L"
+                  sigCorr="83"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.07" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="D-Galactose" type="quantification">
+         <VALUE conc="0" concUnit="mmol/L" lod="0.110" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="3.324" errConcUnit="mmol/L" rawConc="0.000" rawConcUnit="mmol/L"
+                  sigCorr="0"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.11" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Glucose" type="quantification">
+         <VALUE conc="5.7" concUnit="mmol/L" lod="0.540" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="0.081" errConcUnit="mmol/L" rawConc="5.710" rawConcUnit="mmol/L"
+                  sigCorr="100"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="6.08" vmin="1.73"/>
+      </PARAMETER>
+      <PARAMETER name="Glycerol" type="quantification">
+         <VALUE conc="0.52" concUnit="mmol/L" lod="0.080" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="0.659" errConcUnit="mmol/L" rawConc="0.517" rawConcUnit="mmol/L"
+                  sigCorr="24"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.44" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Dimethylsulfone" type="quantification">
+         <VALUE conc="0" concUnit="mmol/L" lod="0.010" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="0.000" errConcUnit="mmol/L" rawConc="0.003" rawConcUnit="mmol/L"
+                  sigCorr="97"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.02" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="Ca-EDTA" type="quantification">
+         <VALUE conc="0" concUnit="mmol/L" lod="0.500" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="0.010" errConcUnit="mmol/L" rawConc="0.005" rawConcUnit="mmol/L"
+                  sigCorr="0"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.50" vmin="-"/>
+      </PARAMETER>
+      <PARAMETER name="K-EDTA" type="quantification">
+         <VALUE conc="0" concUnit="mmol/L" lod="0.500" lodUnit="mmol/L" loq="-"
+                loqUnit="mmol/L"/>
+         <RELDATA errConc="0.003" errConcUnit="mmol/L" rawConc="0.022" rawConcUnit="mmol/L"
+                  sigCorr="98"
+                  sigCorrUnit="%"/>
+         <REFERENCE source="NMR Database" unit="mmol/L" vmax="0.50" vmin="-"/>
+      </PARAMETER>
+   </QUANTIFICATION>
+</RESULTS>
