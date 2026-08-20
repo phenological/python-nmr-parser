@@ -664,18 +664,21 @@ def _calculate_spcglyc(
     alb1 = integrate_region(0.2, 0.7)
     alb2 = integrate_region(6.0, 10.0)
 
-    # 5. Calculate ratios (lines 349-350)
-    spc3_2 = spc3 / spc2
-    spc_glyc = spc_all / glyc_all
-
-    # 6. Apply 3mm tube correction (lines 356-357)
-    # CRITICAL: Divide by 2 for 3mm tubes
+    # 5. Apply the 3mm tube correction to the integrals.
+    # This happens before the ratios are worked out: a ratio divides the tube
+    # out already, so halving it as well leaves it at half its true value.
+    # Correcting first also means any ratio added later is derived from
+    # corrected integrals without having to remember to exclude it here.
     is_3mm = loe['dataPath'].str.contains('3mm', case=False).values
     if is_3mm.any():
         log.debug(f"Applying 3mm tube correction to {is_3mm.sum()} samples")
         for arr in [spc_all, spc3, spc2, spc1, glyc_all, glyc_a, glyc_b,
-                    alb1, alb2, spc3_2, spc_glyc]:
+                    alb1, alb2]:
             arr[is_3mm] = arr[is_3mm] / 2
+
+    # 6. Derive the ratios from the corrected integrals
+    spc3_2 = spc3 / spc2
+    spc_glyc = spc_all / glyc_all
 
     # Create output matrix
     data_matrix = np.column_stack([
